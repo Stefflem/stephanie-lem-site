@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { getEntry, getCollection } from 'astro:content';
+import { marked } from 'marked';
+const page = await getEntry('pages', 'projets');
+if (!page) throw new Error('Contenu projets manquant');
+const d = page.data;
+const projets = (await getCollection('projets')).sort((a, b) => a.data.ordre - b.data.ordre);
+---
+<Base title={d.title} description={d.seo_description}>
+  <header class="page-head">
+    <p class="eyebrow">{d.eyebrow}</p>
+    <h1>Trois retraites, trois <em>intentions</em></h1>
+    <p class="head-lead">{(page.body ?? '').trim()}</p>
+  </header>
+  <div class="wrap">
+    <div class="projets">
+      {projets.map((p) => (
+        <article class="projet">
+          <img src={p.data.image} alt={p.data.lieu} loading="lazy" width="1200" height="800">
+          <div class="projet-body">
+            {p.data.sous_titre && <p class="eyebrow">{p.data.sous_titre}</p>}
+            <h2>{p.data.lieu}</h2>
+            {p.data.avec && <p class="avec">{p.data.avec}</p>}
+            <div set:html={marked.parse(p.body ?? '')} />
+          </div>
+        </article>
+      ))}
+    </div>
+    <section class="closing">
+      <p class="eyebrow">Et ton projet ?</p>
+      <h2>{d.closing}</h2>
+      <a class="btn" href={d.cta_href}>{d.cta_label}</a>
+    </section>
+  </div>
+</Base>

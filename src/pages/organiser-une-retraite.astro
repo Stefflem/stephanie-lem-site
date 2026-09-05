@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import Editorial from '../components/Editorial.astro';
+import { getEntry } from 'astro:content';
+const page = await getEntry('pages', 'organiser-une-retraite');
+if (!page) throw new Error('Contenu organiser manquant');
+const d = page.data;
+---
+<Base title={d.title} description={d.seo_description}>
+  <header class="page-head">
+    <p class="eyebrow">{d.eyebrow}</p>
+    <h1>Organiser une <em>retraite</em></h1>
+  </header>
+  <div class="wrap">
+    <Editorial body={page.body ?? ''} />
+    <section class="closing">
+      <p class="signature"><span>Vision</span><i></i><span>Organisation</span><i></i><span>Terrain</span></p>
+      <h2>{d.closing}</h2>
+      <a class="btn" href={d.cta_href}>{d.cta_label}</a>
+    </section>
+  </div>
+</Base>

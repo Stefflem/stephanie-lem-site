@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description?: string; image?: string; noindex?: boolean }
+const { title, description = 'Stéphanie Lem accompagne la création de retraites et de séjours immersifs : vision, organisation, terrain.', image = '/images/plage.jpg', noindex = false } = Astro.props;
+const fullTitle = title === 'Stellaé Experiences' ? title : `${title} · Stellaé Experiences`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+const path = Astro.url.pathname;
+const tabs = [
+  ['/', 'Accueil'],
+  ['/organiser-une-retraite/', 'Organiser une retraite'],
+  ['/a-propos/', 'À propos'],
+  ['/projets/', 'Projets'],
+  ['/blog/', 'Blog'],
+  ['/contact/', 'Contact'],
+];
+const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWith(href);
+---
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self' https://identity.netlify.com; connect-src 'self' https://identity.netlify.com https://*.netlify.app https://www.stephanielem.fr; base-uri 'self'; form-action 'self'">
+<title>{fullTitle}</title>
+<meta name="description" content={description}>
+{noindex && <meta name="robots" content="noindex, nofollow">}
+<link rel="canonical" href={canonical}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Stellaé Experiences">
+<meta property="og:title" content={fullTitle}>
+<meta property="og:description" content={description}>
+<meta property="og:image" content={ogImage}>
+<meta property="og:url" content={canonical}>
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Stellaé Experiences',
+  alternateName: 'Stéphanie Lem', url: Astro.site?.toString(), image: ogImage.toString(),
+  description, founder: { '@type': 'Person', name: 'Stéphanie Lem' }, areaServed: 'FR', inLanguage: 'fr',
+})} />
+<script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+<nav class="nav" aria-label="Navigation principale">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="Stellaé Experiences, accueil"><img src="/images/logo.png" alt="Stellaé Experiences" width="520" height="242"></a>
+    <ul class="tabs">
+      {tabs.map(([href, label]) => <li><a href={href} aria-current={isCurrent(href) ? 'page' : undefined}>{label}</a></li>)}
+    </ul>
+  </div>
+</nav>
+<main>
+  <slot />
+</main>
+<footer>
+  <div class="foot-in">
+    <img src="/images/logo.png" alt="" width="520" height="242">
+    <div class="foot-links">
+      <a href="/mentions-legales/">Mentions légales</a>
+      <a href="/politique-de-confidentialite/">Politique de confidentialité</a>
+      <a href="/admin/" rel="nofollow">Espace Stéphanie</a>
+    </div>
+    <span>© {new Date().getFullYear()} Stellaé Experiences · Stéphanie Lem · stephanielem.fr</span>
+  </div>
+</footer>
+<script is:inline src="/js/identity-redirect.js"></script>
+</body>
+</html>

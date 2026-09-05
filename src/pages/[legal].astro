@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { getEntry, render } from 'astro:content';
+export function getStaticPaths() {
+  return [{ params: { legal: 'mentions-legales' } }, { params: { legal: 'politique-de-confidentialite' } }];
+}
+const { legal } = Astro.params;
+const page = await getEntry('pages', legal);
+if (!page) throw new Error(`Contenu ${legal} manquant`);
+const { Content } = await render(page);
+---
+<Base title={page.data.title} description={page.data.seo_description} noindex={true}>
+  <header class="page-head">
+    <p class="eyebrow">{page.data.eyebrow}</p>
+    <h1>{page.data.title}</h1>
+  </header>
+  <div class="legal"><Content /></div>
+</Base>

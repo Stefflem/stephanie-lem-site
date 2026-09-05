@@ -1,0 +1,21 @@
+---
+/** Met en page un corps Markdown : intro pleine largeur, puis chaque « ## » en colonne gauche, texte à droite. */
+import { marked } from 'marked';
+interface Props { body: string; leadFirst?: boolean }
+const { body, leadFirst = true } = Astro.props;
+const parts = body.split(/\n(?=## )/);
+const intro = parts[0].startsWith('## ') ? '' : parts[0].trim();
+const sections = parts.filter((p) => p.startsWith('## ')).map((p) => {
+  const [head, ...rest] = p.split('\n');
+  return { h2: head.replace(/^## /, ''), html: marked.parse(rest.join('\n')) as string };
+});
+let introHtml = intro ? (marked.parse(intro) as string) : '';
+if (introHtml && leadFirst) introHtml = introHtml.replace('<p>', '<p class="lead-first">');
+---
+{introHtml && <div class="lead" set:html={introHtml} />}
+{sections.map((s) => (
+  <section class="ed">
+    <h2>{s.h2}</h2>
+    <div class="ed-body" set:html={s.html} />
+  </section>
+))}

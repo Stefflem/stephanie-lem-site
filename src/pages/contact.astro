@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import { marked } from 'marked';
+const page = await getEntry('pages', 'contact');
+if (!page) throw new Error('Contenu contact manquant');
+const d = page.data;
+let intro = marked.parse(page.body ?? '') as string;
+intro = intro.replace('<p>', '<p class="lead-first">');
+---
+<Base title={d.title} description={d.seo_description}>
+  <header class="page-head">
+    <p class="eyebrow">{d.eyebrow}</p>
+    <h1>Me <em>contacter</em></h1>
+  </header>
+  <div class="wrap narrow">
+    <div class="lead" set:html={intro} />
+    <div class="canaux">
+      {d.instagram && <a class="canal" href={d.instagram} target="_blank" rel="noopener"><span class="canal-name">Instagram</span><span class="canal-act">Me retrouver sur Instagram</span></a>}
+      {d.email && <a class="canal" href={`mailto:${d.email}`}><span class="canal-name">E-mail</span><span class="canal-act">M’écrire par e-mail</span></a>}
+      {d.whatsapp && <a class="canal" href={d.whatsapp} target="_blank" rel="noopener"><span class="canal-name">WhatsApp</span><span class="canal-act">M’envoyer un message sur WhatsApp</span></a>}
+    </div>
+    <form class="form" name="contact" method="POST" action="/merci/" data-netlify="true" netlify-honeypot="bot-field">
+      <h2>Ou raconte moi ton projet ici</h2>
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hp"><label>Ne pas remplir <input name="bot-field"></label></p>
+      <div class="field"><label for="nom">Ton prénom</label><input id="nom" name="nom" type="text" required autocomplete="given-name"></div>
+      <div class="field"><label for="email">Ton e-mail</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="message">Ton projet, où tu en es, ce dont tu aurais besoin</label><textarea id="message" name="message" required></textarea></div>
+      <button class="btn" type="submit">Envoyer</button>
+      <p class="note" style="margin-top:16px">Tes coordonnées servent uniquement à te répondre. Voir la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
+    </form>
+  </div>
+</Base>

@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import Editorial from '../components/Editorial.astro';
+import { getEntry } from 'astro:content';
+import fs from 'node:fs';
+const page = await getEntry('pages', 'a-propos');
+if (!page) throw new Error('Contenu à propos manquant');
+const d = page.data;
+const intro = (d.intro ?? '').split('\n\n').filter(Boolean);
+const portrait = d.portrait && fs.existsSync(`public${d.portrait}`) ? d.portrait : null;
+---
+<Base title={d.title} description={d.seo_description}>
+  <header class="page-head">
+    <p class="eyebrow">{d.eyebrow}</p>
+    <h1>Je m’appelle <em>Stéphanie</em></h1>
+  </header>
+  <div class="wrap">
+    <section class="portrait">
+      <div class="portrait-frame" role={portrait ? undefined : 'img'} aria-label={portrait ? undefined : 'Portrait de Stéphanie, photo à venir'}>
+        {portrait ? <img src={portrait} alt="Stéphanie Lem" loading="lazy"> : <span>Portrait de Stéphanie<br>photo à venir</span>}
+      </div>
+      <div class="portrait-text">
+        {intro.map((p, i) => <p class={i === 0 ? 'lead-first' : i === intro.length - 1 ? 'accent' : undefined}>{p}</p>)}
+      </div>
+    </section>
+    <Editorial body={page.body ?? ''} />
+    <section class="closing">
+      <h2>{d.closing}</h2>
+      <a class="btn" href={d.cta_href}>{d.cta_label}</a>
+    </section>
+  </div>
+</Base>

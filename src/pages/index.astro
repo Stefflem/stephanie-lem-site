@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Editorial from '../components/Editorial.astro';
+import { getEntry } from 'astro:content';
+const page = await getEntry('pages', 'accueil');
+if (!page) throw new Error('Contenu accueil manquant');
+const d = page.data;
+const titleHtml = d.title
+  .replace('retraite', '<em>retraite</em>')
+  .replace('séjour immersif', '<em>séjour immersif</em>');
+---
+<Base title="Stellaé Experiences" description={d.seo_description}>
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">{d.eyebrow}</p>
+      <h1 set:html={titleHtml} />
+      <p class="hero-lead">{d.lead}</p>
+      <p class="hero-sub">{d.sub}</p>
+      <p class="signature"><span>Vision</span><i></i><span>Organisation</span><i></i><span>Terrain</span></p>
+      <div class="actions">
+        <a class="btn" href={d.cta_href}>{d.cta_label}</a>
+        {d.cta2_label && <a class="btn ghost" href={d.cta2_href}>{d.cta2_label}</a>}
+      </div>
+    </div>
+    <figure class="hero-media">
+      <img src="/images/plage.jpg" alt="Dune et lumière du matin sur une plage" width="1400" height="788" fetchpriority="high">
+    </figure>
+  </section>
+  <div class="wrap">
+    <Editorial body={page.body ?? ''} leadFirst={false} />
+    <section class="ressources">
+      <div class="res-text">
+        <p class="eyebrow">Pour commencer</p>
+        <h2>Le guide offert, <em>Déclic immersif</em></h2>
+        <p>Et si ton prochain week-end te rapportait plus qu’un mois de coaching ? Un guide pour créer une expérience présentielle premium, alignée et rentable.</p>
+        <div class="actions">
+          <a class="btn" href="https://go.stephanielem.fr/guideoffert" target="_blank" rel="noopener">Télécharger le guide</a>
+          <a class="btn ghost" href="https://go.stephanielem.fr/lesocle" target="_blank" rel="noopener">Découvrir Le Socle</a>
+        </div>
+      </div>
+      <img class="res-img" src="/images/guide.jpg" alt="Couverture du guide Déclic immersif" width="900" height="600" loading="lazy">
+    </section>
+    <section class="closing">
+      <h2>{d.closing}</h2>
+      <a class="btn" href={d.cta_href}>{d.cta_label}</a>
+    </section>
+  </div>
+</Base>

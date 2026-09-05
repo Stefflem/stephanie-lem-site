@@ -1,0 +1,134 @@
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    create: "Nouveau : {{slug}}"
+    update: "Modification : {{slug}}"
+    delete: "Suppression : {{slug}}"
+    uploadMedia: "Photo ajoutée : {{path}}"
+    deleteMedia: "Photo retirée : {{path}}"
+
+site_url: https://www.stephanielem.fr
+display_url: https://www.stephanielem.fr
+logo_url: /images/logo.png
+locale: fr
+
+media_folder: public/images
+public_folder: /images
+
+editor:
+  preview: false
+
+collections:
+  - name: blog
+    label: Articles du blog
+    label_singular: Article
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    sort: "date:asc"
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: Titre, widget: string }
+      - { name: theme, label: Thème (un mot, affiché au dessus du titre), widget: string, required: false, hint: "Par exemple Vision, Lieu, Budget" }
+      - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false, hint: "Les articles s'affichent du plus ancien au plus récent" }
+      - { name: description, label: Résumé (pour Google et les partages, 150 caractères), widget: text, required: false }
+      - { name: draft, label: Brouillon (affiché « Bientôt », pas encore lisible), widget: boolean, default: true }
+      - { name: body, label: Texte de l'article, widget: markdown, hint: "Les sous titres se font avec « Titre 2 »" }
+
+  - name: projets
+    label: Projets en cours
+    label_singular: Projet
+    folder: src/content/projets
+    create: true
+    slug: "{{ordre}}-{{lieu}}"
+    sort: "ordre:asc"
+    summary: "{{lieu}} · {{avec}}"
+    fields:
+      - { name: lieu, label: Lieu (titre de la carte), widget: string }
+      - { name: sous_titre, label: Petit texte au dessus (région, île, pays), widget: string, required: false }
+      - { name: avec, label: Avec qui, widget: string, required: false, hint: "Par exemple : Avec Aya, entrepreneuse" }
+      - { name: image, label: Photo, widget: image }
+      - { name: ordre, label: Ordre d'affichage, widget: number, value_type: int, default: 1 }
+      - { name: body, label: Description, widget: markdown }
+
+  - name: pages
+    label: Pages du site
+    files:
+      - name: accueil
+        label: Accueil
+        file: src/content/pages/accueil.md
+        fields:
+          - { name: title, label: Grand titre, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: lead, label: Phrase d'accroche, widget: text }
+          - { name: sub, label: Phrase suivante, widget: text }
+          - { name: cta_label, label: Bouton principal, widget: string }
+          - { name: cta_href, label: Lien du bouton principal, widget: string, default: /organiser-une-retraite }
+          - { name: cta2_label, label: Second bouton, widget: string, required: false }
+          - { name: cta2_href, label: Lien du second bouton, widget: string, required: false, default: /contact }
+          - { name: closing, label: Phrase de fin de page, widget: text }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Sections (chaque « Titre 2 » devient une section), widget: markdown }
+      - name: organiser-une-retraite
+        label: Organiser une retraite
+        file: src/content/pages/organiser-une-retraite.md
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: closing, label: Phrase de fin de page, widget: text }
+          - { name: cta_label, label: Bouton, widget: string }
+          - { name: cta_href, label: Lien du bouton, widget: string, default: /contact }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Sections (chaque « Titre 2 » devient une section), widget: markdown }
+      - name: a-propos
+        label: À propos
+        file: src/content/pages/a-propos.md
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: intro, label: Présentation (à côté du portrait), widget: text }
+          - { name: portrait, label: Portrait, widget: image, required: false }
+          - { name: closing, label: Phrase de fin de page, widget: text }
+          - { name: cta_label, label: Bouton, widget: string }
+          - { name: cta_href, label: Lien du bouton, widget: string, default: /contact }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Sections (chaque « Titre 2 » devient une section), widget: markdown }
+      - name: projets
+        label: Projets (texte d'introduction)
+        file: src/content/pages/projets.md
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: closing, label: Phrase de fin de page, widget: text }
+          - { name: cta_label, label: Bouton, widget: string }
+          - { name: cta_href, label: Lien du bouton, widget: string, default: /contact }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Texte d'introduction, widget: text }
+      - name: contact
+        label: Contact
+        file: src/content/pages/contact.md
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: instagram, label: Lien Instagram, widget: string, required: false }
+          - { name: email, label: Adresse e-mail, widget: string, required: false }
+          - { name: whatsapp, label: Lien WhatsApp, widget: string, required: false, hint: "Format https://wa.me/33612345678" }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Texte, widget: markdown }
+      - name: mentions-legales
+        label: Mentions légales
+        file: src/content/pages/mentions-legales.md
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Texte, widget: markdown }
+      - name: politique-de-confidentialite
+        label: Politique de confidentialité
+        file: src/content/pages/politique-de-confidentialite.md
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Texte, widget: markdown }

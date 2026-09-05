@@ -44,6 +44,8 @@ def md(slice_, drop_h1=True):
             continue
         if re.match(r"^\*?\*?\[", t) or t.startswith("[") or plain.startswith("[") :
             continue
+        if re.match(r"^\*\*(Instagram|E-mail|WhatsApp)\*\*", t):
+            continue  # libellés des liens de contact, portés par le frontmatter
         out.append(t)
         out.append("")
     return "\n".join(out).strip() + "\n"

@@ -16,15 +16,3 @@ Raconte-moi où tu en es, ce que tu imagines et ce dont tu aurais besoin.
 Je te répondrai pour voir avec toi comment je peux intervenir sur ton projet.
 
 Tu peux me contacter directement par le moyen qui te convient le mieux.
-
-**Instagram****
-
-**Me retrouver sur Instagram
-
-**E-mail****
-
-**M’écrire par e-mail
-
-**WhatsApp****
-
-**M’envoyer un message sur WhatsApp

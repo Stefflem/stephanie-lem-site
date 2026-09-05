@@ -29,7 +29,7 @@ p{margin:0 0 1.1em}
 a{color:var(--lagon);text-decoration:none}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--lagon);outline-offset:3px}
 strong{font-weight:600;color:var(--encre)}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 
 /* Navigation */
 .nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--sable) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--dune)}

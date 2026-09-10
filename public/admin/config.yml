@@ -1,5 +1,11 @@
+# Connexion de Stéphanie à son espace : compte GitHub.
+# (Git Gateway, qui permettait une connexion par e-mail, est déprécié par Netlify
+#  depuis 2026 et ne reçoit plus de correctifs : on ne construit pas dessus.)
+# ⚠️ REMPLACER `repo` par le dépôt de Stéphanie après le transfert :
+#    <son-compte-github>/stephanie-lem-site
 backend:
-  name: git-gateway
+  name: github
+  repo: Tino24908/stephanie-lem-site
   branch: main
   commit_messages:
     create: "Nouveau : {{slug}}"

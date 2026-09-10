@@ -1,0 +1,16 @@
+# Réglages de construction, lus automatiquement par Netlify à l'import du dépôt.
+# Rien à saisir à la main dans l'interface.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NPM_FLAGS = "--no-audit --no-fund"
+
+# Astro génère /admin/ depuis public/, on s'assure qu'il n'est jamais mis en cache agressif
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "no-cache"

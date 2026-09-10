@@ -21,7 +21,7 @@ const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWit
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self' https://identity.netlify.com; connect-src 'self' https://identity.netlify.com https://*.netlify.app https://www.stephanielem.fr; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
 <title>{fullTitle}</title>
 <meta name="description" content={description}>
 {noindex && <meta name="robots" content="noindex, nofollow">}
@@ -43,7 +43,6 @@ const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWit
   alternateName: 'Stéphanie Lem', url: Astro.site?.toString(), image: ogImage.toString(),
   description, founder: { '@type': 'Person', name: 'Stéphanie Lem' }, areaServed: 'FR', inLanguage: 'fr',
 })} />
-<script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 <nav class="nav" aria-label="Navigation principale">
@@ -68,6 +67,5 @@ const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWit
     <span>© {new Date().getFullYear()} Stellaé Experiences · Stéphanie Lem · stephanielem.fr</span>
   </div>
 </footer>
-<script is:inline src="/js/identity-redirect.js"></script>
 </body>
 </html>

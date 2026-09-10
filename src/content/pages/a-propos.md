@@ -2,9 +2,9 @@
 title: "Je m’appelle Stéphanie"
 eyebrow: "À propos"
 intro: "Je m’appelle Stéphanie et j’accompagne aujourd’hui la création de retraites et de séjours immersifs.\n\nCe que j’aime dans ce travail, c’est le moment où une idée encore abstraite commence à devenir quelque chose de réel.\n\nUn lieu apparaît. Un groupe se dessine. Les journées commencent à prendre forme. On réfléchit à ce que les personnes vont vivre, à ce qu’elles vont ressentir, à ce dont elles auront besoin, et à tout ce qui doit être prévu pour que l’expérience puisse réellement fonctionner.\n\nC’est là que je me sens à ma place."
-portrait: /images/portrait.jpg
+portrait: /images/portrait-a-propos.jpg
 closing: "Si tu as un projet de retraite ou de séjour immersif en tête, tu peux m’en parler."
-cta_label: "Me parler de mon projet"
+cta_label: "Me parler de ton projet"
 cta_href: /contact
 seo_description: "Éducatrice de jeunes enfants, doula, sales manager : le parcours de Stéphanie Lem, au service de la création de retraites et de séjours immersifs."
 ---

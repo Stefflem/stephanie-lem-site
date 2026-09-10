@@ -39,7 +39,8 @@ collections:
       - { name: theme, label: Thème (un mot, affiché au dessus du titre), widget: string, required: false, hint: "Par exemple Vision, Lieu, Budget" }
       - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false, hint: "Les articles s'affichent du plus ancien au plus récent" }
       - { name: description, label: Résumé (pour Google et les partages, 150 caractères), widget: text, required: false }
-      - { name: draft, label: Brouillon (affiché « Bientôt », pas encore lisible), widget: boolean, default: true }
+      - { name: image, label: Photo de l'article, widget: image, required: false, hint: "Affichée dans la rubrique Prochainement" }
+      - { name: draft, label: Brouillon (affiché dans « Prochainement », pas encore lisible), widget: boolean, default: true }
       - { name: body, label: Texte de l'article, widget: markdown, hint: "Les sous titres se font avec « Titre 2 »" }
 
   - name: projets

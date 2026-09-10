@@ -1,0 +1,19 @@
+---
+/**
+ * Barre de comparaison des trois palettes, affichée uniquement pendant la relecture.
+ * Pour la retirer : passer REVUE_PALETTE à false dans src/revue.ts
+ */
+const variantes = [
+  { cle: 'marron',      nom: 'Marron',        puce: '#7A5236' },
+  { cle: 'marron-vert', nom: 'Marron + vert', puce: '#4E6246' },
+  { cle: 'lagon',       nom: 'Vert lagon',    puce: '#0F4C5C' },
+];
+---
+<div class="revue" role="group" aria-label="Comparer les palettes de couleurs">
+  <span class="revue-label">Palette</span>
+  {variantes.map((v) => (
+    <button type="button" data-variante={v.cle} aria-pressed="false">
+      <span class="puce" style={`background:${v.puce}`}></span>{v.nom}
+    </button>
+  ))}
+</div>

@@ -3,6 +3,7 @@ title: "Comment construire le programme d’une retraite sans vouloir tout rempl
 theme: "Programme"
 date: 2026-09-07
 description: "Article à venir."
+image: /images/article-programme.jpg
 draft: true
 ---
 

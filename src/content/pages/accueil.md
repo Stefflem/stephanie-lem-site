@@ -5,7 +5,7 @@ lead: "Je t’accompagne pour transformer ton idée en un projet concret, cohér
 sub: "De la vision de départ jusqu’à l’organisation, je construis avec toi tout ce dont ta retraite a besoin pour pouvoir réellement voir le jour."
 cta_label: "Découvrir mon accompagnement"
 cta_href: /organiser-une-retraite
-cta2_label: "Me parler de ma retraite"
+cta2_label: "Me parler de ta retraite"
 cta2_href: /contact
 closing: "Que tu sois au début de ton projet ou que tu aies déjà l’habitude d’organiser des retraites, je peux intervenir à partir de là où tu en es."
 seo_description: "Stéphanie Lem accompagne coachs, thérapeutes et créateurs dans la création de retraites et de séjours immersifs : vision, organisation, terrain."

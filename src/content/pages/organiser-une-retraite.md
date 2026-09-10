@@ -2,7 +2,7 @@
 title: "Organiser une retraite"
 eyebrow: "Mon accompagnement"
 closing: "Comprendre le projet, construire tout ce qui doit l’être et, lorsque c’est nécessaire, être là pour le faire vivre concrètement."
-cta_label: "Me parler de ma retraite"
+cta_label: "Me parler de ta retraite"
 cta_href: /contact
 seo_description: "Construire une retraite qui tient vraiment : lieu, budget, transports, hébergements, planning, participants, avant et pendant le séjour."
 ---
@@ -74,4 +74,4 @@ Un séjour de six personnes dans une maison en France ne demande pas la même or
 C’est pour cette raison que je construis mon intervention à partir du projet réel.
 
 On regarde ensemble ce que tu as déjà, ce que tu veux garder, ce que tu souhaites déléguer et ce dont tu as besoin pour aller jusqu’au bout.
-Me parler de ma retraite(lien cliquable vers contact)
+Me parler de ta retraite(lien cliquable vers contact)

@@ -2,7 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
-const posts = (await getCollection('blog')).sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+const tous = (await getCollection('blog')).sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+const publies = tous.filter((p) => !p.data.draft);
+const aVenir = tous.filter((p) => p.data.draft);
 const intro = marked.parse(`Ici, je partage tout ce qui tourne autour de la création et de l’organisation d’une retraite ou d’un séjour immersif.
 
 J’y développe plus longuement des sujets que je ne peux pas toujours approfondir ailleurs : la construction de l’expérience, le budget, la logistique, le choix du lieu, le rythme, les participants, les imprévus, la vente ou encore les coulisses des projets que j’accompagne.
@@ -17,13 +19,7 @@ Tu peux simplement choisir le sujet qui t’intéresse et aller lire l’article
   <div class="wrap">
     <div class="lead" set:html={intro} />
     <div class="posts">
-      {posts.map((p) => p.data.draft ? (
-        <div class="post soon" aria-disabled="true">
-          <span class="post-theme">{p.data.theme}</span>
-          <span class="post-title">{p.data.title}</span>
-          <span class="post-go">Bientôt</span>
-        </div>
-      ) : (
+      {publies.map((p) => (
         <a class="post" href={`/blog/${p.id}/`}>
           <span class="post-theme">{p.data.theme}</span>
           <span class="post-title">{p.data.title}</span>
@@ -31,5 +27,23 @@ Tu peux simplement choisir le sujet qui t’intéresse et aller lire l’article
         </a>
       ))}
     </div>
+
+    {aVenir.length > 0 && (
+      <section class="a-venir">
+        <p class="eyebrow">Prochainement</p>
+        <div class="a-venir-grille">
+          {aVenir.map((p) => (
+            <article class="a-venir-carte">
+              {p.data.image && <img src={p.data.image} alt="" loading="lazy" width="1400" height="875">}
+              <div class="a-venir-corps">
+                <span class="post-theme">{p.data.theme}</span>
+                <h3>{p.data.title}</h3>
+                <span class="a-venir-etat">En cours d’écriture</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
   </div>
 </Base>

@@ -226,6 +226,25 @@ img{max-width:100%;height:auto;display:block}
 .legal{max-width:66ch;margin:0 auto;padding:20px 28px 90px}
 .legal h2{margin:2em 0 .6em;font-size:1.7rem}
 
+/* Texte justifié, demandé par Stéphanie le 2026-09-10.
+   La césure automatique est indispensable : sans elle, le français justifié
+   creuse des rivières de blanc. Elle s'appuie sur lang="fr" porté par <html>.
+   Les colonnes étroites (accroche du hero, cartes Prochainement) restent en
+   drapeau, la justification y ferait plus de mal que de bien. */
+.lead p,
+.ed-body p,
+.portrait-text p,
+.reading p,
+.projet-body p,
+.legal p,
+.page-head .head-lead,
+.hero-sub{
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto;
+  -webkit-hyphens:auto;
+}
+
 /* Pied de page */
 footer{border-top:1px solid var(--ligne);background:var(--fond-2)}
 .foot-in{max-width:1180px;margin:0 auto;padding:40px 28px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;font-size:.82rem;color:var(--brume)}

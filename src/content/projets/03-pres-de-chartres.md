@@ -2,7 +2,7 @@
 lieu: "Près de Chartres"
 sous_titre: "Eure-et-Loir"
 avec: "Avec Aïna, sexothérapeute"
-image: /images/plage.jpg
+image: /images/projet-chartres.jpg
 ordre: 3
 ---
 

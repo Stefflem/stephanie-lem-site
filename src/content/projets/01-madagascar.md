@@ -2,7 +2,7 @@
 lieu: "Madagascar"
 sous_titre: "Île Sainte-Marie"
 avec: "Avec Laurent, thérapeute"
-image: /images/ocean.jpg
+image: /images/projet-madagascar.jpg
 ordre: 1
 ---
 

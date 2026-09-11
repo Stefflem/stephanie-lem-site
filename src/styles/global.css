@@ -226,7 +226,7 @@ img{max-width:100%;height:auto;display:block}
 .a-venir>.eyebrow{margin-bottom:20px}
 .a-venir-grille{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
 .a-venir-carte{background:var(--carte);box-shadow:var(--ombre);display:flex;flex-direction:column}
-.a-venir-carte img{aspect-ratio:16/10;width:100%;object-fit:cover}
+.a-venir-carte img{aspect-ratio:4/3;width:100%;object-fit:cover;object-position:50% 18%}
 .a-venir-corps{padding:24px 26px 28px;display:flex;flex-direction:column;gap:10px}
 .a-venir-corps h3{margin:0;font-size:1.5rem;line-height:1.2}
 .a-venir-corps .post-theme{margin:0}

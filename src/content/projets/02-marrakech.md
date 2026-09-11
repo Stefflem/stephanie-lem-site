@@ -2,7 +2,7 @@
 lieu: "Marrakech"
 sous_titre: "Maroc"
 avec: "Avec Aya, entrepreneuse"
-image: /images/fleurs.jpg
+image: /images/projet-marrakech.jpg
 ordre: 2
 ---
 

@@ -1,19 +1,23 @@
 ---
 /**
- * Barre de comparaison des trois palettes, affichée uniquement pendant la relecture.
+ * Barre de comparaison des palettes, affichée uniquement pendant la relecture.
+ * Chaque pastille montre deux choses : à gauche la couleur d'accent, à droite le fond,
+ * parce que deux variantes peuvent partager le même bleu et différer par le fond.
  * Pour la retirer : passer REVUE_PALETTE à false dans src/revue.ts
  */
 const variantes = [
-  { cle: 'marron',      nom: 'Marron',        puce: '#7A5236' },
-  { cle: 'marron-vert', nom: 'Marron + vert', puce: '#4E6246' },
-  { cle: 'lagon',       nom: 'Vert lagon',    puce: '#0F4C5C' },
+  { cle: 'petrole',     nom: 'Pétrole',       accent: '#0A6A70', fond: '#FBFAF8' },
+  { cle: 'lagon-clair', nom: 'Lagon clair',   accent: '#0F4C5C', fond: '#FBF9F6' },
+  { cle: 'lagon',       nom: 'Lagon sable',   accent: '#0F4C5C', fond: '#F7F3ED' },
+  { cle: 'marron-vert', nom: 'Marron + vert', accent: '#4E6246', fond: '#FAF6F1' },
+  { cle: 'marron',      nom: 'Marron',        accent: '#7A5236', fond: '#FAF6F1' },
 ];
 ---
 <div class="revue" role="group" aria-label="Comparer les palettes de couleurs">
   <span class="revue-label">Palette</span>
   {variantes.map((v) => (
     <button type="button" data-variante={v.cle} aria-pressed="false">
-      <span class="puce" style={`background:${v.puce}`}></span>{v.nom}
+      <span class="puce" style={`background:linear-gradient(90deg,${v.accent} 50%,${v.fond} 50%)`}></span>{v.nom}
     </button>
   ))}
 </div>

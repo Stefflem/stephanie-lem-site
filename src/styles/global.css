@@ -3,7 +3,9 @@
    Trois palettes comparables, choisies par l'attribut data-variante sur <html> :
      (aucun)        marron cognac, relevé dans les photos de Stéphanie
      marron-vert    même marron, mots clés et intertitres en vert sauge
-     lagon          la V1 présentée le 2026-09-05
+     lagon          la V1 présentée le 2026-09-05, fond sable
+     lagon-clair    même lagon, fond presque blanc
+     petrole        le bleu vert de ses bottes, plus vif, fond presque blanc
    Les composants n'utilisent que des jetons, jamais une couleur en dur.
    ========================================================================== */
 
@@ -59,6 +61,43 @@
   --mot:#0F4C5C;
   --voile:rgba(15,76,92,.18);
   --ombre-teinte:30,42,50;
+}
+
+:root[data-variante="lagon-clair"]{
+  /* Le lagon d'origine, mais sur un fond beaucoup plus blanc.
+     Réponse à « et si le beige était un peu plus blanc ? » */
+  --fond:#FBF9F6;
+  --fond-2:#F3EFE8;
+  --carte:#FFFFFF;
+  --encre:#12222A;
+  --texte:#33424B;
+  --brume:#636F77;
+  --ligne:#E4DDD2;
+  --accent:#0F4C5C;
+  --accent-2:#2F7E90;
+  --accent-soft:rgba(15,76,92,.07);
+  --mot:#0F4C5C;
+  --voile:rgba(15,76,92,.18);
+  --ombre-teinte:24,38,46;
+}
+
+:root[data-variante="petrole"]{
+  /* Le bleu vert de ses bottes à étoiles, relevé au pixel : teinte 186, contre 192
+     pour le lagon. Plus vert et plus vif, ce qu'elle appelle « plus électrique ».
+     Fond presque blanc. */
+  --fond:#FBFAF8;
+  --fond-2:#F1F0EC;
+  --carte:#FFFFFF;
+  --encre:#10201F;
+  --texte:#33433F;
+  --brume:#64726E;
+  --ligne:#E3DFD6;
+  --accent:#0A6A70;
+  --accent-2:#08565B;
+  --accent-soft:rgba(10,106,112,.08);
+  --mot:#0A6A70;
+  --voile:rgba(8,86,91,.20);
+  --ombre-teinte:16,32,31;
 }
 
 *{box-sizing:border-box}

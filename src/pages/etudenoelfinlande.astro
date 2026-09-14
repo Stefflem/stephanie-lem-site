@@ -1,0 +1,128 @@
+---
+/**
+ * Étude de cas en direct, Noël en Finlande.
+ * Reprise fidèle de sa page systeme.io. ⚠️ La séance annoncée était le
+ * 8 septembre 2026, donc passée : la page est en noindex tant que Stéphanie
+ * n'a pas tranché entre une nouvelle date et le retrait de la page.
+ */
+import Vente from '../layouts/Vente.astro';
+import { VENTE } from '../site';
+
+const jours = [
+  {
+    titre: "Jour 1 · Entrer dans le cercle",
+    blocs: [
+      "Tu arrives avant ou après le déjeuner selon ton rythme. Tu t’installes dans ta chambre, tu poses tes affaires, tu prends tes repères dans le lieu. Tu laisses ton quotidien glisser doucement derrière toi et tu entres dans une autre temporalité.",
+      "14h00 · Ouverture du cercle. On se retrouve dans la salle principale. On prend un temps pour se rencontrer et se présenter. Chacune vient dire ce qu’elle amène ici : une intention, une attente, une curiosité, une vérité du moment, une douleur parfois.",
+      "C’est aussi là que tu participes à la création de l’autel. Tu y déposes un ou plusieurs objets qui comptent pour toi, des éléments qui te relient à ton histoire, à ta lignée, à ta sensibilité. L’autel devient le centre symbolique du séjour, un point de repère auquel on reviendra chaque jour.",
+      "L’après midi se poursuit avec un temps de création. Tu vas fabriquer deux pièces symboliques qui t’accompagneront pendant tout le séjour. L’une te reliera directement à ton corps, à ta mémoire, à ton histoire. L’autre t’aidera à observer ton rythme interne, ton cycle, ta manière de créer, d’initier, de ralentir, de reprendre.",
+      "16h15 · Pause. 16h30 · Cérémonie du cacao sacré, un moment chaleureux où la cohésion du groupe commence à se tisser naturellement.",
+      "17h30 · Clôture de la journée. Le cercle se reforme autour de l’autel. Tu viens déposer ce que tu choisis de ne pas emporter dans la nuit. Les bougies sont soufflées à la fin du cercle : c’est le premier geste clair qui marque le début de la Traversée.",
+      "18h00 · Temps libre, puis dîner. La journée se clôture de la même manière tous les soirs à 18h.",
+    ],
+  },
+  {
+    titre: "Jour 2 · Corps, clarté et premières bascules",
+    blocs: [
+      "Tu tournes chaque jour entre Gaëlle, Isabelle, Malak et Meryam : quatre approches qui affinent ton identité, ta posture, ta présence, ton énergie.",
+      "Déjeuner libre. Tu choisis ton rythme : repos, écriture, marche, chambre individuelle, conversation ou silence.",
+      "14h45 à 16h00 · Transmission 1, Isabelle. Une exploration de ton essence et de ton expression.",
+      "16h15 à 17h30 · Transmission 2, Gaëlle. Un temps où tu observes ce qui se rejoue en toi et ce qui évolue.",
+      "Un espace pour déposer ce que tu ne gardes pas pour la nuit. Tu sens la progression du séjour se poser en toi.",
+    ],
+  },
+  {
+    titre: "Jour 3 · Alignement, profondeur et préparation du rituel",
+    blocs: [
+      "Tu tournes chaque jour entre Gaëlle, Isabelle, Malak et Myriam. Quatre approches complémentaires qui affinent ton identité, ta posture, ta présence et ton expression.",
+      "12h00 à 14h00 · Déjeuner libre. Repos, silence, marche, écriture, chambre individuelle, conversations légères : tu choisis ton rythme.",
+      "14h45 à 16h15 · Préparation collective de la cérémonie. Tu entres dans le cœur du passage : voyage d’ancrage, écriture intuitive, récolte des intentions, co création des gestes et des symboles qui guideront la cérémonie du soir. Pendant ce temps, Malak peut capter des photos de chacune et Meryam faire circuler la cérémonie du henné.",
+      "16h15 à 16h30 · Clôture du cercle, un temps bref pour stabiliser ce qui s’est ouvert et ancrer l’élan de la soirée.",
+      "Dès 16h30 · Temps libre. Tu te reposes, tu marches, tu écris, tu t’ancres, tu respires. La soirée s’ouvre doucement. On partage le dîner.",
+      "20h00 · Cérémonie, grand rituel du 28 février. Le rituel commence au crépuscule, au son du tambour, des voix, des respirations rassemblées. Il se déroule sur la plage si le temps le permet, ou dans un espace intérieur sacralisé. Tu traverses un passage astrologique rare, soutenu par l’alignement simultané de plusieurs planètes puissantes, un mouvement collectif où chaque femme porte une part du cercle, des gestes symboliques qui marquent un avant et un après, une montée intérieure qui ne ressemble à aucune autre. Tu es entourée, tenue, accompagnée. La nuit fait son travail. Tu passes un seuil.",
+    ],
+  },
+  {
+    titre: "Jour 4 · Le lendemain du rituel : intégration, profondeur, consolidation",
+    blocs: [
+      "Tu continues d’explorer ce qui t’habite, ce que tu portes, ce qui demande à s’exprimer autrement. Tu écoutes ton rythme : silence, repos, échanges doux, chambre individuelle, marche.",
+      "14h45 à 16h00 · Transmission, Malak. Un espace consacré à la présence, à l’image, à l’incarnation. Tu explores la manière dont tu te tiens devant le groupe, dont tu te présentes, dont tu rayonnes.",
+      "16h15 à 17h30 · Transmission, Carolune. Tu plonges dans une compréhension plus profonde de ton rapport au féminin sacré, à la matière, à la source, au matriarcat, et à ta puissance d’ancrage. Un temps qui clarifie ton énergie et ta direction.",
+      "Un espace pour déposer ce qui s’est ouvert et laisser la nuit poursuivre le travail.",
+    ],
+  },
+  {
+    titre: "Jour 5 · Expansion, visibilité, consolidation de ta posture",
+    blocs: [
+      "8h45 · Rituel corporel avec Meryam. 9h30 à 10h30 · Création de ton immersion avec Stéphanie.",
+      "10h45 à 12h00 · Ateliers en petits groupes, rotation entre Gaëlle, Isabelle, Malak et Meryam. Tu continues d’explorer les différentes facettes de ton identité, de ton message, de ta présence.",
+      "12h00 à 14h00 · Brunch ou déjeuner libre. Tu choisis ton rythme : ampleur, lenteur, silence, échanges, chambre individuelle ou marche au bord du domaine.",
+      "14h00 à 14h45 · Travail somatique avec Carolune.",
+      "14h45 à 16h00 · Transmission, Meryam. Un espace intérieur où tu revisites ta foi, ton féminin, ton lien à ton utérus. Tu travailles ta présence, ta vérité, la manière dont tu incarnes ton rôle.",
+      "16h15 à 17h30 · Transmission, Sandrine. Un espace pour écouter ton corps autrement. Sandrine t’invite à reconnaître les signaux, les mémoires et les messages que ton corps porte encore. À travers son approche de doula et le toucher subtil inspiré du Rebozo, elle ouvre un chemin de libération, de présence et de vérité intérieure que tu pourras utiliser au quotidien.",
+      "17h30 à 18h00 · Fermeture du cercle. Tu déposes ce qui s’est ouvert, tes ressentis, tu sens la fin approcher avec force et douceur.",
+    ],
+  },
+  {
+    titre: "Jour 6 · Clôture, transmission finale, passage, départs",
+    blocs: [
+      "9h30 à 9h50 · Rituel corporel avec Meryam.",
+      "9h50 à 10h30 · Atelier final avec Stéphanie. Un espace de synthèse et de clarté. Tu fais le point sur ton immersion, ta posture, tes intentions.",
+      "10h30 à 10h45 · Pause.",
+      "10h45 à 11h45 · Grand cercle de clôture. On se rassemble autour de l’autel une dernière fois. Tu partages ce que tu emportes, ce qui s’est transformé, ce que tu veux honorer. C’est un moment dense, doux, vrai : le groupe devient témoin de ton passage.",
+      "11h45 à 12h00 · Rituel final. On ferme l’autel. Tu récupères les objets que tu avais déposés. Une tisane d’intégration circule. Les bougies sont soufflées une à une : c’est le geste qui scelle la Traversée.",
+      "12h00 · Déjeuner optionnel et départs libres. Tu peux rester partager le dernier repas, ou repartir selon ton propre rythme. Ton retour commence.",
+    ],
+  },
+];
+---
+<Vente
+  title="Étude de cas en direct · Noël en Finlande | Stellaé Experiences"
+  description="Comment passe-t-on d’une idée de retraite à un séjour réellement construit, cohérent et rentable ? Les coulisses d’un projet entier, en direct."
+  image="/images/neige.jpg"
+  noindex={true}
+>
+  <section class="v-wrap v-hero">
+    <p class="v-eyebrow">Étude de cas en direct</p>
+    <h1>Noël en <em>Finlande</em></h1>
+    <p class="v-sur">Le mardi 8 septembre 2026 à 13h30</p>
+    <p class="v-sous">Comment passe-t-on d’une idée de retraite à un séjour réellement construit, cohérent et rentable ?</p>
+    <div class="v-cta-bloc">
+      <a class="v-cta" href="#inscription">Je réserve ma place maintenant</a>
+      <p class="v-rassure">En ligne sur Google Meet · La participation est gratuite</p>
+    </div>
+  </section>
+
+  <div class="v-wrap">
+    <section class="v-sec">
+      <p>Je te propose de te montrer les coulisses d’un projet concret que j’ai entièrement construit : une retraite à Noël en Finlande pour les mamans créatrices UGC et leurs enfants.</p>
+      <p>Pendant cette étude de cas en direct, je vais ouvrir le projet avec toi et te montrer les choix que j’ai faits pour arriver au séjour final. On parlera de l’expérience que je veux faire vivre aux participants, du lieu, du rythme du séjour, de l’organisation, de la logistique et bien sûr du budget et de la rentabilité.</p>
+      <p>Je te montrerai aussi tout ce qui se passe derrière une retraite et que les participants, eux, ne verront jamais.</p>
+      <p>L’idée n’est pas de te donner une méthode toute faite. Je veux te montrer à quoi ressemble réellement la construction d’une retraite quand on va jusqu’au bout du projet. Et surtout, toutes les questions qu’il faut se poser pour qu’une belle idée puisse réellement devenir un séjour.</p>
+      <p><strong>Tu as déjà une idée de retraite en tête ?</strong> Garde tes questions : je prendrai également un temps à la fin de l’étude de cas pour y répondre.</p>
+    </section>
+
+    <section class="v-sec v-faq">
+      <h2>Le programme, jour par jour</h2>
+      {jours.map((j) => (
+        <details>
+          <summary>{j.titre}</summary>
+          {j.blocs.map((b) => <p>{b}</p>)}
+        </details>
+      ))}
+    </section>
+
+    <div class="v-form" id="inscription">
+      <h2>Je réserve ma place</h2>
+      <p>Entre tes informations ci dessous pour recevoir le lien du live.</p>
+      <form name="webinaire" method="POST" action="/merci-webinaire/" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="webinaire">
+        <p class="hp"><label>Ne pas remplir <input name="bot-field"></label></p>
+        <div class="field"><label for="prenom">Ton prénom</label><input id="prenom" name="prenom" type="text" required autocomplete="given-name"></div>
+        <div class="field"><label for="email">Ton e-mail</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+        <button class="v-cta" type="submit">Je réserve ma place</button>
+        <p class="note">Aucun spam. Tu peux te désinscrire à tout moment. Une question ? <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a></p>
+      </form>
+    </div>
+  </div>
+</Vente>

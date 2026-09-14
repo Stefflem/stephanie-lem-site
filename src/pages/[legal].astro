@@ -2,7 +2,11 @@
 import Base from '../layouts/Base.astro';
 import { getEntry, render } from 'astro:content';
 export function getStaticPaths() {
-  return [{ params: { legal: 'mentions-legales' } }, { params: { legal: 'politique-de-confidentialite' } }];
+  return [
+    { params: { legal: 'mentions-legales' } },
+    { params: { legal: 'politique-de-confidentialite' } },
+    { params: { legal: 'conditions-generales-de-vente' } },
+  ];
 }
 const { legal } = Astro.params;
 const page = await getEntry('pages', legal);

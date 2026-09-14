@@ -1,0 +1,17 @@
+---
+/** Confirmation d'inscription à l'étude de cas en direct. */
+import Vente from '../layouts/Vente.astro';
+import { VENTE } from '../site';
+---
+<Vente title="Ta place est réservée | Stellaé Experiences" noindex={true}>
+  <div class="v-acces">
+    <p class="v-eyebrow">Inscription confirmée</p>
+    <h1>Ta place est <em>réservée</em></h1>
+    <p class="v-sous" style="margin:18px 0 0">Tu recevras le lien du direct par e-mail avant la séance. Pense à regarder tes indésirables si tu ne vois rien arriver.</p>
+    <p class="note">Une question d'ici là ? Écris moi à <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a></p>
+    <div class="actions" style="margin-top:34px">
+      <a class="btn" href="/organiser-une-retraite/">Découvrir mon accompagnement</a>
+      <a class="btn ghost" href="/blog/">Lire le blog</a>
+    </div>
+  </div>
+</Vente>

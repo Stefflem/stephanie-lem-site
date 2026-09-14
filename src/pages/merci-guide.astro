@@ -1,0 +1,23 @@
+---
+/** Livraison immédiate du guide offert, après le formulaire. */
+import Vente from '../layouts/Vente.astro';
+import { VENTE } from '../site';
+const f = VENTE.fichiers;
+---
+<Vente title="Ton guide est prêt | Stellaé Experiences" noindex={true}>
+  <div class="v-acces">
+    <p class="v-eyebrow">C'est envoyé</p>
+    <h1>Ton guide t'attend, <em>bonne lecture</em></h1>
+    <p class="v-sous" style="margin:18px 0 0">Tu peux le télécharger tout de suite ci dessous. Tu en recevras aussi une copie par e-mail.</p>
+    <div class="v-acces-liste">
+      {f.guideOffert
+        ? <a href={f.guideOffert} download><span class="v-acces-nom">Déclic immersif</span><span class="v-acces-act">Télécharger le PDF</span></a>
+        : <span><span class="v-acces-nom">Déclic immersif</span><span class="v-acces-act">Lien à venir</span></span>}
+    </div>
+    <p class="note">Le lien ne fonctionne pas ? Écris moi à <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a> et je te l'envoie à la main.</p>
+    <div class="actions" style="margin-top:34px">
+      <a class="btn" href="/lesocle/">Découvrir Le Socle</a>
+      <a class="btn ghost" href="/blog/">Lire le blog</a>
+    </div>
+  </div>
+</Vente>

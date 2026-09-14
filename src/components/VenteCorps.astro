@@ -1,0 +1,33 @@
+---
+/** Rend le corps d'une page de vente : chaque « ## » ouvre une section,
+ *  chaque « ### » à l'intérieur devient une carte. */
+import { marked } from 'marked';
+interface Props { body: string }
+const { body } = Astro.props;
+const parts = body.split(/\n(?=## )/);
+const intro = parts[0].startsWith('## ') ? '' : parts[0].trim();
+const sections = parts.filter((p) => p.startsWith('## ')).map((p) => {
+  const [head, ...rest] = p.split('\n');
+  const corps = rest.join('\n');
+  const morceaux = corps.split(/\n(?=### )/);
+  const avant = morceaux[0].startsWith('### ') ? '' : morceaux[0].trim();
+  const cartes = morceaux.filter((m) => m.startsWith('### ')).map((m) => {
+    const [t, ...c] = m.split('\n');
+    return { titre: t.replace(/^### /, ''), html: marked.parse(c.join('\n')) as string };
+  });
+  return { h2: head.replace(/^## /, ''), avant: avant ? (marked.parse(avant) as string) : '', cartes };
+});
+---
+{intro && <section class="v-sec" set:html={marked.parse(intro)} />}
+{sections.map((s) => (
+  <section class="v-sec">
+    <h2>{s.h2}</h2>
+    {s.avant && <div set:html={s.avant} />}
+    {s.cartes.map((c) => (
+      <div class="v-carte">
+        <h3>{c.titre}</h3>
+        <div set:html={c.html} />
+      </div>
+    ))}
+  </section>
+))}

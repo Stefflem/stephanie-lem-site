@@ -1,62 +1,39 @@
 ---
-/** Déclic Immersif, le guide offert. Reprise fidèle de sa page systeme.io. */
+/** Déclic Immersif. Copy dans src/content/vente/guideoffert.md. */
 import Vente from '../layouts/Vente.astro';
+import VenteCorps from '../components/VenteCorps.astro';
+import { getEntry } from 'astro:content';
 import { VENTE } from '../site';
-
-const decouvertes = [
-  "Pourquoi un séjour immersif bien structuré peut générer plus de revenus que plusieurs mois de coaching en ligne",
-  "Les 3 piliers indispensables pour qu’une expérience présentielle soit réellement rentable",
-  "L’erreur stratégique qui empêche beaucoup de coachs de rentabiliser leurs immersions",
-  "Comment intégrer le présentiel dans ton activité actuelle sans t’épuiser ni repartir de zéro",
-  "Ce qui transforme une expérience humaine en levier de croissance durable",
-];
+const page = await getEntry('vente', 'guideoffert');
+if (!page) throw new Error('Contenu guideoffert manquant');
+const d = page.data;
 ---
-<Vente
-  title="Déclic Immersif · Ton guide offert | Stellaé Experiences"
-  description="Le guide offert pour sortir du tout digital et vraiment booster ton chiffre d’affaires. Créer une expérience présentielle premium, alignée et rentable."
-  image="/images/guide.jpg"
->
+<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.image}>
   <section class="v-wrap v-hero">
-    <p class="v-eyebrow">Déclic Immersif · Ton guide offert</p>
-    <h1>Le guide offert pour sortir du tout digital, et vraiment <em>booster ton CA</em></h1>
-    <p class="v-sur">Créer une expérience présentielle premium, alignée et rentable</p>
-    <p class="v-sous">Transforme ton expertise en une expérience présentielle qui transforme tes clientes et soutient réellement ton business.</p>
+    <p class="v-eyebrow">{d.surtitre}</p>
+    <h1>{d.titre}</h1>
+    <p class="v-sur">{d.accroche}</p>
+    {d.sous_titres.map((s) => <p class="v-sous">{s}</p>)}
     <div class="v-cta-bloc">
-      <a class="v-cta" href="#recevoir">Télécharger le guide gratuit</a>
-      <p class="v-rassure">Pour les femmes qui veulent plus d’impact, plus de sens et plus de rentabilité</p>
+      <a class="v-cta" href="#inscription">{d.bouton}</a>
+      <p class="v-rassure">{d.rassurance}</p>
     </div>
-    <img class="res-img" src="/images/guide.jpg" alt="Le guide Déclic immersif" width="900" height="600" style="margin:36px auto 0;max-width:420px" loading="lazy">
+    {d.image && <img class="res-img" src={d.image} alt={d.titre} width="900" height="600" style="margin:36px auto 0;max-width:420px" loading="lazy">}
   </section>
 
   <div class="v-wrap">
-    <section class="v-sec">
-      <h2>Tu sens que le tout digital atteint ses limites ?</h2>
-      <p>Tu accompagnes déjà, tu as une vraie expertise, et pourtant vendre en ligne te demande de plus en plus d’énergie, pour de moins en moins de résultats. Tes clientes ne vont pas toujours au bout, et tu sens qu’il manque quelque chose de plus profond, de plus réel.</p>
-      <p><strong>Ce n’est pas ton expertise le problème. C’est le format que tu utilises aujourd’hui.</strong></p>
-      <p>Et un format mal adapté n’épuise pas seulement ton énergie. Il limite aussi ton chiffre d’affaires.</p>
-      <p>Ce guide t’aide à comprendre pourquoi le présentiel revient au centre des business qui durent, et comment transformer ton expertise actuelle en une expérience alignée, claire et rentable.</p>
-    </section>
+    <VenteCorps body={page.body ?? ''} />
 
-    <section class="v-sec">
-      <h2>Ce que tu vas découvrir</h2>
-      <ul class="v-prix-liste" style="margin-left:0">{decouvertes.map((d) => <li>{d}</li>)}</ul>
-    </section>
-
-    <section class="v-sec">
-      <h2>Un premier pas vers une expérience rentable</h2>
-      <p>Oui, le présentiel est une parenthèse inspirante. Mais c’est aussi et surtout une évolution stratégique, pour plus d’impact et plus de stabilité financière.</p>
-    </section>
-
-    <div class="v-form" id="recevoir">
-      <h2>Recevoir le guide maintenant</h2>
-      <p>Tu reçois le guide immédiatement après ton inscription.</p>
+    <div class="v-form" id="inscription">
+      <h2>{d.final_titre}</h2>
+      <p>{d.final_sous}</p>
       <form name="guide" method="POST" action="/merci-guide/" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="guide">
         <p class="hp"><label>Ne pas remplir <input name="bot-field"></label></p>
         <div class="field"><label for="prenom">Ton prénom</label><input id="prenom" name="prenom" type="text" required autocomplete="given-name"></div>
         <div class="field"><label for="email">Ton e-mail</label><input id="email" name="email" type="email" required autocomplete="email"></div>
-        <button class="v-cta" type="submit">Télécharger le guide gratuit</button>
-        <p class="note">Aucun spam. Tu peux te désinscrire à tout moment. Voir la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
+        <button class="v-cta" type="submit">{d.bouton}</button>
+        <p class="note">{d.final_rassurance} Voir la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
       </form>
     </div>
   </div>

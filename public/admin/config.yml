@@ -59,6 +59,76 @@ collections:
       - { name: ordre, label: Ordre d'affichage, widget: number, value_type: int, default: 1 }
       - { name: body, label: Description, widget: markdown }
 
+  - name: vente
+    label: Pages de vente
+    files:
+      - name: lesocle
+        label: Le Socle
+        file: src/content/vente/lesocle.md
+        fields:
+          - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: titre, label: Grand titre, widget: string }
+          - { name: accroche, label: Phrase sous le titre, widget: string, required: false }
+          - { name: sous_titres, label: Phrases d'introduction, widget: list, field: { name: ligne, label: Phrase, widget: text } }
+          - { name: bouton, label: Texte du bouton, widget: string }
+          - { name: rassurance, label: Petite phrase sous le bouton, widget: string, required: false }
+          - { name: recois_titre, label: "Titre du bloc « ce que tu reçois »", widget: string, required: false }
+          - { name: recois, label: Ce que tu reçois, widget: list, field: { name: ligne, label: Ligne, widget: string } }
+          - { name: prix_titre, label: Titre du bloc prix, widget: string, required: false }
+          - { name: prix_mentions, label: Phrases autour du prix, widget: list, field: { name: ligne, label: Phrase, widget: text } }
+          - { name: inclus_titre, label: Titre de la liste de ce qui est inclus, widget: string, required: false }
+          - { name: inclus, label: Ce qui est inclus, widget: list, field: { name: ligne, label: Ligne, widget: string } }
+          - name: faq
+            label: Questions fréquentes
+            widget: list
+            fields:
+              - { name: q, label: Question, widget: string }
+              - { name: r, label: Réponse, widget: text }
+          - { name: final_titre, label: Titre du bloc final, widget: string, required: false }
+          - { name: final_sous, label: Phrase du bloc final, widget: text, required: false }
+          - { name: final_rassurance, label: Phrase de réassurance, widget: string, required: false }
+          - { name: contact_texte, label: Phrase avant l'adresse e-mail, widget: text, required: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Le corps de la page, widget: markdown, hint: "« Titre 2 » ouvre une section, « Titre 3 » crée un encadré" }
+      - name: guideoffert
+        label: Guide offert, Déclic Immersif
+        file: src/content/vente/guideoffert.md
+        fields:
+          - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: titre, label: Grand titre, widget: string }
+          - { name: accroche, label: Phrase sous le titre, widget: string, required: false }
+          - { name: sous_titres, label: Phrases d'introduction, widget: list, field: { name: ligne, label: Phrase, widget: text } }
+          - { name: bouton, label: Texte du bouton, widget: string }
+          - { name: rassurance, label: Petite phrase sous le bouton, widget: string, required: false }
+          - { name: image, label: Visuel du guide, widget: image, required: false }
+          - { name: final_titre, label: Titre du formulaire, widget: string, required: false }
+          - { name: final_sous, label: Phrase du formulaire, widget: text, required: false }
+          - { name: final_rassurance, label: Phrase sous le formulaire, widget: string, required: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Le corps de la page, widget: markdown }
+      - name: etudenoelfinlande
+        label: Étude de cas en direct
+        file: src/content/vente/etudenoelfinlande.md
+        fields:
+          - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: titre, label: Grand titre, widget: string }
+          - { name: accroche, label: Date et heure, widget: string, required: false }
+          - { name: sous_titres, label: Phrases d'introduction, widget: list, field: { name: ligne, label: Phrase, widget: text } }
+          - { name: bouton, label: Texte du bouton, widget: string }
+          - { name: rassurance, label: Petite phrase sous le bouton, widget: string, required: false }
+          - name: programme
+            label: Le programme jour par jour
+            widget: list
+            fields:
+              - { name: titre, label: Titre du jour, widget: string }
+              - { name: lignes, label: Le déroulé, widget: list, field: { name: ligne, label: Ligne, widget: text } }
+          - { name: final_titre, label: Titre du formulaire, widget: string, required: false }
+          - { name: final_sous, label: Phrase du formulaire, widget: text, required: false }
+          - { name: final_rassurance, label: Texte du bouton d'inscription, widget: string, required: false }
+          - { name: image, label: Visuel de partage, widget: image, required: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Le corps de la page, widget: markdown }
+
   - name: pages
     label: Pages du site
     files:
@@ -126,6 +196,14 @@ collections:
       - name: mentions-legales
         label: Mentions légales
         file: src/content/pages/mentions-legales.md
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Texte, widget: markdown }
+      - name: conditions-generales-de-vente
+        label: Conditions générales de vente
+        file: src/content/pages/conditions-generales-de-vente.md
         fields:
           - { name: title, label: Titre, widget: string }
           - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }

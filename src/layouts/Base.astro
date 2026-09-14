@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import ChoixPalette from '../components/ChoixPalette.astro';
 import { REVUE_PALETTE } from '../revue';
+import { AUDIENCE } from '../site';
 interface Props { title: string; description?: string; image?: string; noindex?: boolean }
 const { title, description = 'Stéphanie Lem accompagne la création de retraites et de séjours immersifs : vision, organisation, terrain.', image = '/images/portrait-accueil.jpg', noindex = false } = Astro.props;
 const fullTitle = title === 'Stellaé Experiences' ? title : `${title} · Stellaé Experiences`;
@@ -23,7 +24,7 @@ const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWit
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self' https://plausible.io https://*.umami.is https://stats.stephanielem.fr; connect-src 'self' https://plausible.io https://*.umami.is https://stats.stephanielem.fr; base-uri 'self'; form-action 'self'">
 <title>{fullTitle}</title>
 <meta name="description" content={description}>
 {noindex && <meta name="robots" content="noindex, nofollow">}
@@ -41,6 +42,12 @@ const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWit
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 {REVUE_PALETTE && <script is:inline src="/js/variante.js"></script>}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
+{AUDIENCE.outil === 'umami' && (
+  <script is:inline defer src={AUDIENCE.src} data-website-id={AUDIENCE.siteId}></script>
+)}
+{AUDIENCE.outil === 'plausible' && (
+  <script is:inline defer src="https://plausible.io/js/script.js" data-domain={AUDIENCE.domaine}></script>
+)}
 <script type="application/ld+json" set:html={JSON.stringify({
   '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Stellaé Experiences',
   alternateName: 'Stéphanie Lem', url: Astro.site?.toString(), image: ogImage.toString(),

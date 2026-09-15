@@ -73,6 +73,7 @@ collections:
           - { name: bouton, label: Texte du bouton, widget: string }
           - { name: rassurance, label: Petite phrase sous le bouton, widget: string, required: false }
           - { name: banniere, label: Bannière de tête, widget: image, required: false }
+          - { name: visuel_ensemble, label: Visuel d'ensemble, widget: image, required: false, hint: "Les guides et les audios réunis, près du prix" }
           - name: visuels
             label: Les visuels du produit
             widget: list

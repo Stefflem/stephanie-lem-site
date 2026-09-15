@@ -40,6 +40,7 @@ final_sous: "Et bénéficier de l'offre limitée à 111 € au lieu de 144 €"
 final_rassurance: "Paiement 100% sécurisé - Accès immédiat après achat - Garantie 14 jours"
 contact_texte: "Tu as une question, un doute ou juste besoin de t'assurer d'un détail ? Contacte nous par mail :"
 banniere: "/images/vente/socle-banniere.jpg"
+visuel_ensemble: "/images/vente/socle-ensemble.jpg"
 visuels:
   - image: "/images/vente/guide-tenir-lespace.png"
     legende: "Le guide « Tenir l'espace »"

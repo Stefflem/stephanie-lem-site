@@ -94,3 +94,6 @@
 .v-visuels img{width:100%;height:auto;object-fit:contain}
 .v-visuels figcaption{font-size:.8rem;color:var(--brume);text-align:center;line-height:1.35}
 @media (max-width:820px){.v-visuels{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
+
+/* Visuel d'ensemble du Socle, les guides et les audios réunis */
+.v-ensemble{max-width:min(520px,100%);margin:24px auto 6px;box-shadow:0 10px 30px rgba(var(--ombre-teinte),.14)}

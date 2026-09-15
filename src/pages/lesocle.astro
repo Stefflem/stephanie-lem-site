@@ -53,6 +53,7 @@ const libelleBouton = `${d.bouton} – ${VENTE.soclePrix}${VENTE.soclePrixBarre 
         {VENTE.soclePrixBarre && <span class="v-prix-barre">{VENTE.soclePrixBarre}</span>}
       </div>
       {d.prix_mentions.map((m) => <p>{m}</p>)}
+      {d.visuel_ensemble && <img class="v-ensemble" src={d.visuel_ensemble} alt="Les guides et les audios du Socle" loading="lazy">}
       <h3>{d.inclus_titre}</h3>
       <ul class="v-prix-liste">{d.inclus.map((i) => <li>{i}</li>)}</ul>
       <div class="v-cta-bloc">

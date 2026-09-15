@@ -193,6 +193,24 @@ collections:
           - { name: whatsapp, label: Lien WhatsApp, widget: string, required: false, hint: "Format https://wa.me/33612345678" }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Texte, widget: markdown }
+      - name: offres
+        label: Le bloc « Mes offres »
+        file: src/content/pages/offres.md
+        fields:
+          - { name: title, label: Titre interne, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du bloc, widget: string, required: false }
+          - name: offres
+            label: Les offres
+            widget: list
+            fields:
+              - { name: titre, label: Nom de l'offre, widget: string }
+              - { name: texte, label: Description courte, widget: text }
+              - { name: prix, label: Prix affiché, widget: string, required: false, hint: "Par exemple Gratuit, 111 €, Sur mesure" }
+              - { name: bouton, label: Texte du lien, widget: string }
+              - { name: href, label: Adresse de la page, widget: string, hint: "/lesocle/ ou /guideoffert/ ou /contact/" }
+              - { name: mise_en_avant, label: Mettre cette offre en avant, widget: boolean, default: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Phrase d'introduction, widget: text }
       - name: mentions-legales
         label: Mentions légales
         file: src/content/pages/mentions-legales.md

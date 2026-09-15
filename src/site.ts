@@ -15,6 +15,15 @@
  * Le brancher sans bannière mettrait Stéphanie en infraction.
  */
 
+/**
+ * PALETTE DE PRODUCTION
+ * Vide = marron, la palette par défaut du site.
+ * Sinon : 'lagon-clair' | 'lagon' | 'marron-vert' | 'petrole'
+ * Une fois que Stéphanie a choisi, poser sa valeur ici et passer
+ * REVUE_PALETTE à false dans src/revue.ts. C'est tout.
+ */
+export const PALETTE: '' | 'lagon-clair' | 'lagon' | 'marron-vert' | 'petrole' = '';
+
 export type Audience =
   | { outil: 'aucune' }
   | { outil: 'umami'; src: string; siteId: string }
@@ -31,6 +40,15 @@ export const AUDIENCE: Audience = { outil: 'aucune' };
    VENTE · réglages des pages rapatriées de systeme.io
    Tout ce qui doit changer se change ici, jamais dans les pages.
    ========================================================================== */
+
+/**
+ * MODE APERÇU
+ * true  : la maquette montre tout le parcours sans encaisser. Le bouton du Socle
+ *         mène à la page d'accès, un bandeau le dit, et les fichiers manquants
+ *         s'affichent comme des exemples.
+ * false : comportement réel, à passer le jour de la mise en ligne.
+ */
+export const APERCU = true;
 
 export const VENTE = {
   /** Lien de paiement Stripe pour Le Socle. Vide = le bouton renvoie vers le contact. */

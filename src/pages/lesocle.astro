@@ -3,11 +3,11 @@
 import Vente from '../layouts/Vente.astro';
 import VenteCorps from '../components/VenteCorps.astro';
 import { getEntry } from 'astro:content';
-import { VENTE } from '../site';
+import { VENTE, APERCU } from '../site';
 const page = await getEntry('vente', 'lesocle');
 if (!page) throw new Error('Contenu lesocle manquant');
 const d = page.data;
-const lienAchat = VENTE.socleLienPaiement || '#inscription';
+const lienAchat = VENTE.socleLienPaiement || (APERCU ? '/acces-le-socle/' : '#inscription');
 const libelleBouton = `${d.bouton} – ${VENTE.soclePrix}${VENTE.soclePrixBarre ? ` au lieu de ${VENTE.soclePrixBarre}` : ''} !`;
 ---
 <Vente title={`${d.surtitre} · ${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere}>
@@ -73,7 +73,9 @@ const libelleBouton = `${d.bouton} – ${VENTE.soclePrix}${VENTE.soclePrixBarre 
       <div class="v-cta-bloc">
         {VENTE.socleLienPaiement
           ? <a class="v-cta" href={VENTE.socleLienPaiement}>{d.bouton}</a>
-          : <a class="v-cta" href={`mailto:${VENTE.contact}?subject=Le%20Socle`}>Écrire à Stéphanie pour recevoir le lien</a>}
+          : APERCU
+            ? <a class="v-cta" href="/acces-le-socle/">Voir ce qu'elle reçoit après l'achat</a>
+            : <a class="v-cta" href={`mailto:${VENTE.contact}?subject=Le%20Socle`}>Écrire à Stéphanie pour recevoir le lien</a>}
         <p class="v-rassure">{d.final_rassurance}</p>
       </div>
     </div>

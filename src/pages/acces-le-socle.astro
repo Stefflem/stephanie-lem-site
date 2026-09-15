@@ -4,7 +4,7 @@
  * comme page de retour après un paiement réussi.
  */
 import Vente from '../layouts/Vente.astro';
-import { VENTE } from '../site';
+import { VENTE, APERCU } from '../site';
 const f = VENTE.fichiers;
 const items = [
   { nom: "Guide « Tenir l'espace »", lien: f.tenirLespace, act: 'Télécharger le PDF' },
@@ -18,11 +18,11 @@ const items = [
   <div class="v-acces">
     <p class="v-eyebrow">Merci pour ta confiance</p>
     <h1>Bienvenue dans <em>Le Socle</em></h1>
-    <p class="v-sous" style="margin:18px 0 0">Tout est ici. Tu reçois aussi ces accès par e-mail, garde le précieusement, cette page ne se retrouve pas depuis le site.</p>
+    <p class="v-sous" style="margin:18px 0 0">{APERCU ? "Voici la page que reçoit une acheteuse juste après son paiement. Chaque ligne portera le lien de ton fichier." : "Tout est ici."}</p>
     <div class="v-acces-liste">
       {items.map((i) => i.lien
         ? <a href={i.lien} target={i.act === 'Rejoindre le canal' ? '_blank' : undefined} rel="noopener"><span class="v-acces-nom">{i.nom}</span><span class="v-acces-act">{i.act}</span></a>
-        : <span><span class="v-acces-nom">{i.nom}</span><span class="v-acces-act">Lien à venir</span></span>)}
+        : <span class={APERCU ? 'v-exemple' : undefined}><span class="v-acces-nom">{i.nom}</span><span class="v-acces-act">{APERCU ? 'ton fichier se posera ici' : 'Lien à venir'}</span></span>)}
     </div>
     <p class="note">Un lien ne fonctionne pas ? Écris moi à <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a>. Garantie 14 jours, il suffit de demander.</p>
   </div>

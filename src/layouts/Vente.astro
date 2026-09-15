@@ -7,8 +7,9 @@
 import '../styles/global.css';
 import '../styles/vente.css';
 import { VENTE } from '../site';
-import { AUDIENCE } from '../site';
+import { AUDIENCE, PALETTE, APERCU } from '../site';
 import ChoixPalette from '../components/ChoixPalette.astro';
+import BandeauApercu from '../components/BandeauApercu.astro';
 import { REVUE_PALETTE } from '../revue';
 
 interface Props { title: string; description?: string; image?: string; noindex?: boolean }
@@ -17,7 +18,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-variante={PALETTE || undefined}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,6 +44,7 @@ const ogImage = new URL(image, Astro.site);
 {AUDIENCE.outil === 'plausible' && <script is:inline defer src="https://plausible.io/js/script.js" data-domain={AUDIENCE.domaine}></script>}
 </head>
 <body class={REVUE_PALETTE ? "avec-revue" : undefined}>
+{APERCU && <BandeauApercu />}
 <header class="v-entete">
   <div class="v-entete-in">
     <a href="/" aria-label="Stellaé Experiences, accueil"><img src="/images/logo.png" alt="Stellaé Experiences" width="520" height="242"></a>

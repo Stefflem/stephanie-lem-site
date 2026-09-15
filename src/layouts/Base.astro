@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import ChoixPalette from '../components/ChoixPalette.astro';
 import { REVUE_PALETTE } from '../revue';
-import { AUDIENCE } from '../site';
+import { AUDIENCE, PALETTE } from '../site';
 interface Props { title: string; description?: string; image?: string; noindex?: boolean }
 const { title, description = 'Stéphanie Lem accompagne la création de retraites et de séjours immersifs : vision, organisation, terrain.', image = '/images/portrait-accueil.jpg', noindex = false } = Astro.props;
 const fullTitle = title === 'Stellaé Experiences' ? title : `${title} · Stellaé Experiences`;
@@ -21,7 +21,7 @@ const offre = ['/lesocle/', 'Le Socle'];
 const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWith(href);
 ---
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-variante={PALETTE || undefined}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

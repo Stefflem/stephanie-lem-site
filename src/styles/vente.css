@@ -80,3 +80,6 @@
   .v-carte,.v-prix,.v-form{padding:26px 22px}
   .v-entete img{height:46px}
 }
+
+/* Visuel du guide, jamais plus large que l'écran */
+.v-visuel{margin:36px auto 0;max-width:min(420px,100%);box-shadow:0 10px 30px rgba(var(--ombre-teinte),.15)}

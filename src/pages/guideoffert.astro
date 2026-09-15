@@ -18,7 +18,7 @@ const d = page.data;
       <a class="v-cta" href="#inscription">{d.bouton}</a>
       <p class="v-rassure">{d.rassurance}</p>
     </div>
-    {d.image && <img class="res-img" src={d.image} alt={d.titre} width="900" height="600" style="margin:36px auto 0;max-width:420px" loading="lazy">}
+    {d.image && <img src={d.image} alt={d.titre} width="900" height="600" class="v-visuel" loading="lazy">}
   </section>
 
   <div class="v-wrap">

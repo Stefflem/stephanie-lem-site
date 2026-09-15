@@ -141,7 +141,15 @@ img{max-width:100%;height:auto;display:block}
 .tabs a{display:block;padding:10px 12px;font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--texte);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
 .tabs a:hover{color:var(--accent)}
 .tabs a[aria-current="page"]{color:var(--accent);border-bottom-color:var(--accent)}
-@media (max-width:760px){.nav-in{flex-wrap:wrap;padding:12px 16px}.tabs{flex:1 1 100%;min-width:0}.tabs a{padding:10px 10px 8px}.brand img{height:48px}}
+@media (max-width:760px){
+  .nav-in{flex-wrap:wrap;padding:12px 16px;gap:10px}
+  /* La liste passe à la ligne au lieu de défiler : sinon « Le Socle », placé en
+     dernier, restait hors de l'écran sur un téléphone. */
+  .tabs{flex:1 1 100%;min-width:0;flex-wrap:wrap;overflow-x:visible;justify-content:center;gap:2px 6px}
+  .tabs a{padding:8px 9px;font-size:.72rem;letter-spacing:.1em}
+  .tabs a.tab-offre{margin-left:0;padding:7px 12px}
+  .brand img{height:48px}
+}
 
 /* Structure */
 .wrap{max-width:1180px;margin:0 auto;padding:0 28px 80px}

@@ -136,7 +136,8 @@ programme:
       - "12h00 — Déjeuner optionnel & départs libres"
       - "Tu peux rester partager le dernier repas… ou repartir selon ton propre rythme."
       - "Ton retour commence."
-image: "/images/neige.jpg"
+image: "/images/vente/noel-banniere.jpg"
+banniere: "/images/vente/noel-banniere.jpg"
 seo_description: "Comment passe-t-on d’une idée de retraite à un séjour réellement construit, cohérent et rentable ? Les coulisses d’un projet entier, en direct."
 ---
 

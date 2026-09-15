@@ -10,6 +10,7 @@ final_titre: "Recevoir le guide maintenant"
 final_sous: "Un premier pas vers une expérience rentable"
 final_rassurance: "🔒 Aucun spam. Tu peux te désinscrire à tout moment."
 image: "/images/guide.jpg"
+banniere: "/images/vente/guide-declic-couverture.jpg"
 seo_description: "Le guide offert pour sortir du tout digital et vraiment booster ton chiffre d’affaires. Créer une expérience présentielle premium, alignée et rentable."
 ---
 

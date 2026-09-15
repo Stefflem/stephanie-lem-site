@@ -10,6 +10,7 @@ if (!page) throw new Error('Contenu etudenoelfinlande manquant');
 const d = page.data;
 ---
 <Vente title={`${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.image} noindex={true}>
+  {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1500" height="844" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>
     <h1>{d.titre}</h1>

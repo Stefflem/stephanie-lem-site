@@ -39,6 +39,16 @@ final_titre: "Accéder au programme maintenant"
 final_sous: "Et bénéficier de l'offre limitée à 111 € au lieu de 144 €"
 final_rassurance: "Paiement 100% sécurisé - Accès immédiat après achat - Garantie 14 jours"
 contact_texte: "Tu as une question, un doute ou juste besoin de t'assurer d'un détail ? Contacte nous par mail :"
+banniere: "/images/vente/socle-banniere.jpg"
+visuels:
+  - image: "/images/vente/guide-tenir-lespace.png"
+    legende: "Le guide « Tenir l'espace »"
+  - image: "/images/vente/guide-quick-start.png"
+    legende: "Le Quick Start 7 jours"
+  - image: "/images/vente/audio-peur.jpg"
+    legende: "Speed hypnose « Peur »"
+  - image: "/images/vente/audio-ancrage.jpg"
+    legende: "Speed hypnose « Ancrage »"
 seo_description: "Le programme complet pour organiser ta première journée en présentiel avec tes clientes. Deux guides, deux speed hypnoses, un canal Telegram privé."
 ---
 

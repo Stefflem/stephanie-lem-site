@@ -72,6 +72,13 @@ collections:
           - { name: sous_titres, label: Phrases d'introduction, widget: list, field: { name: ligne, label: Phrase, widget: text } }
           - { name: bouton, label: Texte du bouton, widget: string }
           - { name: rassurance, label: Petite phrase sous le bouton, widget: string, required: false }
+          - { name: banniere, label: Bannière de tête, widget: image, required: false }
+          - name: visuels
+            label: Les visuels du produit
+            widget: list
+            fields:
+              - { name: image, label: Image, widget: image }
+              - { name: legende, label: Légende sous l'image, widget: string, required: false }
           - { name: recois_titre, label: "Titre du bloc « ce que tu reçois »", widget: string, required: false }
           - { name: recois, label: Ce que tu reçois, widget: list, field: { name: ligne, label: Ligne, widget: string } }
           - { name: prix_titre, label: Titre du bloc prix, widget: string, required: false }
@@ -100,7 +107,8 @@ collections:
           - { name: sous_titres, label: Phrases d'introduction, widget: list, field: { name: ligne, label: Phrase, widget: text } }
           - { name: bouton, label: Texte du bouton, widget: string }
           - { name: rassurance, label: Petite phrase sous le bouton, widget: string, required: false }
-          - { name: image, label: Visuel du guide, widget: image, required: false }
+          - { name: banniere, label: Couverture du guide, widget: image, required: false }
+          - { name: image, label: Visuel de partage, widget: image, required: false }
           - { name: final_titre, label: Titre du formulaire, widget: string, required: false }
           - { name: final_sous, label: Phrase du formulaire, widget: text, required: false }
           - { name: final_rassurance, label: Phrase sous le formulaire, widget: string, required: false }
@@ -125,6 +133,7 @@ collections:
           - { name: final_titre, label: Titre du formulaire, widget: string, required: false }
           - { name: final_sous, label: Phrase du formulaire, widget: text, required: false }
           - { name: final_rassurance, label: Texte du bouton d'inscription, widget: string, required: false }
+          - { name: banniere, label: Bannière de tête, widget: image, required: false }
           - { name: image, label: Visuel de partage, widget: image, required: false }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Le corps de la page, widget: markdown }

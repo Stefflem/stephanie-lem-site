@@ -75,6 +75,11 @@ const vente = defineCollection({
     final_rassurance: z.string().optional().default(''),
     contact_texte: z.string().optional().default(''),
     image: z.string().optional(),
+    banniere: z.string().optional(),
+    visuels: z.array(z.object({
+      image: z.string(),
+      legende: z.string().optional().default(''),
+    })).optional().default([]),
     seo_description: z.string().optional().default(''),
   }),
 });

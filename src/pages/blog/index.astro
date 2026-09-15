@@ -1,4 +1,5 @@
 ---
+import Offres from '../../components/Offres.astro';
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
@@ -45,5 +46,6 @@ Tu peux simplement choisir le sujet qui t’intéresse et aller lire l’article
         </div>
       </section>
     )}
+    <Offres />
   </div>
 </Base>

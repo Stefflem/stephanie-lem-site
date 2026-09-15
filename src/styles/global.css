@@ -304,3 +304,24 @@ body.avec-revue{padding-bottom:96px}   /* laisse la place a la barre de comparai
 .revue button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 .revue .puce{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.12)}
 @media (max-width:600px){.revue{bottom:10px;padding:8px 10px;gap:7px}.revue-label{display:none}.revue button{padding:8px 10px;font-size:.68rem}}
+
+/* Bloc des offres, repris sur toutes les pages qui amènent du monde */
+.offres{margin:60px 0 10px;padding-top:44px;border-top:1px solid var(--ligne)}
+.offres>.eyebrow{margin-bottom:22px}
+.offres-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.offre{background:var(--carte);box-shadow:var(--ombre);padding:28px 26px 30px;display:flex;flex-direction:column;gap:10px;border-top:3px solid transparent}
+.offre.en-avant{border-top-color:var(--accent)}
+.offre-prix{font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mot)}
+.offre h3{margin:0;font-size:1.5rem;line-height:1.15}
+.offre p{font-size:.96rem;margin:0;flex:1}
+.offre-lien{margin-top:6px;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);align-self:start;border-bottom:1px solid currentColor;padding-bottom:3px}
+.offre-lien:hover{color:var(--accent-2)}
+.reading .offres{max-width:none}
+@media (max-width:900px){.offres-grille{grid-template-columns:1fr;max-width:520px}}
+
+/* Le produit payant est accessible depuis la navigation */
+.tabs a.tab-offre{color:var(--accent);border:1px solid var(--accent);padding:8px 14px;margin-left:8px;border-bottom:1px solid var(--accent)}
+.tabs a.tab-offre:hover{background:var(--accent-soft)}
+.tabs a.tab-offre[aria-current="page"]{background:var(--accent);color:var(--fond)}
+/* Les cartes d'offres sont trop étroites pour de la justification */
+.offre p,.offre h3{text-align:left;hyphens:manual}

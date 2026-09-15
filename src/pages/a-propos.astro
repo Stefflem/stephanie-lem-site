@@ -1,4 +1,5 @@
 ---
+import Offres from '../components/Offres.astro';
 import Base from '../layouts/Base.astro';
 import Editorial from '../components/Editorial.astro';
 import { getEntry } from 'astro:content';
@@ -24,6 +25,7 @@ const portrait = d.portrait && fs.existsSync(`public${d.portrait}`) ? d.portrait
       </div>
     </section>
     <Editorial body={page.body ?? ''} />
+    <Offres sauf="/contact/" />
     <section class="closing">
       <h2>{d.closing}</h2>
       <a class="btn" href={d.cta_href}>{d.cta_label}</a>

@@ -1,4 +1,5 @@
 ---
+import Offres from '../../components/Offres.astro';
 import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
 export async function getStaticPaths() {
@@ -24,6 +25,6 @@ const dateFr = post.data.date.toLocaleDateString('fr-FR', { day: 'numeric', mont
     <hr>
     <p class="eyebrow">Article suivant</p>
     <a class="next" href={`/blog/${next.id}/`}>{next.data.title}</a>
-    <div class="actions"><a class="btn" href="/contact/">Me parler de ton projet</a></div>
+    <Offres titre="Pour aller plus loin" />
   </div>
 </Base>

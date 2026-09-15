@@ -17,6 +17,7 @@ const tabs = [
   ['/blog/', 'Blog'],
   ['/contact/', 'Contact'],
 ];
+const offre = ['/lesocle/', 'Le Socle'];
 const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWith(href);
 ---
 <!doctype html>
@@ -60,6 +61,7 @@ const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWit
     <a class="brand" href="/" aria-label="Stellaé Experiences, accueil"><img src="/images/logo.png" alt="Stellaé Experiences" width="520" height="242"></a>
     <ul class="tabs">
       {tabs.map(([href, label]) => <li><a href={href} aria-current={isCurrent(href) ? 'page' : undefined}>{label}</a></li>)}
+      <li><a class="tab-offre" href={offre[0]} aria-current={isCurrent(offre[0]) ? 'page' : undefined}>{offre[1]}</a></li>
     </ul>
   </div>
 </nav>
@@ -71,6 +73,9 @@ const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWit
   <div class="foot-in">
     <img src="/images/logo.png" alt="" width="520" height="242">
     <div class="foot-links">
+      <a href="/guideoffert/">Guide offert</a>
+      <a href="/lesocle/">Le Socle</a>
+      <a href="/contact/">Me parler de ta retraite</a>
       <a href="/mentions-legales/">Mentions légales</a>
       <a href="/conditions-generales-de-vente/">CGV</a>
       <a href="/politique-de-confidentialite/">Politique de confidentialité</a>

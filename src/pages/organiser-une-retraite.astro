@@ -1,4 +1,5 @@
 ---
+import Offres from '../components/Offres.astro';
 import Base from '../layouts/Base.astro';
 import Editorial from '../components/Editorial.astro';
 import { getEntry } from 'astro:content';
@@ -13,6 +14,7 @@ const d = page.data;
   </header>
   <div class="wrap">
     <Editorial body={page.body ?? ''} />
+    <Offres sauf="/contact/" />
     <section class="closing">
       <p class="signature"><span>Vision</span><i></i><span>Organisation</span><i></i><span>Terrain</span></p>
       <h2>{d.closing}</h2>

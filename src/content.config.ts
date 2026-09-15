@@ -19,6 +19,14 @@ const pages = defineCollection({
     email: z.string().optional(),
     whatsapp: z.string().optional(),
     seo_description: z.string().optional(),
+    offres: z.array(z.object({
+      titre: z.string(),
+      texte: z.string(),
+      prix: z.string().optional().default(''),
+      bouton: z.string(),
+      href: z.string(),
+      mise_en_avant: z.boolean().optional().default(false),
+    })).optional().default([]),
   }),
 });
 

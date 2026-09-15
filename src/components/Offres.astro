@@ -1,0 +1,26 @@
+---
+/**
+ * Bloc des trois offres, posé partout où un lecteur chaud passe.
+ * Le contenu vit dans src/content/pages/offres.md, modifiable par Stéphanie.
+ */
+import { getEntry } from 'astro:content';
+interface Props { titre?: string; sauf?: string }
+const { titre = 'Par où commencer', sauf } = Astro.props;
+const page = await getEntry('pages', 'offres');
+const offres = (page?.data.offres ?? []).filter((o) => o.href !== sauf);
+---
+{offres.length > 0 && (
+  <section class="offres">
+    <p class="eyebrow">{titre}</p>
+    <div class="offres-grille">
+      {offres.map((o) => (
+        <article class={o.mise_en_avant ? 'offre en-avant' : 'offre'}>
+          {o.prix && <span class="offre-prix">{o.prix}</span>}
+          <h3>{o.titre}</h3>
+          <p>{o.texte}</p>
+          <a class="offre-lien" href={o.href}>{o.bouton}</a>
+        </article>
+      ))}
+    </div>
+  </section>
+)}

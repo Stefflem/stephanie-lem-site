@@ -13,8 +13,13 @@
 # ⚠️ Si le site Netlify est nommé autrement que `stephanie-lem`, corriger les
 #    deux lignes ci dessous, sinon elles ne correspondent à rien.
 
-https://stephanie-lem.netlify.app/*   https://www.stephanielem.fr/:splat   301!
-http://stephanie-lem.netlify.app/*    https://www.stephanielem.fr/:splat   301!
+# ⚠️ EN ATTENTE, à réactiver LE JOUR de la bascule DNS, pas avant.
+# Tant que www.stephanielem.fr pointe encore sur systeme.io, ces deux lignes
+# renvoient l'adresse de prévisualisation vers une page 404 : impossible de
+# montrer le site à Stéphanie. Retirer les deux « # » une fois le domaine
+# branché sur Netlify.
+# https://stephanie-lem.netlify.app/*   https://www.stephanielem.fr/:splat   301!
+# http://stephanie-lem.netlify.app/*    https://www.stephanielem.fr/:splat   301!
 
 # Le domaine nu renvoie vers www, qui est l'adresse canonique de tout le site
 # (balises canonical, plan du site, images de partage, retour de paiement

@@ -19,7 +19,7 @@ Stéphanie Lem
 
 Netlify, Inc.
 512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis
-www.netlify.com
+[https://www.netlify.com](https://www.netlify.com)
 
 Nom de domaine enregistré auprès de IONOS SE, Elgendorfer Str. 57, 56410 Montabaur, Allemagne.
 

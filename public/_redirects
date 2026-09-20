@@ -1,2 +1,24 @@
-# Les pages de vente sont revenues sur son site, il n'y a plus rien à rediriger.
-# Ce fichier reste en place pour les redirections futures.
+# Ses pages de vente sont revenues sur son site, il n'y a plus rien à rediriger
+# depuis go.stephanielem.fr.
+
+# ==========================================================================
+# Son domaine, et lui seul
+# ==========================================================================
+# Netlify redirige déjà l'adresse *.netlify.app vers le domaine principal une
+# fois celui ci déclaré, mais on ne s'en remet pas à un comportement implicite :
+# tant que l'adresse technique répond, Google peut l'indexer et elle apparaît
+# dans les partages. Ces règles la ferment explicitement, en 301, avec le
+# chemin conservé.
+#
+# ⚠️ Si le site Netlify est nommé autrement que `stephanie-lem`, corriger les
+#    deux lignes ci dessous, sinon elles ne correspondent à rien.
+
+https://stephanie-lem.netlify.app/*   https://www.stephanielem.fr/:splat   301!
+http://stephanie-lem.netlify.app/*    https://www.stephanielem.fr/:splat   301!
+
+# Le domaine nu renvoie vers www, qui est l'adresse canonique de tout le site
+# (balises canonical, plan du site, images de partage, retour de paiement
+# Stripe). Une seule adresse fait autorité, jamais deux.
+
+https://stephanielem.fr/*             https://www.stephanielem.fr/:splat   301!
+http://stephanielem.fr/*              https://www.stephanielem.fr/:splat   301!

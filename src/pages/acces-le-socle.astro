@@ -4,7 +4,9 @@
  * comme page de retour après un paiement réussi.
  */
 import Vente from '../layouts/Vente.astro';
-import { VENTE, APERCU } from '../site';
+import { APERCU } from '../site';
+import { reglagesVente } from '../vente';
+const VENTE = await reglagesVente();
 const f = VENTE.fichiers;
 const items = [
   { nom: "Guide « Tenir l'espace »", lien: f.tenirLespace, act: 'Télécharger le PDF' },

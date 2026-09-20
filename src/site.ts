@@ -38,8 +38,13 @@ export const AUDIENCE: Audience = { outil: 'aucune' };
 
 /* ==========================================================================
    VENTE · réglages des pages rapatriées de systeme.io
-   Tout ce qui doit changer se change ici, jamais dans les pages.
+   ⚠️ Ils ne sont plus ici. Ils vivent dans src/content/reglages/vente.md et
+   Stéphanie les modifie depuis /admin/, rubrique « Boutique et livraison » :
+   prix, liens de paiement, liens de téléchargement, fin de promotion, adresse
+   de contact. Une page les lit par `await reglagesVente()` (src/vente.ts).
+   Ne rien remettre ici, sinon il y a deux sources de vérité.
    ========================================================================== */
+
 
 /**
  * MODE APERÇU
@@ -49,43 +54,3 @@ export const AUDIENCE: Audience = { outil: 'aucune' };
  * false : comportement réel, à passer le jour de la mise en ligne.
  */
 export const APERCU = true;
-
-export const VENTE = {
-  /** Lien de paiement Stripe pour Le Socle. Vide = le bouton renvoie vers le contact. */
-  socleLienPaiement: '',
-
-  /** Prix affichés. Le prix barré disparaît s'il est vide. */
-  soclePrix: '111 €',
-  soclePrixBarre: '144 €',
-
-  /**
-   * Fin réelle du prix de lancement, au format 2026-10-01T23:59:00+02:00.
-   * Vide = aucun compte à rebours affiché.
-   * ⚠️ Ne jamais remettre une date à chaque visite : un compte à rebours qui
-   * repart sans cesse est trompeur et abîme la confiance.
-   */
-  socleFinPromo: '',
-
-  /**
-   * Lien de paiement pour le roman « La traversée d'Ysaline ».
-   * ⚠️ Prix volontairement vide : sa page systeme.io était cassée, le corps
-   * reprenait Le Socle, et le 111 € affiché était donc celui du Socle, pas
-   * celui du roman. Rien n'est inventé ici, Stéphanie donne son prix et on
-   * le pose. Vide = aucun prix affiché sur la page.
-   */
-  ysalineLienPaiement: '',
-  ysalinePrix: '',
-
-  /** Adresse où écrire, affichée en bas des pages de vente. */
-  contact: 'contact@stephanielem.fr',
-
-  /** Liens de téléchargement, remis après paiement ou après inscription. */
-  fichiers: {
-    guideOffert: '',      // Déclic immersif, PDF
-    tenirLespace: '',     // guide Tenir l'espace, PDF
-    quickStart: '',       // guide Quick Start 7 jours, PDF
-    hypnosePeur: '',      // audio
-    hypnoseAncrage: '',   // audio
-    telegram: '',         // invitation au canal privé
-  },
-} as const;

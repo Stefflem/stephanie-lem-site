@@ -5,7 +5,9 @@
 import Vente from '../layouts/Vente.astro';
 import VenteCorps from '../components/VenteCorps.astro';
 import { getEntry } from 'astro:content';
-import { VENTE, APERCU } from '../site';
+import { APERCU } from '../site';
+import { reglagesVente } from '../vente';
+const VENTE = await reglagesVente();
 const page = await getEntry('vente', 'ysaline');
 if (!page) throw new Error('Contenu ysaline manquant');
 const d = page.data;

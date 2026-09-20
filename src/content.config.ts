@@ -93,4 +93,28 @@ const vente = defineCollection({
   }),
 });
 
-export const collections = { pages, projets, blog, vente };
+const reglages = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/reglages' }),
+  schema: z.object({
+    socle_lien_paiement: z.string().optional().default(''),
+    socle_prix: z.string().optional().default(''),
+    socle_prix_barre: z.string().optional().default(''),
+    // Decap écrit cette date sans guillemets, YAML la rend alors en objet Date.
+    // On ramène systématiquement à une chaîne ISO, que le compteur sait lire.
+    socle_fin_promo: z.preprocess(
+      (v) => (v instanceof Date ? v.toISOString() : v ?? ''),
+      z.string(),
+    ).default(''),
+    ysaline_lien_paiement: z.string().optional().default(''),
+    ysaline_prix: z.string().optional().default(''),
+    contact: z.string().optional().default(''),
+    fichier_guide_offert: z.string().optional().default(''),
+    fichier_tenir_lespace: z.string().optional().default(''),
+    fichier_quick_start: z.string().optional().default(''),
+    fichier_hypnose_peur: z.string().optional().default(''),
+    fichier_hypnose_ancrage: z.string().optional().default(''),
+    lien_telegram: z.string().optional().default(''),
+  }),
+});
+
+export const collections = { pages, projets, blog, vente, reglages };

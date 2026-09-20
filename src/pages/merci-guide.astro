@@ -1,7 +1,8 @@
 ---
 /** Livraison immédiate du guide offert, après le formulaire. */
 import Vente from '../layouts/Vente.astro';
-import { VENTE } from '../site';
+import { reglagesVente } from '../vente';
+const VENTE = await reglagesVente();
 const f = VENTE.fichiers;
 ---
 <Vente title="Ton guide est prêt | Stellaé Experiences" noindex={true}>

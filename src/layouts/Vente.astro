@@ -6,7 +6,8 @@
  */
 import '../styles/global.css';
 import '../styles/vente.css';
-import { VENTE } from '../site';
+import { reglagesVente } from '../vente';
+const VENTE = await reglagesVente();
 import { AUDIENCE, PALETTE, APERCU } from '../site';
 import ChoixPalette from '../components/ChoixPalette.astro';
 import BandeauApercu from '../components/BandeauApercu.astro';

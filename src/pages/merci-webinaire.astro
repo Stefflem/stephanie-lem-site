@@ -1,7 +1,8 @@
 ---
 /** Confirmation d'inscription à l'étude de cas en direct. */
 import Vente from '../layouts/Vente.astro';
-import { VENTE } from '../site';
+import { reglagesVente } from '../vente';
+const VENTE = await reglagesVente();
 ---
 <Vente title="Ta place est réservée | Stellaé Experiences" noindex={true}>
   <div class="v-acces">

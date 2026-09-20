@@ -3,7 +3,8 @@
 import Vente from '../layouts/Vente.astro';
 import VenteCorps from '../components/VenteCorps.astro';
 import { getEntry } from 'astro:content';
-import { VENTE } from '../site';
+import { reglagesVente } from '../vente';
+const VENTE = await reglagesVente();
 const page = await getEntry('vente', 'guideoffert');
 if (!page) throw new Error('Contenu guideoffert manquant');
 const d = page.data;

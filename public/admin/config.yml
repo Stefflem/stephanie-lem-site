@@ -59,6 +59,27 @@ collections:
       - { name: ordre, label: Ordre d'affichage, widget: number, value_type: int, default: 1 }
       - { name: body, label: Description, widget: markdown }
 
+  - name: boutique
+    label: Boutique et livraison
+    files:
+      - name: vente
+        label: Prix, paiement et fichiers
+        file: src/content/reglages/vente.md
+        fields:
+          - { name: socle_prix, label: "LE SOCLE · prix affiché", widget: string, hint: "Par exemple 111 €" }
+          - { name: socle_prix_barre, label: "LE SOCLE · ancien prix barré", widget: string, required: false, hint: "Laisse vide pour ne rien barrer" }
+          - { name: socle_lien_paiement, label: "LE SOCLE · lien de paiement Stripe", widget: string, required: false, hint: "Colle ici le lien de paiement créé dans Stripe. Tant qu'il est vide, le bouton renvoie vers un e-mail." }
+          - { name: socle_fin_promo, label: "LE SOCLE · fin du prix de lancement", widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "DD/MM/YYYY", time_format: "HH:mm", required: false, hint: "Le compte à rebours n'apparaît que si tu poses une vraie date. Laisse vide sinon : un compte à rebours qui repart à chaque visite se voit et abîme la confiance." }
+          - { name: ysaline_prix, label: "LE ROMAN · prix affiché", widget: string, required: false, hint: "Tant qu'il est vide, aucun prix n'apparaît sur la page du roman." }
+          - { name: ysaline_lien_paiement, label: "LE ROMAN · lien de paiement Stripe", widget: string, required: false }
+          - { name: fichier_guide_offert, label: "FICHIER · guide offert « Déclic immersif »", widget: string, required: false, hint: "Colle ici l'adresse de téléchargement du PDF" }
+          - { name: fichier_tenir_lespace, label: "FICHIER · guide « Tenir l'espace »", widget: string, required: false }
+          - { name: fichier_quick_start, label: "FICHIER · Quick Start 7 jours", widget: string, required: false }
+          - { name: fichier_hypnose_peur, label: "FICHIER · speed hypnose « Peur »", widget: string, required: false }
+          - { name: fichier_hypnose_ancrage, label: "FICHIER · speed hypnose « Ancrage »", widget: string, required: false }
+          - { name: lien_telegram, label: "FICHIER · invitation au canal Telegram privé", widget: string, required: false }
+          - { name: contact, label: "Adresse e-mail affichée en bas des pages de vente", widget: string }
+
   - name: vente
     label: Pages de vente
     files:

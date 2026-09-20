@@ -9,7 +9,7 @@ seo_description: "Mentions légales du site stephanielem.fr."
 Stéphanie Lem, Stellaé Experiences
 [Forme juridique et numéro SIRET à compléter]
 [Adresse à compléter]
-Contact : [adresse e-mail à compléter]
+Contact : contact@stephanielem.fr
 
 ## Directrice de la publication
 

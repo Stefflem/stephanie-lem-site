@@ -40,7 +40,7 @@ Les boutons Instagram et WhatsApp, les liens vers les comptes des intervenantes 
 
 ## Tes droits
 
-Tu peux à tout moment demander l'accès, la rectification, la portabilité, la limitation ou la suppression des données te concernant, et t'opposer à leur traitement, en écrivant à [adresse e-mail à compléter]. Une réponse te sera apportée dans un délai d'un mois.
+Tu peux à tout moment demander l'accès, la rectification, la portabilité, la limitation ou la suppression des données te concernant, et t'opposer à leur traitement, en écrivant à contact@stephanielem.fr. Une réponse te sera apportée dans un délai d'un mois.
 
 Tu peux également saisir la **CNIL** (cnil.fr) si tu estimes que tes droits ne sont pas respectés.
 

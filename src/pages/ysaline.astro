@@ -34,7 +34,7 @@ const lien = VENTE.ysalineLienPaiement || (APERCU ? '#commander' : `mailto:${VEN
     <p class="v-sur">{d.accroche}</p>
     {d.sous_titres.map((s) => <p class="v-sous">{s}</p>)}
     <div class="v-cta-bloc">
-      <a class="v-cta" href={lien}>{d.bouton}</a>
+      <a class="v-cta" href={lien}>{d.bouton}{VENTE.ysalinePrix ? ` – ${VENTE.ysalinePrix}` : ''}</a>
       <p class="v-rassure">{d.rassurance}</p>
     </div>
   </section>

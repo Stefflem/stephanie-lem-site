@@ -23,13 +23,13 @@ offres:
     mise_en_avant: false
   - titre: "Deep Drive 360°"
     texte: "Deux heures en visio pour sortir du flou, clarifier la direction de ton business et l'organiser dans ta vie telle qu'elle est aujourd'hui. Tu repars avec un plan sur 7 à 14 jours."
-    prix: "Séance de 2 h"
+    prix: "200 €"
     bouton: "Réserver ma séance"
     href: "/deepdrive/"
     mise_en_avant: false
   - titre: "La traversée d'Ysaline"
     texte: "Son roman. Cinq jours en mer, une méthode qui promet la liberté, et un corps qui ne suit pas. Une traversée qui change la façon dont tu regardes ton travail et ta vie."
-    prix: "Roman en PDF"
+    prix: "24,90 €"
     bouton: "Découvrir le roman"
     href: "/ysaline/"
     mise_en_avant: false

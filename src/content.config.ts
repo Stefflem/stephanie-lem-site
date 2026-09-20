@@ -111,6 +111,8 @@ const reglages = defineCollection({
       (v) => (v instanceof Date ? v.toISOString() : v ?? ''),
       z.string(),
     ).default(''),
+    deepdrive_prix: z.string().optional().default(''),
+    deepdrive_lien_paiement: z.string().optional().default(''),
     ysaline_lien_paiement: z.string().optional().default(''),
     ysaline_prix: z.string().optional().default(''),
     contact: z.string().optional().default(''),

@@ -15,6 +15,11 @@ const schema = {
   areaServed: 'FR', audience: { '@type': 'Audience', audienceType: 'Entrepreneuses et accompagnantes' },
   url: 'https://www.stephanielem.fr/deepdrive/',
   potentialAction: d.calendly ? { '@type': 'ReserveAction', target: d.calendly } : undefined,
+  offers: VENTE.deepdrivePrix
+    ? { '@type': 'Offer', price: VENTE.deepdrivePrix.replace(/[^0-9,.]/g, '').replace(',', '.'),
+        priceCurrency: 'EUR', availability: 'https://schema.org/InStock',
+        url: 'https://www.stephanielem.fr/deepdrive/' }
+    : undefined,
 };
 ---
 <Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
@@ -25,13 +30,14 @@ const schema = {
     <p class="v-sur">{d.accroche}</p>
     {d.sous_titres.map((s) => <p class="v-sous">{s}</p>)}
     <div class="v-cta-bloc">
-      <a class="v-cta" href="#reserver">{d.bouton}</a>
+      <a class="v-cta" href="#reserver">{d.bouton}{VENTE.deepdrivePrix ? ` – ${VENTE.deepdrivePrix}` : ''}</a>
       <p class="v-rassure">{d.rassurance}</p>
     </div>
   </section>
   <div class="v-wrap">
     <VenteCorps body={page.body ?? ''} />
     <div class="v-prix" id="reserver">
+      {VENTE.deepdrivePrix && <p class="v-eyebrow">{VENTE.deepdrivePrix}</p>}
       <h2>{d.final_titre}</h2>
       <p>{d.final_sous}</p>
       <div class="v-cta-bloc">

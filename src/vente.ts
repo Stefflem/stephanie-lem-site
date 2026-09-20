@@ -19,6 +19,8 @@ export async function reglagesVente() {
     soclePrix: d.socle_prix,
     soclePrixBarre: d.socle_prix_barre,
     socleFinPromo: d.socle_fin_promo,
+    deepdrivePrix: d.deepdrive_prix,
+    deepdriveLienPaiement: d.deepdrive_lien_paiement,
     ysalineLienPaiement: d.ysaline_lien_paiement,
     ysalinePrix: d.ysaline_prix,
     contact: d.contact,

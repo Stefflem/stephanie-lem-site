@@ -48,6 +48,7 @@ const ogImage = new URL(image, Astro.site);
   '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Stellaé Experiences',
   alternateName: 'Stéphanie Lem', url: Astro.site?.toString(), image: ogImage.toString(),
   founder: { '@type': 'Person', name: 'Stéphanie Lem' }, areaServed: 'FR', inLanguage: 'fr',
+  sameAs: ['https://www.instagram.com/stephanie.lem.doula/'],
 }} />
 {schema && <Schema data={schema} />}
 </head>

@@ -61,6 +61,7 @@ const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWit
   '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Stellaé Experiences',
   alternateName: 'Stéphanie Lem', url: Astro.site?.toString(), image: ogImage.toString(),
   description, founder: { '@type': 'Person', name: 'Stéphanie Lem' }, areaServed: 'FR', inLanguage: 'fr',
+  sameAs: ['https://www.instagram.com/stephanie.lem.doula/'],
 })} />
 </head>
 <body class={REVUE_PALETTE ? "avec-revue" : undefined}>

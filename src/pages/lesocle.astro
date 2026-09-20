@@ -9,7 +9,17 @@ const VENTE = await reglagesVente();
 const page = await getEntry('vente', 'lesocle');
 if (!page) throw new Error('Contenu lesocle manquant');
 const d = page.data;
-const lienAchat = VENTE.socleLienPaiement || (APERCU ? '/acces-le-socle/' : '#inscription');
+/**
+ * Trois états, et aucun ne doit produire un bouton mort.
+ *   lien Stripe posé  → on encaisse
+ *   mode aperçu       → on montre la page de livraison, sans encaisser
+ *   ni l'un ni l'autre → on écrit à Stéphanie
+ * Le troisième cas existe parce que le site peut partir en ligne avant que
+ * Stripe soit vérifié : mieux vaut un mail qu'une ancre qui ne fait rien.
+ */
+const peutEncaisser = Boolean(VENTE.socleLienPaiement);
+const lienAchat = VENTE.socleLienPaiement
+  || (APERCU ? '/acces-le-socle/' : `mailto:${VENTE.contact}?subject=Le%20Socle`);
 const faq = d.faq.map((f) => ({ '@type': 'Question', name: f.q,
   acceptedAnswer: { '@type': 'Answer', text: f.r } }));
 const schema = {
@@ -24,7 +34,9 @@ const schema = {
     faq.length ? { '@type': 'FAQPage', mainEntity: faq } : undefined,
   ].filter(Boolean),
 };
-const libelleBouton = `${d.bouton} – ${VENTE.soclePrix}${VENTE.soclePrixBarre ? ` au lieu de ${VENTE.soclePrixBarre}` : ''} !`;
+const libelleBouton = peutEncaisser || APERCU
+  ? `${d.bouton} – ${VENTE.soclePrix}${VENTE.soclePrixBarre ? ` au lieu de ${VENTE.soclePrixBarre}` : ''} !`
+  : 'Écrire à Stéphanie pour recevoir Le Socle';
 ---
 <Vente title={`${d.surtitre} · ${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1366" height="768" fetchpriority="high"></div>}
@@ -73,7 +85,7 @@ const libelleBouton = `${d.bouton} – ${VENTE.soclePrix}${VENTE.soclePrixBarre 
       <h3>{d.inclus_titre}</h3>
       <ul class="v-prix-liste">{d.inclus.map((i) => <li>{i}</li>)}</ul>
       <div class="v-cta-bloc">
-        <a class="v-cta" href={lienAchat}>{d.bouton}</a>
+        <a class="v-cta" href={lienAchat}>{peutEncaisser || APERCU ? d.bouton : "Écrire à Stéphanie pour recevoir Le Socle"}</a>
         <p class="v-rassure">{d.final_rassurance}</p>
       </div>
     </div>

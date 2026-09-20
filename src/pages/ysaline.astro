@@ -11,9 +11,22 @@ const VENTE = await reglagesVente();
 const page = await getEntry('vente', 'ysaline');
 if (!page) throw new Error('Contenu ysaline manquant');
 const d = page.data;
+const schema = {
+  '@context': 'https://schema.org', '@type': 'Book',
+  name: d.surtitre, alternateName: d.titre, description: d.seo_description,
+  author: { '@type': 'Person', name: 'Stéphanie Lem' },
+  inLanguage: 'fr', bookFormat: 'https://schema.org/EBook',
+  image: d.visuel_ensemble ? `https://www.stephanielem.fr${d.visuel_ensemble}` : undefined,
+  url: 'https://www.stephanielem.fr/ysaline/',
+  offers: VENTE.ysalinePrix
+    ? { '@type': 'Offer', price: VENTE.ysalinePrix.replace(/[^0-9,.]/g, '').replace(',', '.'),
+        priceCurrency: 'EUR', availability: 'https://schema.org/InStock',
+        url: 'https://www.stephanielem.fr/ysaline/' }
+    : undefined,
+};
 const lien = VENTE.ysalineLienPaiement || (APERCU ? '#commander' : `mailto:${VENTE.contact}?subject=La%20traversee%20d%27Ysaline`);
 ---
-<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere}>
+<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1200" height="675" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>

@@ -10,7 +10,8 @@
     "build": "astro build && node scripts/nettoie-sitemap.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "node --test netlify/tests/*.test.mjs"
+    "test": "node --test netlify/tests/*.test.mjs",
+    "audit": "node scripts/audit-seo.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

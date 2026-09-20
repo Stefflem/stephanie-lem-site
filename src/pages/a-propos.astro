@@ -10,7 +10,7 @@ const d = page.data;
 const intro = (d.intro ?? '').split('\n\n').filter(Boolean);
 const portrait = d.portrait && fs.existsSync(`public${d.portrait}`) ? d.portrait : null;
 ---
-<Base title={d.title} description={d.seo_description}>
+<Base title={d.title} description={d.seo_description} titreExact={page.data.seo_titre || undefined}>
   <header class="page-head">
     <p class="eyebrow">{d.eyebrow}</p>
     <h1>Je m’appelle <em>Stéphanie</em></h1>

@@ -2,7 +2,8 @@
 title: "Combien de participants faut-il prévoir pour une retraite ?"
 theme: "Groupe"
 date: 2026-09-04
-description: "C’est une question qui arrive assez vite quand on commence à construire une retraite."
+seo_titre: "Combien de participants pour une retraite réussie ?"
+description: "Trop peu et l'énergie retombe, trop et tu ne tiens plus l'espace. Comment choisir le nombre de participantes selon ton format, ton lieu et ton expérience."
 draft: false
 ---
 

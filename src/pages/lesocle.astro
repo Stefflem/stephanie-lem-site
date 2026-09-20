@@ -10,9 +10,23 @@ const page = await getEntry('vente', 'lesocle');
 if (!page) throw new Error('Contenu lesocle manquant');
 const d = page.data;
 const lienAchat = VENTE.socleLienPaiement || (APERCU ? '/acces-le-socle/' : '#inscription');
+const faq = d.faq.map((f) => ({ '@type': 'Question', name: f.q,
+  acceptedAnswer: { '@type': 'Answer', text: f.r } }));
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Product', name: d.titre, description: d.seo_description,
+      image: d.banniere ? `${'https://www.stephanielem.fr'}${d.banniere}` : undefined,
+      brand: { '@type': 'Brand', name: 'Stellaé Experiences' },
+      offers: { '@type': 'Offer', price: VENTE.soclePrix.replace(/[^0-9,.]/g, '').replace(',', '.'),
+        priceCurrency: 'EUR', availability: 'https://schema.org/InStock',
+        url: `${'https://www.stephanielem.fr'}/lesocle/` } },
+    faq.length ? { '@type': 'FAQPage', mainEntity: faq } : undefined,
+  ].filter(Boolean),
+};
 const libelleBouton = `${d.bouton} – ${VENTE.soclePrix}${VENTE.soclePrixBarre ? ` au lieu de ${VENTE.soclePrixBarre}` : ''} !`;
 ---
-<Vente title={`${d.surtitre} · ${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere}>
+<Vente title={`${d.surtitre} · ${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1366" height="768" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>

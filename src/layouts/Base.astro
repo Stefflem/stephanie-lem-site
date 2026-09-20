@@ -5,9 +5,12 @@ import ChoixPalette from '../components/ChoixPalette.astro';
 import { REVUE_PALETTE } from '../revue';
 import { AUDIENCE, PALETTE } from '../site';
 import { getCollection } from 'astro:content';
-interface Props { title: string; description?: string; image?: string; noindex?: boolean }
-const { title, description = 'Stéphanie Lem accompagne la création de retraites et de séjours immersifs : vision, organisation, terrain.', image = '/images/portrait-accueil.jpg', noindex = false } = Astro.props;
-const fullTitle = title === 'Stellaé Experiences' ? title : `${title} · Stellaé Experiences`;
+interface Props { title: string; titreExact?: string; description?: string; image?: string; noindex?: boolean }
+const { title, titreExact, description = 'Stéphanie Lem accompagne la création de retraites et de séjours immersifs : vision, organisation, terrain.', image = '/images/portrait-accueil.jpg', noindex = false } = Astro.props;
+/* Si la page fournit un titre pour Google, il fait foi tel quel : c'est le
+   seul moyen de tenir les 50 à 60 caractères, puisque le suffixe de marque
+   en mange 21. Sinon, comportement d'avant. */
+const fullTitle = titreExact || (title === 'Stellaé Experiences' ? title : `${title} · Stellaé Experiences`);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 const path = Astro.url.pathname;

@@ -8,7 +8,7 @@ const d = page.data;
 let intro = marked.parse(page.body ?? '') as string;
 intro = intro.replace('<p>', '<p class="lead-first">');
 ---
-<Base title={d.title} description={d.seo_description}>
+<Base title={d.title} description={d.seo_description} titreExact={page.data.seo_titre || undefined}>
   <header class="page-head">
     <p class="eyebrow">{d.eyebrow}</p>
     <h1>Me <em>contacter</em></h1>

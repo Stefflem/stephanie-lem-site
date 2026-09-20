@@ -2,7 +2,8 @@
 title: "Tu veux organiser une retraite : par quoi commencer vraiment ?"
 theme: "Vision"
 date: 2026-09-01
-description: "Quand quelqu’un me parle d’un projet de retraite, il arrive souvent avec une idée déjà très concrète en tête. Une destination qui lui plaît, un lieu qu’il…"
+seo_titre: "Organiser une retraite : par où commencer vraiment"
+description: "Tu veux organiser une retraite et tu ne sais pas par quel bout la prendre. Voici l'ordre qui évite de tout construire à l'envers, et ce qui vient d'abord."
 draft: false
 ---
 

@@ -4,7 +4,8 @@ eyebrow: "Contact"
 instagram: https://www.instagram.com/
 email: contact@stephanielem.fr
 whatsapp: https://wa.me/
-seo_description: "Un projet de retraite ou de séjour immersif ? Écris à Stéphanie Lem par Instagram, e-mail ou WhatsApp."
+seo_titre: "Me parler de ton projet de retraite | Stéphanie Lem"
+seo_description: "Tu prépares une retraite ou un séjour immersif ? Raconte moi ton projet, je te dis où tu en es et ce qu'il te reste à poser pour qu'il tienne debout."
 ---
 
 Tu as un projet de retraite ou de séjour immersif en tête et tu veux m’en parler ?

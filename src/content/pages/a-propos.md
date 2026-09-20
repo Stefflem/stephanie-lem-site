@@ -6,6 +6,7 @@ portrait: /images/portrait-a-propos.jpg
 closing: "Si tu as un projet de retraite ou de séjour immersif en tête, tu peux m’en parler."
 cta_label: "Me parler de ton projet"
 cta_href: /contact
+seo_titre: "Stéphanie Lem : son parcours, sa méthode, ses retraites"
 seo_description: "Éducatrice de jeunes enfants, doula, sales manager : le parcours de Stéphanie Lem, au service de la création de retraites et de séjours immersifs."
 ---
 

@@ -8,7 +8,7 @@ if (!page) throw new Error('Contenu projets manquant');
 const d = page.data;
 const projets = (await getCollection('projets')).sort((a, b) => a.data.ordre - b.data.ordre);
 ---
-<Base title={d.title} description={d.seo_description}>
+<Base title={d.title} description={d.seo_description} titreExact={page.data.seo_titre || undefined}>
   <header class="page-head">
     <p class="eyebrow">{d.eyebrow}</p>
     <h1>Trois retraites, trois <em>intentions</em></h1>

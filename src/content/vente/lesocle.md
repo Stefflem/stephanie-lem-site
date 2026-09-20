@@ -50,6 +50,7 @@ visuels:
     legende: "Speed hypnose « Peur »"
   - image: "/images/vente/audio-ancrage.jpg"
     legende: "Speed hypnose « Ancrage »"
+seo_titre: "Le Socle : organiser ta première journée en présentiel"
 seo_description: "Le programme complet pour organiser ta première journée en présentiel avec tes clientes. Deux guides, deux speed hypnoses, un canal Telegram privé."
 ---
 

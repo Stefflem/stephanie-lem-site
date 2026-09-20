@@ -19,10 +19,12 @@
  * PALETTE DE PRODUCTION
  * Vide = marron, la palette par défaut du site.
  * Sinon : 'lagon-clair' | 'lagon' | 'marron-vert' | 'petrole'
- * Une fois que Stéphanie a choisi, poser sa valeur ici et passer
- * REVUE_PALETTE à false dans src/revue.ts. C'est tout.
+ * ✅ CHOISIE LE 2026-09-20 : « Lagon sable », soit 'lagon'.
+ * Accent #0F4C5C sur fond sable #F7F3ED. C'est exactement le bleu de ses
+ * pages systeme.io, reposé sur un fond chaud. REVUE_PALETTE est passé à
+ * false dans src/revue.ts, la barre de comparaison a disparu.
  */
-export const PALETTE: '' | 'lagon-clair' | 'lagon' | 'marron-vert' | 'petrole' = '';
+export const PALETTE: '' | 'lagon-clair' | 'lagon' | 'marron-vert' | 'petrole' = 'lagon';
 
 export type Audience =
   | { outil: 'aucune' }

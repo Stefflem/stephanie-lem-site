@@ -18,6 +18,10 @@ const pages = defineCollection({
     instagram: z.string().optional(),
     email: z.string().optional(),
     whatsapp: z.string().optional(),
+    /** Titre affiché dans Google, 50 à 60 caractères. Vide = le titre de la
+     *  page sert de titre Google. Sépare ce que Google lit de ce que la
+     *  visiteuse voit : on n'a jamais à déformer sa copy pour le référencement. */
+    seo_titre: z.string().optional().default(''),
     seo_description: z.string().optional(),
     offres: z.array(z.object({
       titre: z.string(),
@@ -45,6 +49,7 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
+    seo_titre: z.string().optional().default(''),
     theme: z.string().optional().default(''),
     date: z.coerce.date(),
     description: z.string().optional().default(''),
@@ -84,6 +89,7 @@ const vente = defineCollection({
       image: z.string().optional(),
       instagram: z.string().optional(),
     })).optional().default([]),
+    seo_titre: z.string().optional().default(''),
     visuel_ensemble: z.string().optional(),
     visuels: z.array(z.object({
       image: z.string(),
@@ -134,6 +140,7 @@ const libres = defineCollection({
     prix: z.string().optional().default(''),
     rassurance: z.string().optional().default(''),
     noindex: z.boolean().optional().default(false),
+    seo_titre: z.string().optional().default(''),
     seo_description: z.string().optional().default(''),
   }),
 });

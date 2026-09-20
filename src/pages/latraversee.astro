@@ -8,8 +8,28 @@ const VENTE = await reglagesVente();
 const page = await getEntry('vente', 'latraversee');
 if (!page) throw new Error('Contenu latraversee manquant');
 const d = page.data;
+const faq = d.faq.map((f) => ({ '@type': 'Question', name: f.q,
+  acceptedAnswer: { '@type': 'Answer', text: f.r } }));
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Event', name: d.titre, description: d.seo_description,
+      image: d.banniere ? `https://www.stephanielem.fr${d.banniere}` : undefined,
+      startDate: '2026-10-21', endDate: '2026-10-26',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: { '@type': 'Place', name: 'Écodomaine La Fontaine',
+        address: { '@type': 'PostalAddress', addressLocality: 'Pornic',
+          addressRegion: 'Loire-Atlantique', addressCountry: 'FR' } },
+      organizer: { '@type': 'Organization', name: 'Stellaé Experiences', url: 'https://www.stephanielem.fr' },
+      maximumAttendeeCapacity: 18,
+      performer: d.intervenantes.map((i) => ({ '@type': 'Person', name: i.nom })),
+      url: 'https://www.stephanielem.fr/latraversee/' },
+    faq.length ? { '@type': 'FAQPage', mainEntity: faq } : undefined,
+  ].filter(Boolean),
+};
 ---
-<Vente title={`${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere}>
+<Vente title={`${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1200" height="1200" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>

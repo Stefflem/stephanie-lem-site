@@ -3,4 +3,4 @@
  * Passer à false avant la mise en ligne définitive : la barre disparaît,
  * le site garde la palette par défaut (marron).
  */
-export const REVUE_PALETTE = true;
+export const REVUE_PALETTE = false;

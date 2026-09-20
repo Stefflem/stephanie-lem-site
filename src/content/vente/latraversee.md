@@ -197,7 +197,8 @@ programme:
       - "Réserve ton appel découverte avec Stéphanie :"
       - "20 minutes offertes pour voir ensemble si La Traversée est alignée pour toi."
       - "Cet appel ne t’engage à rien. Il permet simplement de vérifier l’adéquation entre ton intention et l’expérience proposée."
-seo_description: "Soi-m’aime La Traversée, séjour immersif du 21 au 26 octobre 2026 à l’Écodomaine La Fontaine près de Pornic. Six jours pour créer ton propre séjour immersif avec éthique et intégrité."
+seo_titre: "Soi-m'aime La Traversée : 6 jours d'immersion à Pornic"
+seo_description: "Six jours d'immersion du 21 au 26 octobre 2026 près de Pornic, puis deux mois pour créer ton propre séjour. Dix huit femmes, sept intervenantes."
 ---
 
 ## La rentabilité d'un séjour immersif : un levier stratégique pour ton activité

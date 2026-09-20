@@ -7,7 +7,7 @@ const page = await getEntry('pages', 'organiser-une-retraite');
 if (!page) throw new Error('Contenu organiser manquant');
 const d = page.data;
 ---
-<Base title={d.title} description={d.seo_description}>
+<Base title={d.title} description={d.seo_description} titreExact={page.data.seo_titre || undefined}>
   <header class="page-head">
     <p class="eyebrow">{d.eyebrow}</p>
     <h1>Organiser une <em>retraite</em></h1>

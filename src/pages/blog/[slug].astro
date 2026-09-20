@@ -1,6 +1,7 @@
 ---
 import Offres from '../../components/Offres.astro';
 import Base from '../../layouts/Base.astro';
+import Schema from '../../components/Schema.astro';
 import { getCollection, render } from 'astro:content';
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((p) => !p.data.draft).sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
@@ -12,8 +13,20 @@ export async function getStaticPaths() {
 const { post, next } = Astro.props;
 const { Content } = await render(post);
 const dateFr = post.data.date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+const schema = {
+  '@context': 'https://schema.org', '@type': 'Article',
+  headline: post.data.title, description: post.data.description,
+  image: post.data.image ? `https://www.stephanielem.fr${post.data.image}` : undefined,
+  datePublished: post.data.date.toISOString(),
+  dateModified: post.data.date.toISOString(),
+  inLanguage: 'fr',
+  author: { '@type': 'Person', name: 'Stéphanie Lem', url: `https://www.stephanielem.fr/a-propos/` },
+  publisher: { '@type': 'Organization', name: 'Stellaé Experiences', url: 'https://www.stephanielem.fr' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.stephanielem.fr/blog/${post.id}/` },
+};
 ---
-<Base title={post.data.title} description={post.data.description}>
+<Base title={post.data.title} titreExact={post.data.seo_titre || undefined} description={post.data.description} image={post.data.image}>
+  <Schema data={schema} />
   <header class="page-head article-head">
     <a class="back" href="/blog/">Retour au blog</a>
     <p class="eyebrow">{post.data.theme}</p>

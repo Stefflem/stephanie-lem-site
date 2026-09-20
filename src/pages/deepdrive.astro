@@ -8,8 +8,16 @@ const VENTE = await reglagesVente();
 const page = await getEntry('vente', 'deepdrive');
 if (!page) throw new Error('Contenu deepdrive manquant');
 const d = page.data;
+const schema = {
+  '@context': 'https://schema.org', '@type': 'Service',
+  name: d.surtitre, description: d.seo_description, serviceType: 'Séance de clarification',
+  provider: { '@type': 'Organization', name: 'Stellaé Experiences', url: 'https://www.stephanielem.fr' },
+  areaServed: 'FR', audience: { '@type': 'Audience', audienceType: 'Entrepreneuses et accompagnantes' },
+  url: 'https://www.stephanielem.fr/deepdrive/',
+  potentialAction: d.calendly ? { '@type': 'ReserveAction', target: d.calendly } : undefined,
+};
 ---
-<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere}>
+<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1366" height="768" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>

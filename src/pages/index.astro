@@ -9,7 +9,7 @@ const titleHtml = d.title
   .replace('retraite', '<em>retraite</em>')
   .replace('séjour immersif', '<em>séjour immersif</em>');
 ---
-<Base title="Stellaé Experiences" description={d.seo_description}>
+<Base title="Stellaé Experiences" description={d.seo_description} titreExact={page.data.seo_titre || undefined}>
   <section class="hero">
     <div class="hero-text">
       <p class="eyebrow">{d.eyebrow}</p>

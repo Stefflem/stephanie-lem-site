@@ -2,7 +2,8 @@
 title: "Comment choisir le bon lieu pour sa retraite ?"
 theme: "Lieu"
 date: 2026-09-03
-description: "Le lieu est souvent l’une des premières choses auxquelles on pense quand on commence à imaginer une retraite."
+seo_titre: "Choisir le lieu de sa retraite : les vrais critères"
+description: "Le lieu porte la moitié de l'expérience. Les critères qui comptent vraiment, ceux qu'on croit importants et qui ne le sont pas, et quoi demander avant."
 draft: false
 ---
 

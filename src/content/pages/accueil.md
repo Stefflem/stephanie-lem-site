@@ -8,6 +8,7 @@ cta_href: /organiser-une-retraite
 cta2_label: "Me parler de ta retraite"
 cta2_href: /contact
 closing: "Que tu sois au début de ton projet ou que tu aies déjà l’habitude d’organiser des retraites, je peux intervenir à partir de là où tu en es."
+seo_titre: "Organiser une retraite : Stéphanie Lem, Stellaé Experiences"
 seo_description: "Stéphanie Lem accompagne coachs, thérapeutes et créateurs dans la création de retraites et de séjours immersifs : vision, organisation, terrain."
 ---
 

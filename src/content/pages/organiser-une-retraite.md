@@ -4,7 +4,8 @@ eyebrow: "Mon accompagnement"
 closing: "Comprendre le projet, construire tout ce qui doit l’être et, lorsque c’est nécessaire, être là pour le faire vivre concrètement."
 cta_label: "Me parler de ta retraite"
 cta_href: /contact
-seo_description: "Construire une retraite qui tient vraiment : lieu, budget, transports, hébergements, planning, participants, avant et pendant le séjour."
+seo_titre: "Organiser une retraite : la méthode complète et concrète"
+seo_description: "Organiser une retraite, étape par étape : clarifier l'intention, choisir le lieu, construire le déroulé, fixer le prix, accueillir ton groupe sereinement."
 ---
 
 Organiser une retraite, ce n’est pas seulement trouver un lieu, remplir un planning et réserver quelques prestations.

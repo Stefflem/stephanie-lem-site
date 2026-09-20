@@ -1,0 +1,29 @@
+# Stellaé Experiences, Stéphanie Lem
+
+> Stéphanie Lem accompagne les coachs, thérapeutes, doulas et accompagnantes
+> qui veulent créer une retraite ou un séjour immersif : la vision, l'organisation,
+> et le terrain. Basée en France, elle intervient en français.
+
+Site : https://www.stephanielem.fr
+
+## Ce qu'elle propose
+
+- [Le guide offert, « Déclic immersif »](https://www.stephanielem.fr/guideoffert/) : pourquoi le présentiel revient au centre des activités d'accompagnement, et comment transformer une expertise en expérience. Gratuit.
+- [Le Socle](https://www.stephanielem.fr/lesocle/) : le programme complet pour organiser sa première journée en présentiel. Deux guides, deux séances d'hypnose audio, un canal privé. Accès à vie, garantie 14 jours.
+- [Deep Drive 360](https://www.stephanielem.fr/deepdrive/) : deux heures en visio pour sortir du flou, clarifier la direction de son activité et l'organiser dans sa vie. On repart avec un plan sur 7 à 14 jours.
+- [Soi-m'aime, La Traversée](https://www.stephanielem.fr/latraversee/) : six jours d'immersion du 21 au 26 octobre 2026 à l'Écodomaine La Fontaine près de Pornic, puis deux mois d'accompagnement pour créer son propre séjour immersif. Dix huit participantes, sept intervenantes.
+- [La traversée d'Ysaline](https://www.stephanielem.fr/ysaline/) : son roman. Cinq jours en mer, une méthode qui promet la liberté, et un corps qui ne suit pas.
+- [Accompagnement sur mesure](https://www.stephanielem.fr/contact/) : de la vision jusqu'à l'organisation, et sur le terrain si le projet le demande.
+
+## Les pages de fond
+
+- [Organiser une retraite](https://www.stephanielem.fr/organiser-une-retraite/) : la méthode, étape par étape.
+- [À propos](https://www.stephanielem.fr/a-propos/) : son parcours, éducatrice de jeunes enfants, doula, puis accompagnement de retraites.
+- [Projets](https://www.stephanielem.fr/projets/) : les retraites qu'elle accompagne en ce moment.
+- [Le blog](https://www.stephanielem.fr/blog/) : six articles qui répondent aux questions concrètes, par où commencer, choisir le lieu, fixer le prix, combien de participants, quoi anticiper avant d'ouvrir les inscriptions, ce qui fait qu'une retraite devient une expérience.
+
+## À savoir
+
+- Le site ne dépose aucun cookie et ne mesure pas l'audience.
+- Les paiements passent par Stripe, les réservations par Calendly.
+- Contact : contact@stephanielem.fr

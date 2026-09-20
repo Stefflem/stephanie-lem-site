@@ -2,7 +2,8 @@
 title: "Tout ce qu’il faut anticiper avant d’ouvrir les inscriptions"
 theme: "Inscriptions"
 date: 2026-09-05
-description: "Il y a un moment assez excitant dans la construction d’une retraite : celui où l’on commence enfin à se dire qu’on va pouvoir en parler."
+seo_titre: "Ce qu'il faut anticiper avant d'ouvrir les inscriptions"
+description: "Avant d'annoncer ta retraite, une liste de choses doit être posée. Ce qui doit être prêt, ce qui peut attendre, et ce qui se paye si tu l'oublies."
 draft: false
 ---
 

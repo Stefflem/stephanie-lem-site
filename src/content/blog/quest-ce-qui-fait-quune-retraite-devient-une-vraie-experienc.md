@@ -2,7 +2,8 @@
 title: "Qu’est-ce qui fait qu’une retraite devient une vraie expérience immersive ?"
 theme: "Expérience"
 date: 2026-09-02
-description: "On utilise beaucoup le mot \"immersif\"."
+seo_titre: "Ce qui transforme une retraite en vraie expérience"
+description: "Un programme rempli ne fait pas une expérience. Ce qui fait la différence entre un séjour agréable et une retraite dont on parle encore des mois après."
 draft: false
 ---
 

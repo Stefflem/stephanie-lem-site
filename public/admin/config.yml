@@ -38,6 +38,7 @@ collections:
       - { name: title, label: Titre, widget: string }
       - { name: theme, label: Thème (un mot, affiché au dessus du titre), widget: string, required: false, hint: "Par exemple Vision, Lieu, Budget" }
       - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false, hint: "Les articles s'affichent du plus ancien au plus récent" }
+      - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
       - { name: description, label: Résumé (pour Google et les partages, 150 caractères), widget: text, required: false }
       - { name: image, label: Photo de l'article, widget: image, required: false, hint: "Affichée dans la rubrique Prochainement" }
       - { name: draft, label: Brouillon (affiché dans « Prochainement », pas encore lisible), widget: boolean, default: true }
@@ -85,6 +86,7 @@ collections:
       - { name: prix, label: "BOUTON · prix affiché au dessus", widget: string, required: false }
       - { name: rassurance, label: "BOUTON · petite phrase en dessous", widget: string, required: false }
       - { name: noindex, label: Cacher cette page de Google, widget: boolean, default: false }
+      - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
       - { name: seo_description, label: Description pour Google, widget: text, required: false }
 
   - name: boutique
@@ -148,6 +150,7 @@ collections:
           - { name: final_sous, label: Phrase du bloc final, widget: text, required: false }
           - { name: final_rassurance, label: Phrase de réassurance, widget: string, required: false }
           - { name: contact_texte, label: Phrase avant l'adresse e-mail, widget: text, required: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Le corps de la page, widget: markdown, hint: "« Titre 2 » ouvre une section, « Titre 3 » crée un encadré" }
       - name: guideoffert
@@ -165,6 +168,7 @@ collections:
           - { name: final_titre, label: Titre du formulaire, widget: string, required: false }
           - { name: final_sous, label: Phrase du formulaire, widget: text, required: false }
           - { name: final_rassurance, label: Phrase sous le formulaire, widget: string, required: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Le corps de la page, widget: markdown }
       - name: deepdrive
@@ -182,6 +186,7 @@ collections:
           - { name: final_titre, label: Titre du bloc final, widget: string, required: false }
           - { name: final_sous, label: Phrase du bloc final, widget: text, required: false }
           - { name: final_rassurance, label: Phrase de réassurance, widget: string, required: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Le corps de la page, widget: markdown }
       - name: ysaline
@@ -200,6 +205,7 @@ collections:
           - { name: final_titre, label: Titre du bloc final, widget: string, required: false }
           - { name: final_sous, label: Phrase du bloc final, widget: text, required: false }
           - { name: final_rassurance, label: Phrase de réassurance, widget: string, required: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Le corps de la page, widget: markdown }
       - name: latraversee
@@ -244,6 +250,7 @@ collections:
           - { name: final_titre, label: Titre du bloc final, widget: string, required: false }
           - { name: final_sous, label: Phrase du bloc final, widget: text, required: false }
           - { name: final_rassurance, label: Phrase de réassurance, widget: string, required: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Le corps de la page, widget: markdown }
       - name: etudenoelfinlande
@@ -267,6 +274,7 @@ collections:
           - { name: final_rassurance, label: Texte du bouton d'inscription, widget: string, required: false }
           - { name: banniere, label: Bannière de tête, widget: image, required: false }
           - { name: image, label: Visuel de partage, widget: image, required: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Le corps de la page, widget: markdown }
 
@@ -286,6 +294,7 @@ collections:
           - { name: cta2_label, label: Second bouton, widget: string, required: false }
           - { name: cta2_href, label: Lien du second bouton, widget: string, required: false, default: /contact }
           - { name: closing, label: Phrase de fin de page, widget: text }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Sections (chaque « Titre 2 » devient une section), widget: markdown }
       - name: organiser-une-retraite
@@ -297,6 +306,7 @@ collections:
           - { name: closing, label: Phrase de fin de page, widget: text }
           - { name: cta_label, label: Bouton, widget: string }
           - { name: cta_href, label: Lien du bouton, widget: string, default: /contact }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Sections (chaque « Titre 2 » devient une section), widget: markdown }
       - name: a-propos
@@ -310,6 +320,7 @@ collections:
           - { name: closing, label: Phrase de fin de page, widget: text }
           - { name: cta_label, label: Bouton, widget: string }
           - { name: cta_href, label: Lien du bouton, widget: string, default: /contact }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Sections (chaque « Titre 2 » devient une section), widget: markdown }
       - name: projets
@@ -321,6 +332,7 @@ collections:
           - { name: closing, label: Phrase de fin de page, widget: text }
           - { name: cta_label, label: Bouton, widget: string }
           - { name: cta_href, label: Lien du bouton, widget: string, default: /contact }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Texte d'introduction, widget: text }
       - name: contact
@@ -332,6 +344,7 @@ collections:
           - { name: instagram, label: Lien Instagram, widget: string, required: false }
           - { name: email, label: Adresse e-mail, widget: string, required: false }
           - { name: whatsapp, label: Lien WhatsApp, widget: string, required: false, hint: "Format https://wa.me/33612345678" }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Texte, widget: markdown }
       - name: offres
@@ -350,6 +363,7 @@ collections:
               - { name: bouton, label: Texte du lien, widget: string }
               - { name: href, label: Adresse de la page, widget: string, hint: "/lesocle/ ou /guideoffert/ ou /contact/" }
               - { name: mise_en_avant, label: Mettre cette offre en avant, widget: boolean, default: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Phrase d'introduction, widget: text }
       - name: mentions-legales
@@ -358,6 +372,7 @@ collections:
         fields:
           - { name: title, label: Titre, widget: string }
           - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Texte, widget: markdown }
       - name: conditions-generales-de-vente
@@ -366,6 +381,7 @@ collections:
         fields:
           - { name: title, label: Titre, widget: string }
           - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Texte, widget: markdown }
       - name: politique-de-confidentialite
@@ -374,5 +390,6 @@ collections:
         fields:
           - { name: title, label: Titre, widget: string }
           - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Texte, widget: markdown }

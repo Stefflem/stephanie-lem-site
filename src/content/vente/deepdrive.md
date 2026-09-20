@@ -12,6 +12,7 @@ calendly: "https://calendly.com/stephanielem/deep-drive?hide_event_type_details=
 final_titre: "Réserver mon Deep Drive 360"
 final_sous: "Choisis ci dessous le créneau horaire qui te convient :"
 final_rassurance: "Paiement à la réservation • Confirmation immédiate • Places limitées"
+seo_titre: "Deep Drive 360 : 2 h pour sortir du flou et décider"
 seo_description: "Deep Drive 360, une séance de 2 heures en visio pour sortir du flou, clarifier ton business et l’organiser dans ta vie telle qu’elle est aujourd’hui."
 ---
 

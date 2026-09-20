@@ -2,7 +2,8 @@
 title: "Comment construire le prix d’une retraite sans le choisir au hasard ?"
 theme: "Budget"
 date: 2026-09-06
-description: "Le prix d’une retraite est souvent l’un des sujets qui fait le plus hésiter."
+seo_titre: "Fixer le prix d'une retraite sans le choisir au hasard"
+description: "Le prix d'une retraite se construit, il ne se devine pas. Les coûts à compter, le seuil de rentabilité, et comment arriver à un prix que tu peux défendre."
 draft: false
 ---
 

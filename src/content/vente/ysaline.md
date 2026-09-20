@@ -13,7 +13,8 @@ final_titre: "Je veux lire ce livre"
 final_sous: "Version intégrale en PDF, téléchargement immédiat."
 final_rassurance: "Paiement 100% sécurisé - Accès immédiat après achat - Garantie 14 jours"
 contact_texte: "Tu as une question, un doute ou juste besoin de t'assurer d'un détail ? Contacte nous par mail :"
-seo_description: "La traversée d'Ysaline, un roman qui se lit comme une expérience. Cinq jours en mer pour comprendre que la liberté ne se trouve pas dans une méthode de plus."
+seo_titre: "La traversée d'Ysaline : le roman de Stéphanie Lem"
+seo_description: "Un roman qui se lit comme une expérience. Cinq jours en mer pour comprendre que la liberté ne se trouve pas dans une méthode de plus. Version PDF."
 ---
 
 ## L'histoire

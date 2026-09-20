@@ -1,0 +1,44 @@
+---
+/**
+ * Page de retour après paiement, commune aux trois offres.
+ * C'est l'adresse à donner à Stripe pour chaque lien de paiement :
+ *   https://www.stephanielem.fr/acces/?session_id={CHECKOUT_SESSION_ID}
+ *
+ * La page ne contient aucun lien de fichier. Elle demande à /api/acces, qui
+ * vérifie auprès de Stripe que la session est payée ET ce qu'elle a payé,
+ * puis renvoie le titre, le texte et des liens signés valables 24 heures.
+ */
+import Vente from '../layouts/Vente.astro';
+import { APERCU } from '../site';
+import { reglagesVente } from '../vente';
+const VENTE = await reglagesVente();
+---
+<Vente title="Votre accès | Stellaé Experiences" noindex={true}>
+  <div class="v-acces">
+    <p class="v-eyebrow">Merci pour votre confiance</p>
+    <h1 id="titre">Votre accès</h1>
+
+    {APERCU && (
+      <p class="v-sous" style="margin:18px 0 0">
+        Voici la page que reçoit une acheteuse juste après son paiement. Elle s'adapte à ce qui a été
+        acheté, et chaque ligne porte un lien qui lui est propre, valable 24 heures.
+      </p>
+    )}
+
+    <p class="v-sous" id="intro" hidden></p>
+    <div class="v-acces-liste" id="liste" hidden></div>
+    <p class="note" id="attente">Vérification de votre paiement…</p>
+    <p class="note" id="souci" hidden></p>
+
+    {APERCU && (
+      <div class="v-acces-liste apercu-liste">
+        <span class="v-exemple"><span class="v-acces-nom">Le Socle</span><span class="v-acces-act">4 fichiers et le canal Telegram</span></span>
+        <span class="v-exemple"><span class="v-acces-nom">La traversée d'Ysaline</span><span class="v-acces-act">le roman en PDF</span></span>
+        <span class="v-exemple"><span class="v-acces-nom">Deep Drive 360</span><span class="v-acces-act">le lien pour choisir son créneau</span></span>
+      </div>
+    )}
+
+    <p class="note">Un lien ne fonctionne pas ? Écrivez moi à <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a>. Garantie 14 jours, il suffit de demander.</p>
+  </div>
+  <script is:inline src="/js/acces.js"></script>
+</Vente>

@@ -1,27 +1,55 @@
 /**
- * Vérifie un paiement chez Stripe, puis délivre des liens de téléchargement
- * signés qui expirent. Sans paiement vérifié, rien ne sort d'ici.
+ * Vérifie un paiement chez Stripe, puis délivre ce qui a été acheté.
+ * Sans paiement vérifié pour CE produit, rien ne sort d'ici.
  *
- * Appelée par /acces-le-socle/ avec le session_id que Stripe ajoute à
- * l'adresse de retour : .../acces-le-socle/?session_id={CHECKOUT_SESSION_ID}
+ * Appelée par /acces/ avec le session_id que Stripe ajoute à l'adresse de
+ * retour : https://…/acces/?session_id={CHECKOUT_SESSION_ID}
  *
- * Variables d'environnement à poser chez Netlify, JAMAIS dans le dépôt :
- *   STRIPE_SECRET_KEY   la clé secrète Stripe (sk_live_…)
- *   SIGNATURE_SECRET    une longue chaîne aléatoire, sert à signer les liens
- *   STRIPE_PRICE_SOCLE  l'identifiant du tarif Stripe du Socle (price_…)
- *   TELEGRAM_INVITE     le lien d'invitation au canal privé (optionnel)
+ * Variables d'environnement, à poser chez Netlify, JAMAIS dans le dépôt :
+ *   STRIPE_SECRET_KEY        la clé secrète Stripe (sk_live_…)
+ *   SIGNATURE_SECRET         une longue chaîne aléatoire (openssl rand -hex 32)
+ *   STRIPE_PRICE_SOCLE       identifiant du tarif du Socle (price_…)
+ *   STRIPE_PRICE_ROMAN       identifiant du tarif du roman
+ *   STRIPE_PRICE_DEEPDRIVE   identifiant du tarif de Deep Drive
+ *   TELEGRAM_INVITE          lien d'invitation au canal privé (Socle)
+ *   CALENDLY_DEEPDRIVE       lien de réservation (Deep Drive)
  */
 import { createHmac, timingSafeEqual } from 'node:crypto';
 
 /** Durée de validité d'un lien de téléchargement. */
 const VALIDITE_MS = 24 * 60 * 60 * 1000;
 
-/** Les seuls fichiers délivrables. Une clé qui n'est pas ici n'existe pas. */
-const FICHIERS_SOCLE = [
-  { cle: 'tenir-lespace', nom: "Guide « Tenir l'espace »", act: 'Télécharger le PDF' },
-  { cle: 'quick-start', nom: 'Quick Start 7 jours', act: 'Télécharger le PDF' },
-  { cle: 'hypnose-peur', nom: 'Speed hypnose « Peur »', act: "Télécharger l'audio" },
-  { cle: 'hypnose-ancrage', nom: 'Speed hypnose « Ancrage »', act: "Télécharger l'audio" },
+/**
+ * Ce que donne chaque offre. Une offre inconnue ne délivre rien.
+ * `env` porte le nom de la variable qui contient l'identifiant de tarif
+ * Stripe : c'est lui qui relie un paiement réel à ce qu'on remet.
+ */
+export const OFFRES = [
+  {
+    env: 'STRIPE_PRICE_SOCLE',
+    titre: 'Le Socle',
+    intro: 'Tout est ici. Ces liens vous sont personnels et restent valables 24 heures.',
+    fichiers: [
+      { cle: 'tenir-lespace', nom: "Guide « Tenir l'espace »", act: 'Télécharger le PDF' },
+      { cle: 'quick-start', nom: 'Quick Start 7 jours', act: 'Télécharger le PDF' },
+      { cle: 'hypnose-peur', nom: 'Speed hypnose « Peur »', act: "Télécharger l'audio" },
+      { cle: 'hypnose-ancrage', nom: 'Speed hypnose « Ancrage »', act: "Télécharger l'audio" },
+    ],
+    lienEnPlus: { env: 'TELEGRAM_INVITE', nom: 'Canal Telegram privé', act: 'Rejoindre le canal' },
+  },
+  {
+    env: 'STRIPE_PRICE_ROMAN',
+    titre: "La traversée d'Ysaline",
+    intro: 'Bonne lecture. Ce lien vous est personnel et reste valable 24 heures.',
+    fichiers: [{ cle: 'roman', nom: "La traversée d'Ysaline", act: 'Télécharger le roman' }],
+  },
+  {
+    env: 'STRIPE_PRICE_DEEPDRIVE',
+    titre: 'Deep Drive 360',
+    intro: 'Il reste une étape : choisir votre créneau. Prenez le rendez vous maintenant, les places sont limitées.',
+    fichiers: [],
+    lienEnPlus: { env: 'CALENDLY_DEEPDRIVE', nom: 'Choisir mon créneau', act: 'Réserver' },
+  },
 ];
 
 export function signer(cle, expire, secret) {
@@ -36,6 +64,12 @@ export function signatureValide(attendue, recue) {
   return timingSafeEqual(a, b);
 }
 
+/** Retrouve l'offre correspondant aux tarifs réellement payés. */
+export function offrePayee(lignes, env = process.env) {
+  const prix = new Set(lignes.map((l) => l?.price?.id).filter(Boolean));
+  return OFFRES.find((o) => env[o.env] && prix.has(env[o.env])) || null;
+}
+
 const refus = (message, code = 403) =>
   new Response(JSON.stringify({ ok: false, message }), {
     status: code,
@@ -45,17 +79,16 @@ const refus = (message, code = 403) =>
 export default async (req) => {
   const cleStripe = process.env.STRIPE_SECRET_KEY;
   const secret = process.env.SIGNATURE_SECRET;
-  const prixSocle = process.env.STRIPE_PRICE_SOCLE;
+  const auMoinsUnTarif = OFFRES.some((o) => process.env[o.env]);
 
   // Une configuration incomplète ne doit jamais livrer par défaut.
-  if (!cleStripe || !secret || !prixSocle) {
-    return refus("La livraison n'est pas encore configurée. Écris à Stéphanie, elle te transmet tes accès à la main.", 503);
+  if (!cleStripe || !secret || !auMoinsUnTarif) {
+    return refus("La livraison n'est pas encore configurée. Écrivez à Stéphanie, elle vous transmet vos accès à la main.", 503);
   }
 
   const session = new URL(req.url).searchParams.get('session_id') || '';
   if (!/^cs_[A-Za-z0-9_]{10,200}$/.test(session)) return refus('Lien de retour invalide.');
 
-  // On demande à Stripe si cette session est réellement payée, et pour quoi.
   let data;
   try {
     const r = await fetch(
@@ -65,28 +98,28 @@ export default async (req) => {
     if (!r.ok) return refus("Ce paiement n'a pas pu être vérifié.");
     data = await r.json();
   } catch {
-    return refus('Vérification impossible pour le moment, réessaie dans un instant.', 502);
+    return refus('Vérification impossible pour le moment, réessayez dans un instant.', 502);
   }
 
   if (data.payment_status !== 'paid') return refus("Ce paiement n'est pas confirmé.");
 
-  // Payé ne suffit pas : il faut avoir payé CE produit.
-  const lignes = data.line_items?.data ?? [];
-  const aLeSocle = lignes.some((l) => l.price?.id === prixSocle);
-  if (!aLeSocle) return refus("Ce paiement ne correspond pas au Socle.");
+  // Payé ne suffit pas : il faut savoir CE QUI a été payé.
+  const offre = offrePayee(data.line_items?.data ?? []);
+  if (!offre) return refus("Ce paiement ne correspond à aucune offre connue.");
 
   const expire = Date.now() + VALIDITE_MS;
-  const items = FICHIERS_SOCLE.map((f) => ({
+  const items = offre.fichiers.map((f) => ({
     nom: f.nom,
     act: f.act,
     lien: `/api/telecharger?f=${f.cle}&e=${expire}&s=${signer(f.cle, expire, secret)}`,
   }));
 
-  if (process.env.TELEGRAM_INVITE) {
-    items.push({ nom: 'Canal Telegram privé', act: 'Rejoindre le canal', lien: process.env.TELEGRAM_INVITE, externe: true });
+  const sup = offre.lienEnPlus;
+  if (sup && process.env[sup.env]) {
+    items.push({ nom: sup.nom, act: sup.act, lien: process.env[sup.env], externe: true });
   }
 
-  return new Response(JSON.stringify({ ok: true, items, expire }), {
+  return new Response(JSON.stringify({ ok: true, titre: offre.titre, intro: offre.intro, items, expire }), {
     headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
   });
 };

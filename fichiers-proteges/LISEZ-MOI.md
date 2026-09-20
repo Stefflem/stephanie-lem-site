@@ -1,18 +1,19 @@
 # Fichiers payants
 
-Déposer ici les fichiers livrés après paiement, avec **exactement** ces noms :
+## ⚠️ NE RIEN DÉPOSER ICI POUR L'INSTANT
 
-| Nom du fichier | Ce que c'est |
-|---|---|
-| `tenir-lespace.pdf` | le guide « Tenir l'espace » |
-| `quick-start.pdf` | le Quick Start 7 jours |
-| `hypnose-peur.mp3` | la speed hypnose « Peur » |
-| `hypnose-ancrage.mp3` | la speed hypnose « Ancrage » |
+**Le dépôt est public depuis le 2026-09-20.** Un fichier posé ici serait téléchargeable par n'importe qui, donc offert.
 
-**Ce dossier n'est jamais publié.** Il ne part pas dans `dist/`, aucune adresse
-ne permet de l'atteindre. Seule la fonction `telecharger` peut le lire, et
-seulement contre un lien signé non expiré.
+Avant d'y déposer quoi que ce soit, le stockage doit passer à **Netlify Blobs**. La fonction `telecharger` garde exactement sa logique : paiement vérifié chez Stripe, puis lien signé valable 24 heures. Compter environ une heure. Voir `CONTRIBUER.md`.
 
-Pour ajouter un fichier, il faut aussi l'ajouter au catalogue de
-`netlify/functions/telecharger.mjs`. C'est volontaire : une liste blanche
-explicite vaut mieux qu'un dossier ouvert.
+## Les fichiers attendus, une fois le stockage migré
+
+| Nom du fichier | Ce que c'est | Remis avec |
+|---|---|---|
+| `tenir-lespace.pdf` | guide « Tenir l'espace » | Le Socle |
+| `quick-start.pdf` | Quick Start 7 jours | Le Socle |
+| `hypnose-peur.mp3` | speed hypnose « Peur » | Le Socle |
+| `hypnose-ancrage.mp3` | speed hypnose « Ancrage » | Le Socle |
+| `roman-ysaline.pdf` | le roman « La traversée d'Ysaline » | Le roman |
+
+Pour ajouter un fichier, il faut aussi l'ajouter au catalogue de `netlify/functions/telecharger.mjs`. C'est volontaire : une liste blanche explicite vaut mieux qu'un dossier ouvert.

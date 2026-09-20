@@ -24,7 +24,7 @@ const schema = {
         url: 'https://www.stephanielem.fr/ysaline/' }
     : undefined,
 };
-const lien = VENTE.ysalineLienPaiement || (APERCU ? '#commander' : `mailto:${VENTE.contact}?subject=La%20traversee%20d%27Ysaline`);
+const lien = VENTE.ysalineLienPaiement || (APERCU ? '/acces/' : `mailto:${VENTE.contact}?subject=La%20traversee%20d%27Ysaline`);
 ---
 <Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1200" height="675" fetchpriority="high"></div>}

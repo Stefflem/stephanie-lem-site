@@ -15,6 +15,7 @@ const CATALOGUE = {
   'quick-start':     { fichier: 'quick-start.pdf',     type: 'application/pdf',  nom: 'Quick Start 7 jours.pdf' },
   'hypnose-peur':    { fichier: 'hypnose-peur.mp3',    type: 'audio/mpeg',       nom: 'Speed hypnose Peur.mp3' },
   'hypnose-ancrage': { fichier: 'hypnose-ancrage.mp3', type: 'audio/mpeg',       nom: 'Speed hypnose Ancrage.mp3' },
+  'roman':           { fichier: 'roman-ysaline.pdf',   type: 'application/pdf',  nom: "La traversee d'Ysaline.pdf" },
 };
 
 const RACINE = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'fichiers-proteges');

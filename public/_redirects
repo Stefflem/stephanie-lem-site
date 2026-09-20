@@ -27,3 +27,7 @@
 
 https://stephanielem.fr/*             https://www.stephanielem.fr/:splat   301!
 http://stephanielem.fr/*              https://www.stephanielem.fr/:splat   301!
+
+# L'ancienne adresse de retour du Socle mène à la nouvelle, commune aux trois
+# offres. Gardée pour que rien ne casse si elle traîne quelque part.
+/acces-le-socle/*   /acces/   301

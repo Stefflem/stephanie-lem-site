@@ -30,8 +30,11 @@
 # JAMAIS dans ce dépôt :
 #   STRIPE_SECRET_KEY    sk_live_…
 #   SIGNATURE_SECRET     openssl rand -hex 32
-#   STRIPE_PRICE_SOCLE   price_…  (le tarif du Socle)
-#   TELEGRAM_INVITE      le lien d'invitation au canal privé (optionnel)
+#   STRIPE_PRICE_SOCLE     price_…  tarif du Socle
+#   STRIPE_PRICE_ROMAN     price_…  tarif du roman
+#   STRIPE_PRICE_DEEPDRIVE price_…  tarif de Deep Drive
+#   TELEGRAM_INVITE        lien d'invitation au canal privé (remis avec Le Socle)
+#   CALENDLY_DEEPDRIVE     lien de réservation (remis après un Deep Drive payé)
 #
 # Passerelle Brevo (fonction submission-created, appelée par Netlify à chaque
 # formulaire envoyé). Sans ces variables, les formulaires continuent d'arriver

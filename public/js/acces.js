@@ -1,17 +1,16 @@
-/* Demande les liens de téléchargement à la fonction, qui ne les délivre
-   qu'après avoir vérifié le paiement auprès de Stripe. */
+/* Demande à la fonction ce qui a été acheté. Elle ne répond qu'après avoir
+   vérifié le paiement auprès de Stripe. */
 (function () {
   var liste = document.getElementById('liste');
   var attente = document.getElementById('attente');
   var souci = document.getElementById('souci');
+  var intro = document.getElementById('intro');
+  var titre = document.getElementById('titre');
   var apercu = document.querySelector('.apercu-liste');
   if (!liste) return;
 
   var session = new URLSearchParams(location.search).get('session_id');
-  if (!session) {
-    attente.hidden = true;
-    return; // page ouverte sans venir de Stripe : on ne montre rien
-  }
+  if (!session) { attente.hidden = true; return; } // ouverte sans venir de Stripe
   if (apercu) apercu.hidden = true;
 
   fetch('/api/acces?session_id=' + encodeURIComponent(session), { cache: 'no-store' })
@@ -19,10 +18,12 @@
     .then(function (res) {
       attente.hidden = true;
       if (!res.ok || !res.d.ok) {
-        souci.textContent = res.d && res.d.message ? res.d.message : 'Ton paiement n’a pas pu être vérifié.';
+        souci.textContent = (res.d && res.d.message) || "Votre paiement n'a pas pu être vérifié.";
         souci.hidden = false;
         return;
       }
+      if (res.d.titre) titre.textContent = res.d.titre;
+      if (res.d.intro) { intro.textContent = res.d.intro; intro.hidden = false; }
       res.d.items.forEach(function (i) {
         var a = document.createElement('a');
         a.href = i.lien;
@@ -36,7 +37,7 @@
     })
     .catch(function () {
       attente.hidden = true;
-      souci.textContent = 'Vérification impossible pour le moment. Réessaie dans un instant.';
+      souci.textContent = 'Vérification impossible pour le moment. Réessayez dans un instant.';
       souci.hidden = false;
     });
 })();

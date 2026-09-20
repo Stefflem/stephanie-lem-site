@@ -6,6 +6,9 @@ import { writeFile, mkdir, rm } from 'node:fs/promises';
 process.env.SIGNATURE_SECRET = 'secret-de-test-tres-long-0123456789';
 process.env.STRIPE_SECRET_KEY = 'sk_test_bidon';
 process.env.STRIPE_PRICE_SOCLE = 'price_SOCLE';
+process.env.STRIPE_PRICE_ROMAN = 'price_ROMAN';
+process.env.STRIPE_PRICE_DEEPDRIVE = 'price_DD';
+process.env.CALENDLY_DEEPDRIVE = 'https://calendly.com/exemple';
 
 const acces = (await import('../functions/acces.mjs')).default;
 const { signer } = await import('../functions/acces.mjs');
@@ -31,7 +34,7 @@ test('payé mais pas ce produit : refus', async () => {
   simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_AUTRE' } }] } });
   const r = await appel(acces, 'session_id=' + SESSION);
   assert.equal(r.status, 403);
-  assert.match((await r.json()).message, /ne correspond pas/);
+  assert.match((await r.json()).message, /ne correspond à aucune offre/);
 });
 
 test('payé pour Le Socle : liens signés délivrés', async () => {
@@ -39,17 +42,52 @@ test('payé pour Le Socle : liens signés délivrés', async () => {
   const r = await appel(acces, 'session_id=' + SESSION);
   assert.equal(r.status, 200);
   const d = await r.json();
+  assert.equal(d.titre, 'Le Socle');
   assert.equal(d.items.length, 4);
   assert.ok(d.items.every((i) => /^\/api\/telecharger\?f=[a-z-]+&e=\d+&s=[0-9a-f]{64}$/.test(i.lien)));
   assert.ok(d.expire > Date.now());
 });
 
+test('le roman : un seul fichier, pas ceux du Socle', async () => {
+  simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_ROMAN' } }] } });
+  const r = await appel(acces, 'session_id=' + SESSION);
+  const d = await r.json();
+  assert.equal(r.status, 200);
+  assert.equal(d.titre, "La traversée d'Ysaline");
+  assert.equal(d.items.length, 1);
+  assert.match(d.items[0].lien, /f=roman&/);
+});
+
+test('Deep Drive : aucun fichier, mais le lien de réservation', async () => {
+  simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_DD' } }] } });
+  const r = await appel(acces, 'session_id=' + SESSION);
+  const d = await r.json();
+  assert.equal(r.status, 200);
+  assert.equal(d.titre, 'Deep Drive 360');
+  assert.equal(d.items.length, 1);
+  assert.equal(d.items[0].lien, 'https://calendly.com/exemple');
+  assert.equal(d.items[0].externe, true);
+  assert.ok(!d.items.some((i) => /telecharger/.test(i.lien)), 'aucun fichier ne doit sortir');
+});
+
+test('acheter le roman ne donne jamais les fichiers du Socle', async () => {
+  simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_ROMAN' } }] } });
+  const d = await (await appel(acces, 'session_id=' + SESSION)).json();
+  for (const interdit of ['tenir-lespace', 'quick-start', 'hypnose-peur', 'hypnose-ancrage']) {
+    assert.ok(!d.items.some((i) => i.lien.includes(interdit)), interdit + ' ne doit pas sortir');
+  }
+});
+
 test('configuration incomplète : ne livre pas', async () => {
-  const garde = process.env.STRIPE_PRICE_SOCLE;
+  const garde = { s: process.env.STRIPE_PRICE_SOCLE, r: process.env.STRIPE_PRICE_ROMAN, d: process.env.STRIPE_PRICE_DEEPDRIVE };
   delete process.env.STRIPE_PRICE_SOCLE;
+  delete process.env.STRIPE_PRICE_ROMAN;
+  delete process.env.STRIPE_PRICE_DEEPDRIVE;
   const r = await appel(acces, 'session_id=' + SESSION);
   assert.equal(r.status, 503);
-  process.env.STRIPE_PRICE_SOCLE = garde;
+  process.env.STRIPE_PRICE_SOCLE = garde.s;
+  process.env.STRIPE_PRICE_ROMAN = garde.r;
+  process.env.STRIPE_PRICE_DEEPDRIVE = garde.d;
 });
 
 test('téléchargement : clé inconnue, traversée de chemin, refus', async () => {

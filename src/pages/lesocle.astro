@@ -19,7 +19,7 @@ const d = page.data;
  */
 const peutEncaisser = Boolean(VENTE.socleLienPaiement);
 const lienAchat = VENTE.socleLienPaiement
-  || (APERCU ? '/acces-le-socle/' : `mailto:${VENTE.contact}?subject=Le%20Socle`);
+  || (APERCU ? '/acces/' : `mailto:${VENTE.contact}?subject=Le%20Socle`);
 const faq = d.faq.map((f) => ({ '@type': 'Question', name: f.q,
   acceptedAnswer: { '@type': 'Answer', text: f.r } }));
 const schema = {
@@ -102,7 +102,7 @@ const libelleBouton = peutEncaisser || APERCU
         {VENTE.socleLienPaiement
           ? <a class="v-cta" href={VENTE.socleLienPaiement}>{d.bouton}</a>
           : APERCU
-            ? <a class="v-cta" href="/acces-le-socle/">Voir ce qu'elle reçoit après l'achat</a>
+            ? <a class="v-cta" href="/acces/">Voir ce qu'elle reçoit après l'achat</a>
             : <a class="v-cta" href={`mailto:${VENTE.contact}?subject=Le%20Socle`}>Écrire à Stéphanie pour recevoir le lien</a>}
         <p class="v-rassure">{d.final_rassurance}</p>
       </div>

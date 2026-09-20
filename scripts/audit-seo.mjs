@@ -39,6 +39,10 @@ for (const p of pages.sort()) {
   const h1 = (h.match(/<h1[^>]*>/g) ?? []).length;
   const schemas = [...h.matchAll(/"@type"\s*:\s*"([^"]+)"/g)].map((m) => m[1]);
   const sansAlt = (h.match(/<img(?![^>]*\balt=)/g) ?? []).length;
+  /* Un lien vers la racine d'Instagram ou de WhatsApp est un lien qui ne mène
+     nulle part : il passe le test « le champ est rempli » sans rien valoir. */
+  const liensVides = [...h.matchAll(/href="(https?:\/\/(?:www\.)?(?:instagram\.com|wa\.me)\/?)"/g)].length
+    + [...h.matchAll(/href="mailto:"/g)].length;
 
   const soucis = [];
   if (titre.length < 50 || titre.length > 60) soucis.push(`titre ${titre.length}`);
@@ -46,6 +50,7 @@ for (const p of pages.sort()) {
   if (h1 !== 1) soucis.push(`h1 ${h1}`);
   if (schemas.length <= 1) soucis.push('schéma pauvre');
   if (sansAlt) soucis.push(`${sansAlt} img sans alt`);
+  if (liensVides) soucis.push(`${liensVides} lien(s) vers nulle part`);
   alertes += soucis.length;
   lignes.push(`${soucis.length ? '⚠' : ' '} ${url.padEnd(48)} ${String(titre.length).padStart(3)} ${String(desc.length).padStart(3)}  ${[...new Set(schemas)].join(',') || '-'}${soucis.length ? '   → ' + soucis.join(', ') : ''}`);
 }

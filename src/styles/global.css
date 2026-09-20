@@ -340,3 +340,19 @@ body.avec-revue{padding-bottom:96px}   /* laisse la place a la barre de comparai
   background:var(--carte,#fff);border:1px solid var(--trait,#e6e0d8);border-radius:4px}
 .libre-cta .eyebrow{margin:0 0 10px}
 .libre-cta .v-rassure{margin:14px 0 0;font-size:.82rem;opacity:.75}
+
+/* Mode d'emploi de Stéphanie */
+.aide h2{margin-top:2.4em}
+.aide ol{padding-left:1.3em}
+.aide ol li{margin:.5em 0}
+.aide code{background:var(--carte,#fff);border:1px solid var(--trait,#e6e0d8);
+  border-radius:3px;padding:.1em .35em;font-size:.9em}
+.aide-note{background:var(--carte,#fff);border-left:3px solid var(--accent,#0F4C5C);
+  padding:14px 18px;border-radius:0 3px 3px 0;font-size:.92rem}
+.aide-attention{background:#fff6f0;border-left:3px solid #c2703f;
+  padding:14px 18px;border-radius:0 3px 3px 0;font-size:.92rem}
+.aide-table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.92rem}
+.aide-table th,.aide-table td{text-align:left;padding:10px 12px;
+  border-bottom:1px solid var(--trait,#e6e0d8);vertical-align:top}
+.aide-table th{font-weight:600;white-space:nowrap}
+@media(max-width:560px){.aide-table th{white-space:normal}}

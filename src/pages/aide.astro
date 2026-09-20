@@ -1,0 +1,142 @@
+---
+/**
+ * Mode d'emploi de Stéphanie. Écrit pour elle, au vouvoiement, sans jargon.
+ * En noindex : c'est sa page, pas une page de son site.
+ * Lien posé dans son espace d'édition, en bas à gauche.
+ */
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Mode d'emploi de votre site"
+  titreExact="Mode d'emploi de votre site | Stellaé Experiences"
+  description="Comment modifier votre site vous même."
+  noindex={true}
+>
+  <header class="page-head">
+    <p class="eyebrow">Pour vous, Stéphanie</p>
+    <h1>Mode d'emploi de votre site</h1>
+    <p class="head-lead">
+      Tout ce que vous pouvez changer seule, et comment. Gardez cette page dans vos favoris.
+    </p>
+  </header>
+
+  <div class="reading aide">
+
+    <h2>Se connecter</h2>
+    <ol>
+      <li>Allez sur <strong>votre espace</strong> : l'adresse de votre site suivie de <code>/admin</code></li>
+      <li>Cliquez sur <strong>Se connecter avec GitHub</strong></li>
+      <li>Une fenêtre s'ouvre, elle vous demande d'autoriser. Acceptez</li>
+    </ol>
+    <p class="aide-note">
+      GitHub est l'endroit où vivent les textes de votre site. Vous n'avez rien à y faire,
+      il sert uniquement à vérifier que c'est bien vous.
+    </p>
+
+    <h2>Les six rubriques de votre espace</h2>
+    <table class="aide-table">
+      <thead><tr><th>Rubrique</th><th>Ce qu'elle contient</th></tr></thead>
+      <tbody>
+        <tr><td>Articles du blog</td><td>Vos articles. Vous pouvez en ajouter autant que vous voulez</td></tr>
+        <tr><td>Projets en cours</td><td>Les retraites que vous accompagnez, avec leur photo</td></tr>
+        <tr><td>Pages que je crée</td><td>Pour fabriquer une page entièrement nouvelle</td></tr>
+        <tr><td>Boutique et livraison</td><td>Vos prix et vos liens de paiement</td></tr>
+        <tr><td>Pages de vente</td><td>Le Socle, La Traversée, Deep Drive, le roman, le guide offert</td></tr>
+        <tr><td>Pages du site</td><td>Accueil, À propos, Contact, mentions légales</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Changer un texte</h2>
+    <ol>
+      <li>Ouvrez la rubrique, puis la page concernée</li>
+      <li>Modifiez le texte directement</li>
+      <li>En haut, cliquez sur <strong>Publier</strong></li>
+    </ol>
+    <p><strong>Comptez une à deux minutes</strong> avant de voir le changement en ligne. Rafraîchissez la page de votre site.</p>
+
+    <h2>Écrire un article</h2>
+    <ol>
+      <li>Rubrique <strong>Articles du blog</strong>, bouton <strong>+ Article</strong></li>
+      <li>Remplissez le titre, la date, et votre texte</li>
+      <li><strong>Publier</strong></li>
+    </ol>
+    <p class="aide-note">
+      Le champ <strong>Titre affiché dans Google</strong> est facultatif. Il sert quand votre titre
+      est très long : vous en écrivez une version courte pour Google, sans toucher au vôtre.
+      Visez entre 50 et 60 caractères.
+    </p>
+
+    <h2>Créer une page entièrement nouvelle</h2>
+    <ol>
+      <li>Rubrique <strong>Pages que je crée</strong>, bouton <strong>+ Page</strong></li>
+      <li>Le <strong>titre donne l'adresse</strong>. « Mes témoignages » donne une page qui finit par <code>/mes-temoignages</code></li>
+      <li>Cochez <strong>Afficher dans le menu</strong> si vous voulez la voir en haut du site</li>
+      <li><strong>Position dans le menu</strong> : plus le nombre est petit, plus la page est à gauche. Contact reste toujours en dernier</li>
+      <li>Vous pouvez y poser un bouton d'achat, avec son prix</li>
+    </ol>
+    <p class="aide-attention">
+      N'utilisez pas un titre qui donnerait la même adresse qu'une page existante, comme Contact,
+      Projets, À propos, Blog ou Le Socle. Votre page serait ignorée.
+    </p>
+
+    <h2>Changer un prix</h2>
+    <ol>
+      <li>Rubrique <strong>Boutique et livraison</strong></li>
+      <li>Modifiez le prix, puis <strong>Publier</strong></li>
+    </ol>
+    <p>Le prix change partout d'un coup : sur le bouton, sur la page des offres, et dans ce que lit Google.</p>
+
+    <h2>Changer une photo</h2>
+    <ol>
+      <li>Ouvrez la page, cliquez sur l'image à remplacer</li>
+      <li><strong>Téléverser</strong>, choisissez votre fichier</li>
+      <li><strong>Publier</strong></li>
+    </ol>
+    <p class="aide-note">
+      Une photo de <strong>1600 pixels de large</strong> suffit largement. Plus grande, elle ralentit
+      votre site sans rien apporter.
+    </p>
+
+    <h2>Si quelque chose ne marche pas</h2>
+    <table class="aide-table">
+      <thead><tr><th>Ce que vous voyez</th><th>Ce qu'il faut faire</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Le changement n'apparaît pas</td>
+          <td>Attendez deux minutes, puis rafraîchissez. Si rien ne bouge, prévenez Emmanuel</td>
+        </tr>
+        <tr>
+          <td>Impossible de se connecter</td>
+          <td>Vérifiez que vous êtes connectée à GitHub. Sinon, prévenez Emmanuel</td>
+        </tr>
+        <tr>
+          <td>Une page a disparu du menu</td>
+          <td>Rouvrez la, la case « Afficher dans le menu » s'est peut être décochée</td>
+        </tr>
+        <tr>
+          <td>Vous avez supprimé quelque chose par erreur</td>
+          <td>Rien n'est jamais perdu, tout est conservé. Prévenez Emmanuel, il remet la version d'avant</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Ce que vous ne pouvez pas casser</h2>
+    <p>
+      Chaque modification est enregistrée avec sa date. <strong>Tout est réversible.</strong>
+      Vous pouvez donc essayer sans crainte : au pire, on revient en arrière.
+    </p>
+    <p>
+      En revanche, deux choses ne se modifient pas depuis votre espace, et c'est volontaire :
+      les <strong>couleurs et la structure</strong> des pages, et les <strong>fichiers que vous vendez</strong>.
+      Pour ceux là, passez par Emmanuel.
+    </p>
+
+    <h2>Le rendez vous du mois</h2>
+    <p>Trente minutes, une fois par mois, pour regarder ensemble :</p>
+    <ul>
+      <li>ce que les gens ont cherché pour arriver sur votre site</li>
+      <li>les formulaires reçus et les ventes</li>
+      <li>l'article à écrire ce mois ci, choisi d'après ce que Google montre</li>
+    </ul>
+  </div>
+</Base>

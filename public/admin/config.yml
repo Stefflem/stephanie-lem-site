@@ -16,8 +16,12 @@ backend:
     uploadMedia: "Photo ajoutée : {{path}}"
     deleteMedia: "Photo retirée : {{path}}"
 
-site_url: https://www.stephanielem.fr
-display_url: https://www.stephanielem.fr
+# ⚠️ Adresse provisoire, le temps que le domaine bascule sur Netlify.
+# Tant que www.stephanielem.fr pointe sur systeme.io, il renvoie une 404 :
+# Stéphanie cliquerait sur le lien de son espace et tomberait sur une page
+# cassée. À repasser sur https://www.stephanielem.fr LE JOUR de la bascule.
+site_url: https://stephanie-lem.netlify.app
+display_url: https://stephanie-lem.netlify.app
 logo_url: /images/logo.png
 locale: fr
 

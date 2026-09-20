@@ -76,6 +76,14 @@ const vente = defineCollection({
     contact_texte: z.string().optional().default(''),
     image: z.string().optional(),
     banniere: z.string().optional(),
+    calendly: z.string().optional(),
+    intervenantes: z.array(z.object({
+      nom: z.string(),
+      role: z.string().optional().default(''),
+      texte: z.string().optional().default(''),
+      image: z.string().optional(),
+      instagram: z.string().optional(),
+    })).optional().default([]),
     visuel_ensemble: z.string().optional(),
     visuels: z.array(z.object({
       image: z.string(),

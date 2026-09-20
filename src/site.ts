@@ -66,6 +66,16 @@ export const VENTE = {
    */
   socleFinPromo: '',
 
+  /**
+   * Lien de paiement pour le roman « La traversée d'Ysaline ».
+   * ⚠️ Prix volontairement vide : sa page systeme.io était cassée, le corps
+   * reprenait Le Socle, et le 111 € affiché était donc celui du Socle, pas
+   * celui du roman. Rien n'est inventé ici, Stéphanie donne son prix et on
+   * le pose. Vide = aucun prix affiché sur la page.
+   */
+  ysalineLienPaiement: '',
+  ysalinePrix: '',
+
   /** Adresse où écrire, affichée en bas des pages de vente. */
   contact: 'contact@stephanielem.fr',
 

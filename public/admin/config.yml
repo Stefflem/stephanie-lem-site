@@ -115,6 +115,85 @@ collections:
           - { name: final_rassurance, label: Phrase sous le formulaire, widget: string, required: false }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Le corps de la page, widget: markdown }
+      - name: deepdrive
+        label: Deep Drive 360
+        file: src/content/vente/deepdrive.md
+        fields:
+          - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: titre, label: Grand titre, widget: string }
+          - { name: accroche, label: Phrase sous le titre, widget: string, required: false }
+          - { name: sous_titres, label: Phrases d'introduction, widget: list, field: { name: ligne, label: Phrase, widget: text } }
+          - { name: bouton, label: Texte du bouton, widget: string }
+          - { name: rassurance, label: Petite phrase sous le bouton, widget: string, required: false }
+          - { name: banniere, label: Bannière de tête, widget: image, required: false }
+          - { name: calendly, label: Lien de réservation Calendly, widget: string, required: false }
+          - { name: final_titre, label: Titre du bloc final, widget: string, required: false }
+          - { name: final_sous, label: Phrase du bloc final, widget: text, required: false }
+          - { name: final_rassurance, label: Phrase de réassurance, widget: string, required: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Le corps de la page, widget: markdown }
+      - name: ysaline
+        label: La traversée d'Ysaline
+        file: src/content/vente/ysaline.md
+        fields:
+          - { name: contact_texte, label: Phrase avant l'adresse e-mail, widget: text, required: false }
+          - { name: visuel_ensemble, label: Couverture du roman, widget: image, required: false }
+          - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: titre, label: Grand titre, widget: string }
+          - { name: accroche, label: Phrase sous le titre, widget: string, required: false }
+          - { name: sous_titres, label: Phrases d'introduction, widget: list, field: { name: ligne, label: Phrase, widget: text } }
+          - { name: bouton, label: Texte du bouton, widget: string }
+          - { name: rassurance, label: Petite phrase sous le bouton, widget: string, required: false }
+          - { name: banniere, label: Bannière de tête, widget: image, required: false }
+          - { name: final_titre, label: Titre du bloc final, widget: string, required: false }
+          - { name: final_sous, label: Phrase du bloc final, widget: text, required: false }
+          - { name: final_rassurance, label: Phrase de réassurance, widget: string, required: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Le corps de la page, widget: markdown }
+      - name: latraversee
+        label: "Soi-m'aime : La Traversée"
+        file: src/content/vente/latraversee.md
+        fields:
+          - name: intervenantes
+            label: Les intervenantes
+            widget: list
+            fields:
+              - { name: nom, label: Prénom, widget: string }
+              - { name: role, label: Son rôle, widget: string, required: false }
+              - { name: texte, label: Présentation, widget: text, required: false }
+              - { name: image, label: Photo, widget: image, required: false }
+              - { name: instagram, label: Lien Instagram, widget: string, required: false }
+          - name: programme
+            label: Le programme jour par jour
+            widget: list
+            fields:
+              - { name: titre, label: Titre du jour, widget: string }
+              - { name: lignes, label: Le déroulé, widget: list, field: { name: ligne, label: Ligne, widget: text } }
+          - name: faq
+            label: Questions fréquentes
+            widget: list
+            fields:
+              - { name: q, label: Question, widget: string }
+              - { name: r, label: Réponse, widget: text }
+          - name: visuels
+            label: Les photos du lieu
+            widget: list
+            fields:
+              - { name: image, label: Photo, widget: image }
+              - { name: legende, label: Légende, widget: string, required: false }
+          - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: titre, label: Grand titre, widget: string }
+          - { name: accroche, label: Phrase sous le titre, widget: string, required: false }
+          - { name: sous_titres, label: Phrases d'introduction, widget: list, field: { name: ligne, label: Phrase, widget: text } }
+          - { name: bouton, label: Texte du bouton, widget: string }
+          - { name: rassurance, label: Petite phrase sous le bouton, widget: string, required: false }
+          - { name: banniere, label: Bannière de tête, widget: image, required: false }
+          - { name: calendly, label: Lien de réservation Calendly, widget: string, required: false }
+          - { name: final_titre, label: Titre du bloc final, widget: string, required: false }
+          - { name: final_sous, label: Phrase du bloc final, widget: text, required: false }
+          - { name: final_rassurance, label: Phrase de réassurance, widget: string, required: false }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Le corps de la page, widget: markdown }
       - name: etudenoelfinlande
         label: Étude de cas en direct
         file: src/content/vente/etudenoelfinlande.md

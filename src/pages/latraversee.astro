@@ -1,0 +1,81 @@
+---
+/** Soi-m'aime : La Traversée. Copy dans src/content/vente/latraversee.md. */
+import Vente from '../layouts/Vente.astro';
+import VenteCorps from '../components/VenteCorps.astro';
+import { getEntry } from 'astro:content';
+import { VENTE } from '../site';
+const page = await getEntry('vente', 'latraversee');
+if (!page) throw new Error('Contenu latraversee manquant');
+const d = page.data;
+---
+<Vente title={`${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere}>
+  {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1200" height="1200" fetchpriority="high"></div>}
+  <section class="v-wrap v-hero">
+    <p class="v-eyebrow">{d.surtitre}</p>
+    <h1>{d.titre}</h1>
+    <p class="v-sur">{d.accroche}</p>
+    {d.sous_titres.map((s) => <p class="v-sous">{s}</p>)}
+    <div class="v-cta-bloc">
+      <a class="v-cta" href="#reserver">{d.bouton}</a>
+      <p class="v-rassure">{d.rassurance}</p>
+    </div>
+  </section>
+
+  <div class="v-wrap">
+    <VenteCorps body={page.body ?? ''} />
+
+    {d.programme.length > 0 && (
+      <section class="v-sec v-faq">
+        <h2>Le programme, jour par jour</h2>
+        <p>Ce que tu vas lire ici n’est pas le détail complet du séjour, c’est la structure, l’énergie et le mouvement des six jours.</p>
+        {d.programme.map((j) => (
+          <details><summary>{j.titre}</summary>{j.lignes.map((l) => <p>{l}</p>)}</details>
+        ))}
+      </section>
+    )}
+
+    {d.visuels.length > 0 && (
+      <section class="v-sec">
+        <h2>Le lieu</h2>
+        <div class="v-visuels">
+          {d.visuels.map((v) => (
+            <figure><img src={v.image} alt={v.legende} loading="lazy"><figcaption>{v.legende}</figcaption></figure>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {d.intervenantes.length > 0 && (
+      <section class="v-sec">
+        <h2>Les intervenantes</h2>
+        <p>Pendant le séjour, tu seras accompagnée par une équipe de femmes dont l’expertise soutient des transformations réelles : travail somatique, énergétique, intuition, Human Design, rituels, pratiques sensibles, création, posture, rythme.</p>
+        <div class="v-equipe">
+          {d.intervenantes.map((i) => (
+            <article class="v-membre">
+              {i.image && <img src={i.image} alt={i.nom} loading="lazy">}
+              <h3>{i.nom}</h3>
+              {i.role && <p class="v-membre-role">{i.role}</p>}
+              <p>{i.texte}</p>
+              {i.instagram && <a class="offre-lien" href={i.instagram} target="_blank" rel="noopener">Son Instagram</a>}
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="v-sec v-faq">
+      <h2>Foire aux questions</h2>
+      {d.faq.map((f) => (<details><summary>{f.q}</summary><p>{f.r}</p></details>))}
+    </section>
+
+    <div class="v-prix" id="reserver">
+      <h2>{d.final_titre}</h2>
+      <p>{d.final_sous}</p>
+      <div class="v-cta-bloc">
+        <a class="v-cta" href={d.calendly} target="_blank" rel="noopener">{d.bouton}</a>
+        <p class="v-rassure">{d.final_rassurance}</p>
+      </div>
+      <p class="note">Une question ? <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a></p>
+    </div>
+  </div>
+</Vente>

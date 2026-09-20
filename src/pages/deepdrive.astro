@@ -1,0 +1,35 @@
+---
+/** Deep Drive 360. Copy dans src/content/vente/deepdrive.md. Réservation Calendly. */
+import Vente from '../layouts/Vente.astro';
+import VenteCorps from '../components/VenteCorps.astro';
+import { getEntry } from 'astro:content';
+import { VENTE } from '../site';
+const page = await getEntry('vente', 'deepdrive');
+if (!page) throw new Error('Contenu deepdrive manquant');
+const d = page.data;
+---
+<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere}>
+  {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1366" height="768" fetchpriority="high"></div>}
+  <section class="v-wrap v-hero">
+    <p class="v-eyebrow">{d.surtitre}</p>
+    <h1>{d.titre}</h1>
+    <p class="v-sur">{d.accroche}</p>
+    {d.sous_titres.map((s) => <p class="v-sous">{s}</p>)}
+    <div class="v-cta-bloc">
+      <a class="v-cta" href="#reserver">{d.bouton}</a>
+      <p class="v-rassure">{d.rassurance}</p>
+    </div>
+  </section>
+  <div class="v-wrap">
+    <VenteCorps body={page.body ?? ''} />
+    <div class="v-prix" id="reserver">
+      <h2>{d.final_titre}</h2>
+      <p>{d.final_sous}</p>
+      <div class="v-cta-bloc">
+        <a class="v-cta" href={d.calendly} target="_blank" rel="noopener">{d.bouton}</a>
+        <p class="v-rassure">{d.final_rassurance}</p>
+      </div>
+      <p class="note">Une question avant de réserver ? <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a></p>
+    </div>
+  </div>
+</Vente>

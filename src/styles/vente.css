@@ -103,3 +103,14 @@
 .apercu strong{color:var(--fond);letter-spacing:.14em;text-transform:uppercase;font-size:.74rem}
 .v-exemple{opacity:.72}
 .v-exemple .v-acces-act{font-style:italic}
+
+/* L'équipe d'intervenantes de La Traversée */
+.v-equipe{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:26px}
+.v-membre{background:var(--carte);box-shadow:var(--ombre);padding:0 0 24px;display:flex;flex-direction:column;gap:8px}
+.v-membre img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.v-membre h3{margin:16px 22px 0;font-size:1.4rem}
+.v-membre-role{margin:0 22px;font-family:var(--display);font-style:italic;color:var(--mot);font-size:1.02rem}
+.v-membre p{margin:0 22px;font-size:.94rem;text-align:left;hyphens:manual}
+.v-membre .offre-lien{margin:6px 22px 0}
+@media (max-width:900px){.v-equipe{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
+@media (max-width:600px){.v-equipe{grid-template-columns:1fr;max-width:420px}}

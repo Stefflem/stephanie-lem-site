@@ -22,6 +22,12 @@
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://avatars.githubusercontent.com https://raw.githubusercontent.com https://*.githubusercontent.com; font-src 'self' data:; connect-src 'self' https://api.github.com https://api.netlify.com https://raw.githubusercontent.com https://*.githubusercontent.com; form-action 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'
   X-Robots-Tag: noindex, nofollow, noarchive
   Cache-Control: no-store
+  # ⚠️ Ne pas remettre same-origin ici. La connexion de Stéphanie ouvre une
+  # fenêtre chez GitHub puis chez Netlify, qui renvoie le jeton à cette page
+  # par postMessage. Cross-Origin-Opener-Policy: same-origin coupe ce lien,
+  # la fenêtre se ferme et rien ne se passe : constaté le 2026-09-20, c'est
+  # exactement ce qui empêchait la connexion au tableau de bord.
+  Cross-Origin-Opener-Policy: unsafe-none
 
 /images/*
   Cache-Control: public, max-age=31536000, immutable

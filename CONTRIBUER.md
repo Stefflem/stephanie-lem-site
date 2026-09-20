@@ -1,38 +1,49 @@
-# Qui commite sur ce dépôt, et pourquoi
+# Dépôt public, et pourquoi
 
-## La règle
+## La décision, prise le 2026-09-20
 
-**Sur ce dépôt, l'auteur des commits est Stéphanie Lem.** Les vrais auteurs sont nommés en `Co-authored-by` dans le corps du message.
+**Le dépôt est public.** Ce n'est pas un oubli, c'est un choix, et il a une contrepartie à tenir.
 
-```
-git config user.name  "Stephanie Lem"
-git config user.email "327399968+Stefflem@users.noreply.github.com"
-```
+## Le problème
 
-C'est déjà configuré en local. **Ne pas la changer sans lire ce qui suit.**
-
-## Pourquoi
-
-Netlify, dans son offre gratuite, **n'accepte qu'un seul contributeur Git sur un dépôt privé**. Le compte vérifié est celui de Stéphanie, propriétaire du site et du dépôt. Tout commit signé d'une autre identité fait échouer la construction avec :
+Netlify, dans son offre gratuite, **n'accepte qu'un seul contributeur Git sur un dépôt privé**. Le compte vérifié est celui de Stéphanie, propriétaire du site. Tout ce qui est poussé depuis un autre compte échoue avec :
 
 ```
 Build blocked: Unrecognized Git contributor.
 This plan allows only verified account members to push to private repos
 ```
 
-Constaté le 2026-09-20 : le commit `00513ec` a été refusé pour cette raison, alors que le déploiement initial était passé.
+⚠️ **Ce que Netlify regarde, c'est le compte qui POUSSE, pas l'auteur du commit.** Signer un commit de l'identité de Stéphanie ne change rien : vérifié le 2026-09-20, le commit `90d0bea`, pourtant signé à son nom, a été refusé exactement comme le précédent. C'est une erreur de diagnostic à ne pas refaire.
 
-## Ce que ça change, et ce que ça ne change pas
+## Les trois issues, et celle qu'on a prise
 
-**Ça ne change pas la vérité.** Chaque commit porte les lignes `Co-authored-by` qui nomment qui a réellement travaillé. L'historique reste lisible et honnête, c'est le champ « auteur » qui porte l'identité du dépôt.
-
-**Ça ne gêne pas Stéphanie.** Ses modifications depuis `/admin` passent par son propre compte GitHub : elles sont déjà au bon nom et se déploient normalement.
-
-## Les deux autres options, écartées
-
-| Option | Pourquoi écartée |
+| Option | Verdict |
 |---|---|
-| Passer le dépôt en public | Il contient `fichiers-proteges/`, les PDF et audios vendus 111 €. Il faudrait d'abord les déplacer vers un stockage Netlify et réécrire la fonction de téléchargement, environ une heure |
-| Netlify Pro | Environ 19 $ par mois, soit 680 € sur trois ans, alors que le choix de Netlify reposait justement sur : gratuit, usage commercial autorisé, zéro récurrent |
+| Signer les commits à son nom | **Ne marche pas.** Netlify regarde qui pousse |
+| Pousser avec ses identifiants à elle | Marche, mais met un identifiant de la cliente sur la machine d'Emmanuel, et tout futur intervenant se heurte au même mur |
+| Netlify Pro | Environ 19 $ par mois, soit 680 € sur trois ans, alors que Netlify a justement été choisi parce que gratuit et commercial |
+| **Dépôt public** | ✅ **Retenu.** La limite ne s'applique qu'aux dépôts privés |
 
-**Si un jour il faut vraiment plusieurs contributeurs**, la bonne solution est la première : sortir les fichiers payants du dépôt, puis le passer en public. C'est de toute façon une meilleure hygiène, un fichier vendu n'a rien à faire dans un dépôt Git.
+## Pourquoi c'était sans risque ce jour là
+
+**Le dépôt ne contenait aucun fichier payant.** `fichiers-proteges/` ne portait qu'un mode d'emploi. Avant de basculer, tout l'historique a été fouillé : aucune clé, aucun jeton, aucun `.env`, aucun PDF, aucun audio, aucune donnée personnelle. Les seules occurrences de `sk_live_` étaient des exemples dans la documentation, et un `sk_test_bidon` dans un test.
+
+Le reste du code n'a rien de secret : le HTML du site est public dès qu'il est en ligne.
+
+## ⚠️ La contrepartie, à tenir avant la première vente
+
+**Les fichiers payants ne doivent JAMAIS entrer dans ce dépôt.** Deux guides PDF et deux audios vendus 111 € dans un dépôt public, ce serait les offrir.
+
+Le dossier `fichiers-proteges/` et le `included_files` de `netlify.toml` **doivent être remplacés** par un stockage qui n'est pas versionné, avant que Stéphanie envoie ses fichiers :
+
+- **Netlify Blobs**, téléversé une fois par Emmanuel, lu par la fonction `telecharger`
+- La fonction garde exactement sa logique : paiement vérifié chez Stripe, puis lien signé valable 24 heures
+- Compter environ une heure
+
+C'est de toute façon la bonne pratique. Un fichier vendu n'a rien à faire dans un dépôt Git, public ou privé.
+
+## Ce qui n'a pas changé
+
+- **Elle reste propriétaire** du dépôt et du site
+- **Ses modifications depuis `/admin`** passent par son compte, et se déploient normalement
+- **Les secrets restent des variables d'environnement chez Netlify**, jamais dans le dépôt

@@ -1,31 +1,47 @@
 ---
 /**
  * Livraison du Socle après paiement. C'est l'adresse à indiquer à Stripe
- * comme page de retour après un paiement réussi.
+ * comme page de retour, avec le paramètre que Stripe remplit lui même :
+ *   https://www.stephanielem.fr/acces-le-socle/?session_id={CHECKOUT_SESSION_ID}
+ *
+ * La page ne contient aucun lien de fichier. Elle demande à /api/acces, qui
+ * vérifie le paiement auprès de Stripe et renvoie des liens signés valables
+ * 24 heures. Sans paiement vérifié, rien ne s'affiche.
  */
 import Vente from '../layouts/Vente.astro';
 import { APERCU } from '../site';
 import { reglagesVente } from '../vente';
 const VENTE = await reglagesVente();
-const f = VENTE.fichiers;
-const items = [
-  { nom: "Guide « Tenir l'espace »", lien: f.tenirLespace, act: 'Télécharger le PDF' },
-  { nom: 'Quick Start 7 jours', lien: f.quickStart, act: 'Télécharger le PDF' },
-  { nom: 'Speed hypnose « Peur »', lien: f.hypnosePeur, act: "Télécharger l'audio" },
-  { nom: 'Speed hypnose « Ancrage »', lien: f.hypnoseAncrage, act: "Télécharger l'audio" },
-  { nom: 'Canal Telegram privé', lien: f.telegram, act: 'Rejoindre le canal' },
-];
 ---
 <Vente title="Ton accès au Socle | Stellaé Experiences" noindex={true}>
   <div class="v-acces">
     <p class="v-eyebrow">Merci pour ta confiance</p>
     <h1>Bienvenue dans <em>Le Socle</em></h1>
-    <p class="v-sous" style="margin:18px 0 0">{APERCU ? "Voici la page que reçoit une acheteuse juste après son paiement. Chaque ligne portera le lien de ton fichier." : "Tout est ici."}</p>
-    <div class="v-acces-liste">
-      {items.map((i) => i.lien
-        ? <a href={i.lien} target={i.act === 'Rejoindre le canal' ? '_blank' : undefined} rel="noopener"><span class="v-acces-nom">{i.nom}</span><span class="v-acces-act">{i.act}</span></a>
-        : <span class={APERCU ? 'v-exemple' : undefined}><span class="v-acces-nom">{i.nom}</span><span class="v-acces-act">{APERCU ? 'ton fichier se posera ici' : 'Lien à venir'}</span></span>)}
-    </div>
+
+    {APERCU && (
+      <p class="v-sous" style="margin:18px 0 0">
+        Voici la page que reçoit une acheteuse juste après son paiement. Chaque ligne portera un lien
+        de téléchargement qui lui est propre et qui expire au bout de 24 heures.
+      </p>
+    )}
+
+    <div class="v-acces-liste" id="liste" hidden></div>
+
+    <p class="note" id="attente">Vérification de ton paiement…</p>
+
+    <p class="note" id="souci" hidden></p>
+
+    {APERCU && (
+      <div class="v-acces-liste apercu-liste">
+        <span class="v-exemple"><span class="v-acces-nom">Guide « Tenir l'espace »</span><span class="v-acces-act">lien personnel, 24 h</span></span>
+        <span class="v-exemple"><span class="v-acces-nom">Quick Start 7 jours</span><span class="v-acces-act">lien personnel, 24 h</span></span>
+        <span class="v-exemple"><span class="v-acces-nom">Speed hypnose « Peur »</span><span class="v-acces-act">lien personnel, 24 h</span></span>
+        <span class="v-exemple"><span class="v-acces-nom">Speed hypnose « Ancrage »</span><span class="v-acces-act">lien personnel, 24 h</span></span>
+        <span class="v-exemple"><span class="v-acces-nom">Canal Telegram privé</span><span class="v-acces-act">invitation</span></span>
+      </div>
+    )}
+
     <p class="note">Un lien ne fonctionne pas ? Écris moi à <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a>. Garantie 14 jours, il suffit de demander.</p>
   </div>
+  <script is:inline src="/js/acces.js"></script>
 </Vente>

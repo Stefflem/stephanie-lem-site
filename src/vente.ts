@@ -23,12 +23,11 @@ export async function reglagesVente() {
     ysalinePrix: d.ysaline_prix,
     contact: d.contact,
     fichiers: {
+      /** Le guide offert n'est pas payant, un lien public ne coûte rien.
+       *  Les fichiers du Socle ne sont pas ici : un lien posé dans une page
+       *  publique est un lien public, donc un produit payant qui ne l'est
+       *  plus. Ils passent par netlify/functions/, contre paiement vérifié. */
       guideOffert: d.fichier_guide_offert,
-      tenirLespace: d.fichier_tenir_lespace,
-      quickStart: d.fichier_quick_start,
-      hypnosePeur: d.fichier_hypnose_peur,
-      hypnoseAncrage: d.fichier_hypnose_ancrage,
-      telegram: d.lien_telegram,
     },
   };
 }

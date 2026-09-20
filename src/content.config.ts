@@ -108,12 +108,10 @@ const reglages = defineCollection({
     ysaline_lien_paiement: z.string().optional().default(''),
     ysaline_prix: z.string().optional().default(''),
     contact: z.string().optional().default(''),
+    // Seul le guide OFFERT reste ici : il n'est pas payant, un lien public
+    // ne lui fait rien perdre. Les quatre fichiers du Socle et l'invitation
+    // Telegram sont servis par les fonctions Netlify, contre paiement vérifié.
     fichier_guide_offert: z.string().optional().default(''),
-    fichier_tenir_lespace: z.string().optional().default(''),
-    fichier_quick_start: z.string().optional().default(''),
-    fichier_hypnose_peur: z.string().optional().default(''),
-    fichier_hypnose_ancrage: z.string().optional().default(''),
-    lien_telegram: z.string().optional().default(''),
   }),
 });
 

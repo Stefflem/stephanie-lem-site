@@ -93,6 +93,14 @@ collections:
       - name: vente
         label: Prix, paiement et fichiers
         file: src/content/reglages/vente.md
+        description: >-
+          Tes prix et tes liens de paiement. Tu les changes ici, le site se met
+          à jour tout seul en une à deux minutes.
+          ⚠️ Les quatre fichiers du Socle et l'invitation Telegram ne sont pas
+          ici : ils ne sont remis qu'après un paiement vérifié, par un lien
+          personnel qui expire au bout de 24 heures. Un lien posé sur cette page
+          serait un lien public, donc un produit payant qui ne l'est plus.
+          Pour remplacer un de ces fichiers, demande à Emmanuel.
         fields:
           - { name: socle_prix, label: "LE SOCLE · prix affiché", widget: string, hint: "Par exemple 111 €" }
           - { name: socle_prix_barre, label: "LE SOCLE · ancien prix barré", widget: string, required: false, hint: "Laisse vide pour ne rien barrer" }
@@ -101,11 +109,6 @@ collections:
           - { name: ysaline_prix, label: "LE ROMAN · prix affiché", widget: string, required: false, hint: "Tant qu'il est vide, aucun prix n'apparaît sur la page du roman." }
           - { name: ysaline_lien_paiement, label: "LE ROMAN · lien de paiement Stripe", widget: string, required: false }
           - { name: fichier_guide_offert, label: "FICHIER · guide offert « Déclic immersif »", widget: string, required: false, hint: "Colle ici l'adresse de téléchargement du PDF" }
-          - { name: fichier_tenir_lespace, label: "FICHIER · guide « Tenir l'espace »", widget: string, required: false }
-          - { name: fichier_quick_start, label: "FICHIER · Quick Start 7 jours", widget: string, required: false }
-          - { name: fichier_hypnose_peur, label: "FICHIER · speed hypnose « Peur »", widget: string, required: false }
-          - { name: fichier_hypnose_ancrage, label: "FICHIER · speed hypnose « Ancrage »", widget: string, required: false }
-          - { name: lien_telegram, label: "FICHIER · invitation au canal Telegram privé", widget: string, required: false }
           - { name: contact, label: "Adresse e-mail affichée en bas des pages de vente", widget: string }
 
   - name: vente

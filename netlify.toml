@@ -17,3 +17,32 @@
 
 # Les en têtes vivent dans public/_headers, une seule source de vérité.
 # Ne rien redéclarer ici : Netlify appliquerait les deux et c'est illisible.
+
+# ==========================================================================
+# Livraison protégée des fichiers payants
+# ==========================================================================
+# Les fichiers vivent dans fichiers-proteges/, hors de dist/, donc ils ne sont
+# jamais publiés. Seule la fonction telecharger peut les lire, et seulement
+# contre un lien signé non expiré, lui même délivré par la fonction acces
+# après vérification du paiement auprès de Stripe.
+#
+# Variables à poser dans Netlify (Site settings, Environment variables),
+# JAMAIS dans ce dépôt :
+#   STRIPE_SECRET_KEY    sk_live_…
+#   SIGNATURE_SECRET     openssl rand -hex 32
+#   STRIPE_PRICE_SOCLE   price_…  (le tarif du Socle)
+#   TELEGRAM_INVITE      le lien d'invitation au canal privé (optionnel)
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["fichiers-proteges/**"]
+
+[[redirects]]
+  from = "/api/acces"
+  to = "/.netlify/functions/acces"
+  status = 200
+
+[[redirects]]
+  from = "/api/telecharger"
+  to = "/.netlify/functions/telecharger"
+  status = 200

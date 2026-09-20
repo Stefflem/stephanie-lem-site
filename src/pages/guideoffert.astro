@@ -33,6 +33,12 @@ const d = page.data;
         <p class="hp"><label>Ne pas remplir <input name="bot-field"></label></p>
         <div class="field"><label for="prenom">Ton prénom</label><input id="prenom" name="prenom" type="text" required autocomplete="given-name"></div>
         <div class="field"><label for="email">Ton e-mail</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+        <p class="field-case">
+          <label for="suite">
+            <input id="suite" name="suite" type="checkbox" value="oui">
+            <span>Je veux aussi recevoir ses conseils par e-mail pour préparer mon premier présentiel.</span>
+          </label>
+        </p>
         <button class="v-cta" type="submit">{d.bouton}</button>
         <p class="note">{d.final_rassurance} Voir la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
       </form>

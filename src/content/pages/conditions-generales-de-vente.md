@@ -6,10 +6,14 @@ seo_description: "Conditions générales de vente des produits numériques de St
 
 ## Identité du vendeur
 
-Stéphanie Lemaire, exerçant sous le nom commercial Stellaé Experiences.
-[Forme juridique et numéro SIRET à compléter]
-[Adresse à compléter]
+**STELLAE EXPERIENCES**, société par actions simplifiée (SAS) au capital de [capital social à compléter] euros.
+Siège social : 60 rue François Ier, 75008 Paris, France.
+Immatriculée au RCS de Paris sous le numéro 991 529 009.
+SIRET : 991 529 009 00011. Code APE : 70.22Z.
+TVA intracommunautaire : FR74 991 529 009.
 Contact : contact@stephanielem.fr
+
+Représentée par Stéphanie Lemaire, présidente, qui exerce sous le nom commercial **Stéphanie Lem**.
 
 ## Produits concernés
 

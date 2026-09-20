@@ -32,6 +32,14 @@
 #   SIGNATURE_SECRET     openssl rand -hex 32
 #   STRIPE_PRICE_SOCLE   price_…  (le tarif du Socle)
 #   TELEGRAM_INVITE      le lien d'invitation au canal privé (optionnel)
+#
+# Passerelle Brevo (fonction submission-created, appelée par Netlify à chaque
+# formulaire envoyé). Sans ces variables, les formulaires continuent d'arriver
+# dans Netlify et par mail : Brevo est un plus, jamais un passage obligé.
+#   BREVO_API_KEY        la clé API v3 de son compte Brevo
+#   BREVO_LISTE_GUIDE    identifiant de la liste « guide offert »
+#   BREVO_LISTE_CONTACT  identifiant de la liste « demandes de contact »
+#   BREVO_LISTE_WEBINAIRE identifiant de la liste « étude de cas »
 
 [functions]
   node_bundler = "esbuild"

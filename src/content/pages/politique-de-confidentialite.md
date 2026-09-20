@@ -46,6 +46,7 @@ Tu peux également saisir la **CNIL** (cnil.fr) si tu estimes que tes droits ne 
 
 ## Responsable du traitement
 
-Stéphanie Lem, Stellaé Experiences, [adresse à compléter], [SIRET à compléter].
+**STELLAE EXPERIENCES**, SAS, 60 rue François Ier, 75008 Paris, SIRET 991 529 009 00011.
+Représentée par Stéphanie Lemaire, présidente.
 
 Dernière mise à jour : 20 septembre 2026.

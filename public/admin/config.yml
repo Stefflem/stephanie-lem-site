@@ -1,11 +1,13 @@
 # Connexion de Stéphanie à son espace : compte GitHub.
 # (Git Gateway, qui permettait une connexion par e-mail, est déprécié par Netlify
 #  depuis 2026 et ne reçoit plus de correctifs : on ne construit pas dessus.)
-# ⚠️ REMPLACER `repo` par le dépôt de Stéphanie après le transfert :
-#    <son-compte-github>/stephanie-lem-site
+# ✅ Dépôt transféré chez elle le 2026-09-20 : Stefflem/stephanie-lem-site
+# ⚠️ Son identifiant GitHub est bien `Stefflem`, compte créé le 2026-09-10.
+#    Ce n'est PAS `Ste2fLem`, qui n'existe pas, ni `stephanielem` ni `steflem`,
+#    qui appartiennent à d'autres personnes.
 backend:
   name: github
-  repo: Tino24908/stephanie-lem-site
+  repo: Stefflem/stephanie-lem-site
   branch: main
   commit_messages:
     create: "Nouveau : {{slug}}"

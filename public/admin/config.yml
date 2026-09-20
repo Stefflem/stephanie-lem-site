@@ -59,6 +59,34 @@ collections:
       - { name: ordre, label: Ordre d'affichage, widget: number, value_type: int, default: 1 }
       - { name: body, label: Description, widget: markdown }
 
+  - name: libres
+    label: Pages que je crée
+    label_singular: Page
+    folder: src/content/libres
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    description: >-
+      Crée ici autant de pages que tu veux. Le titre donne l'adresse de la page :
+      « Mes témoignages » donne stephanielem.fr/mes-temoignages. Coche « Afficher
+      dans le menu » pour qu'elle apparaisse en haut du site.
+      ⚠️ N'utilise pas un titre qui donnerait la même adresse qu'une page existante
+      (Contact, Projets, À propos, Blog, Le Socle...), la page serait ignorée.
+    fields:
+      - { name: title, label: Titre de la page, widget: string, hint: "C'est lui qui donne l'adresse de la page" }
+      - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false, hint: "Par exemple : Elles l'ont fait" }
+      - { name: chapo, label: Phrase d'introduction, widget: text, required: false }
+      - { name: image, label: Image en haut de page, widget: image, required: false }
+      - { name: dans_le_menu, label: Afficher dans le menu du site, widget: boolean, default: false }
+      - { name: ordre, label: Position dans le menu, widget: number, default: 50, required: false, hint: "Plus le nombre est petit, plus la page est à gauche. Contact reste toujours en dernier." }
+      - { name: body, label: Le texte de la page, widget: markdown }
+      - { name: bouton_texte, label: "BOUTON · texte", widget: string, required: false, hint: "Laisse vide si la page n'a pas de bouton" }
+      - { name: bouton_lien, label: "BOUTON · où il mène", widget: string, required: false, hint: "Une adresse de ton site comme /lesocle/, ou un lien de paiement Stripe" }
+      - { name: prix, label: "BOUTON · prix affiché au dessus", widget: string, required: false }
+      - { name: rassurance, label: "BOUTON · petite phrase en dessous", widget: string, required: false }
+      - { name: noindex, label: Cacher cette page de Google, widget: boolean, default: false }
+      - { name: seo_description, label: Description pour Google, widget: text, required: false }
+
   - name: boutique
     label: Boutique et livraison
     files:

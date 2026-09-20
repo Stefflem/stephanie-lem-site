@@ -4,6 +4,7 @@
  * Volontairement sans la navigation du site : une page de vente a un seul chemin.
  * Le logo ramène à l'accueil, le pied de page porte le légal et le contact.
  */
+import '../styles/polices.css';
 import '../styles/global.css';
 import '../styles/vente.css';
 import { reglagesVente } from '../vente';
@@ -23,7 +24,6 @@ const ogImage = new URL(image, Astro.site);
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self' https://plausible.io https://*.umami.is https://stats.stephanielem.fr; connect-src 'self' https://plausible.io https://*.umami.is https://stats.stephanielem.fr; base-uri 'self'; form-action 'self' https://checkout.stripe.com https://buy.stripe.com">
 <title>{title}</title>
 <meta name="description" content={description}>
 {noindex && <meta name="robots" content="noindex, nofollow">}
@@ -38,9 +38,6 @@ const ogImage = new URL(image, Astro.site);
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 {REVUE_PALETTE && <script is:inline src="/js/variante.js"></script>}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
 {AUDIENCE.outil === 'umami' && <script is:inline defer src={AUDIENCE.src} data-website-id={AUDIENCE.siteId}></script>}
 {AUDIENCE.outil === 'plausible' && <script is:inline defer src="https://plausible.io/js/script.js" data-domain={AUDIENCE.domaine}></script>}
 </head>

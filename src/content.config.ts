@@ -117,4 +117,27 @@ const reglages = defineCollection({
   }),
 });
 
-export const collections = { pages, projets, blog, vente, reglages };
+/**
+ * Pages que Stéphanie crée elle même depuis son espace, sans passer par Emmanuel.
+ * Une page = un fichier ici, l'adresse est le nom du fichier. Elle choisit si la
+ * page apparaît dans le menu, et peut y poser un bouton d'achat.
+ */
+const libres = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/libres' }),
+  schema: z.object({
+    title: z.string(),
+    eyebrow: z.string().optional().default(''),
+    chapo: z.string().optional().default(''),
+    image: z.string().optional(),
+    dans_le_menu: z.boolean().optional().default(false),
+    ordre: z.number().optional().default(50),
+    bouton_texte: z.string().optional().default(''),
+    bouton_lien: z.string().optional().default(''),
+    prix: z.string().optional().default(''),
+    rassurance: z.string().optional().default(''),
+    noindex: z.boolean().optional().default(false),
+    seo_description: z.string().optional().default(''),
+  }),
+});
+
+export const collections = { pages, projets, blog, vente, reglages, libres };

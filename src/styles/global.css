@@ -333,3 +333,10 @@ body.avec-revue{padding-bottom:96px}   /* laisse la place a la barre de comparai
 .tabs a.tab-offre[aria-current="page"]{background:var(--accent);color:var(--fond)}
 /* Les cartes d'offres sont trop étroites pour de la justification */
 .offre p,.offre h3{text-align:left;hyphens:manual}
+
+/* Pages créées par Stéphanie depuis son espace */
+.libre-image{display:block;width:100%;max-width:820px;margin:0 auto 34px;border-radius:4px}
+.libre-cta{max-width:720px;margin:44px auto 0;padding:32px 24px;text-align:center;
+  background:var(--carte,#fff);border:1px solid var(--trait,#e6e0d8);border-radius:4px}
+.libre-cta .eyebrow{margin:0 0 10px}
+.libre-cta .v-rassure{margin:14px 0 0;font-size:.82rem;opacity:.75}

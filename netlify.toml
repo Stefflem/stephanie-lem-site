@@ -2,15 +2,18 @@
 # Rien à saisir à la main dans l'interface.
 
 [build]
-  command = "npm run build"
+  # ⚠️ Le `rm` n'est pas décoratif. Netlify garde node_modules d'une
+  # construction à l'autre, et Astro y range son index de contenu
+  # (node_modules/.astro/data-store.json). Cet index ne voit pas les
+  # suppressions : sans ce vidage, une page que Stéphanie supprime depuis son
+  # espace reste en ligne. Vérifié le 2026-09-20, le cas se reproduit à
+  # l'identique. Le vidage coûte moins d'une seconde.
+  command = "rm -rf node_modules/.astro && npm run build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "22"
   NPM_FLAGS = "--no-audit --no-fund"
 
-# Astro génère /admin/ depuis public/, on s'assure qu'il n'est jamais mis en cache agressif
-[[headers]]
-  for = "/admin/*"
-  [headers.values]
-    Cache-Control = "no-cache"
+# Les en têtes vivent dans public/_headers, une seule source de vérité.
+# Ne rien redéclarer ici : Netlify appliquerait les deux et c'est illisible.

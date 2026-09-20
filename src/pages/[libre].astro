@@ -1,0 +1,53 @@
+---
+/**
+ * Les pages que Stéphanie crée elle même, depuis son espace.
+ * Un fichier dans src/content/libres/ devient une page, le nom du fichier
+ * devient l'adresse. Aucune intervention d'Emmanuel.
+ */
+import Base from '../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+/** Adresses déjà prises par une page construite à la main.
+ *  Si Stéphanie nomme un fichier comme l'une d'elles, sa page serait ignorée
+ *  en silence : on l'écarte ici et on le dit clairement à la construction. */
+export const RESERVES = new Set([
+  'index', 'a-propos', 'organiser-une-retraite', 'projets', 'contact', 'blog',
+  'merci', 'merci-guide', 'merci-webinaire', 'acces-le-socle',
+  'lesocle', 'guideoffert', 'etudenoelfinlande', 'deepdrive', 'ysaline', 'latraversee',
+  'mentions-legales', 'politique-de-confidentialite', 'conditions-generales-de-vente',
+  'admin', 'images', 'fonts', 'js',
+]);
+
+export async function getStaticPaths() {
+  const pages = await getCollection('libres');
+  const retenues = pages.filter((p) => !RESERVES.has(p.id));
+  const ecartees = pages.filter((p) => RESERVES.has(p.id));
+  for (const e of ecartees) {
+    console.warn(`[pages libres] « ${e.id} » porte le nom d'une page existante, elle est ignorée. Renommer le fichier.`);
+  }
+  return retenues.map((p) => ({ params: { libre: p.id }, props: { page: p } }));
+}
+
+const { page } = Astro.props;
+const d = page.data;
+const { Content } = await render(page);
+---
+<Base title={d.title} description={d.seo_description} image={d.image} noindex={d.noindex}>
+  <header class="page-head">
+    {d.eyebrow && <p class="eyebrow">{d.eyebrow}</p>}
+    <h1>{d.title}</h1>
+    {d.chapo && <p class="head-lead">{d.chapo}</p>}
+  </header>
+
+  {d.image && <img class="libre-image" src={d.image} alt={d.title} loading="lazy">}
+
+  <div class="reading"><Content /></div>
+
+  {d.bouton_texte && d.bouton_lien && (
+    <div class="libre-cta">
+      {d.prix && <p class="eyebrow">{d.prix}</p>}
+      <a class="v-cta" href={d.bouton_lien}>{d.bouton_texte}</a>
+      {d.rassurance && <p class="v-rassure">{d.rassurance}</p>}
+    </div>
+  )}
+</Base>

@@ -1,0 +1,88 @@
+---
+/**
+ * Le tableau de bord de Stéphanie.
+ *
+ * Accessible depuis son espace d'édition, et protégé par la même connexion :
+ * la page lit le jeton GitHub que Decap a mis en mémoire et le transmet à la
+ * fonction, qui vérifie auprès de GitHub que ce compte peut modifier le site.
+ * Personne d'autre ne voit ses chiffres.
+ *
+ * En noindex, et hors du plan du site : ce n'est pas une page de son site.
+ */
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { ADRESSES } from '../offres';
+import { reglagesVente } from '../vente';
+
+const VENTE = await reglagesVente();
+const ventes = await getCollection('vente');
+
+/** L'état de ses offres est connu à la construction, pas besoin d'appel. */
+const offres = ventes
+  .map((v) => ({
+    nom: v.data.surtitre || v.data.titre,
+    adresse: ADRESSES[v.id] ?? `/${v.id}/`,
+    enLigne: v.data.en_ligne !== false,
+    prix:
+      v.id === 'lesocle' ? VENTE.soclePrix
+      : v.id === 'ysaline' ? VENTE.ysalinePrix
+      : v.id === 'deepdrive' ? VENTE.deepdrivePrix
+      : '',
+  }))
+  .sort((a, b) => Number(b.enLigne) - Number(a.enLigne));
+---
+<Base
+  title="Tableau de bord"
+  titreExact="Tableau de bord | Stellaé Experiences"
+  description="Les chiffres de Stéphanie."
+  noindex={true}
+>
+  <header class="page-head">
+    <p class="eyebrow">Ton activité</p>
+    <h1>Tableau de bord</h1>
+    <p class="head-lead" id="pil-maj">Chargement…</p>
+  </header>
+
+  <div class="reading pilotage">
+
+    <p class="pil-souci" id="pil-souci" hidden></p>
+
+    <div id="pil-contenu" hidden>
+
+      <h2>Les 30 derniers jours</h2>
+      <div class="pil-chiffres" id="pil-chiffres"></div>
+
+      <h2>Tes dernières ventes</h2>
+      <div id="pil-ventes"></div>
+
+      <h2>Tes inscrits</h2>
+      <div id="pil-inscrits"></div>
+
+      <h2>Ce qui est branché</h2>
+      <div id="pil-branchement"></div>
+    </div>
+
+    <h2>Tes offres</h2>
+    <table class="pil-table">
+      <thead><tr><th>Offre</th><th>Prix</th><th>État</th></tr></thead>
+      <tbody>
+        {offres.map((o) => (
+          <tr>
+            <td><a href={o.adresse}>{o.nom}</a></td>
+            <td>{o.prix || '—'}</td>
+            <td>
+              {o.enLigne
+                ? <span class="pil-pastille pil-ok">en ligne</span>
+                : <span class="pil-pastille pil-pause">en pause</span>}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="aide-note">
+      Pour mettre une offre en pause ou la remettre en ligne, va dans
+      <strong>Pages de vente</strong> et coche ou décoche <strong>Page en ligne</strong>.
+    </p>
+  </div>
+  <script is:inline src="/js/pilotage.js"></script>
+</Base>

@@ -18,6 +18,16 @@
 </head>
 <body>
 <script src="/admin/decap-cms-3.16.1.js"></script>
+<script>
+  /* Ajoute « Tableau de bord » dans sa barre latérale. La page vit sur le site,
+     et se protège avec le jeton que Decap vient de poser en mémoire. */
+  window.CMS && window.CMS.registerAdditionalLink({
+    id: 'pilotage',
+    title: 'Tableau de bord',
+    data: '/pilotage/',
+    options: { iconName: 'page' },
+  });
+</script>
 <a class="lien-aide" href="/aide/" target="_blank" rel="noopener">Mode d'emploi</a>
 </body>
 </html>

@@ -54,6 +54,11 @@
   status = 200
 
 [[redirects]]
+  from = "/api/pilotage"
+  to = "/.netlify/functions/pilotage"
+  status = 200
+
+[[redirects]]
   from = "/api/telecharger"
   to = "/.netlify/functions/telecharger"
   status = 200

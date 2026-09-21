@@ -10,6 +10,18 @@
  */
 import { getCollection } from 'astro:content';
 
+/** Le nom court de chaque offre, tel qu'elle l'appelle.
+ *  Écrit ici plutôt que déduit d'un champ : le « surtitre » de La Traversée
+ *  est une phrase de présentation, pas un nom. */
+export const NOMS: Record<string, string> = {
+  lesocle: 'Le Socle',
+  guideoffert: 'Le guide offert',
+  latraversee: "Soi-m'aime : La Traversée",
+  deepdrive: 'Deep Drive 360',
+  ysaline: "La traversée d'Ysaline",
+  etudenoelfinlande: 'Étude de cas en direct',
+};
+
 /** Adresse publique de chaque page de vente, par identifiant de contenu. */
 export const ADRESSES: Record<string, string> = {
   lesocle: '/lesocle/',

@@ -11,7 +11,7 @@
  */
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
-import { ADRESSES } from '../offres';
+import { ADRESSES, NOMS } from '../offres';
 import { reglagesVente } from '../vente';
 
 const VENTE = await reglagesVente();
@@ -20,7 +20,7 @@ const ventes = await getCollection('vente');
 /** L'état de ses offres est connu à la construction, pas besoin d'appel. */
 const offres = ventes
   .map((v) => ({
-    nom: v.data.surtitre || v.data.titre,
+    nom: NOMS[v.id] ?? v.data.titre,
     adresse: ADRESSES[v.id] ?? `/${v.id}/`,
     enLigne: v.data.en_ligne !== false,
     prix:

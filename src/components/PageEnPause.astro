@@ -1,0 +1,22 @@
+---
+/**
+ * Affiché à la place d'une page de vente mise en pause.
+ * L'adresse continue de répondre, donc un lien déjà partagé ne tombe pas
+ * dans le vide. Mais rien ne se vend, et Google ne la référence plus.
+ */
+import { reglagesVente } from '../vente';
+const VENTE = await reglagesVente();
+interface Props { titre: string; message?: string; banniere?: string }
+const { titre, message, banniere } = Astro.props;
+const texte = message || "Les prochaines dates sont en cours de préparation. Écris moi si tu veux être prévenue en premier.";
+---
+{banniere && <div class="v-banniere"><img src={banniere} alt={titre} width="1366" height="768"></div>}
+<section class="v-wrap v-hero v-pause">
+  <p class="v-eyebrow">Bientôt de retour</p>
+  <h1>{titre}</h1>
+  <p class="v-sur">{texte}</p>
+  <div class="v-cta-bloc">
+    <a class="v-cta" href={`mailto:${VENTE.contact}?subject=${encodeURIComponent(titre)}`}>Être prévenue des prochaines dates</a>
+    <p class="v-rassure">Ou retrouve <a href="/">les autres accompagnements</a>.</p>
+  </div>
+</section>

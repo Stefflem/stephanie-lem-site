@@ -89,6 +89,12 @@ const vente = defineCollection({
       image: z.string().optional(),
       instagram: z.string().optional(),
     })).optional().default([]),
+    /** Décoché, la page passe en pause : elle affiche un message d'attente,
+     *  sort du menu, du pied de page et de la liste des offres, et n'est plus
+     *  proposée à Google. L'adresse continue de répondre, donc les liens déjà
+     *  partagés ne tombent pas dans le vide. */
+    en_ligne: z.boolean().optional().default(true),
+    message_pause: z.string().optional().default(''),
     seo_titre: z.string().optional().default(''),
     visuel_ensemble: z.string().optional(),
     visuels: z.array(z.object({

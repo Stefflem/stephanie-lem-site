@@ -7,6 +7,8 @@ sous_titres:
   - "S’adresse aux femmes qui accompagnent déjà dans leur pratique : coachs, thérapeutes, facilitatrices, créatrices d’espaces, doulas, et qui souhaitent lancer leur propre retraite ou séjour immersif."
 bouton: "Réserver un appel découverte 🍃"
 rassurance: "Expérience limitée à 18 femmes · Écodomaine La Fontaine 4★, à 10 minutes de Pornic"
+en_ligne: false
+message_pause: "Les dates de la prochaine Traversée sont en cours de calage. Écris moi si tu veux être prévenue en premier, je garde une place pour celles qui se signalent tôt."
 banniere: "/images/vente/tr-banniere.jpg"
 visuels:
   - image: "/images/vente/tr-ambiance-1.jpg"

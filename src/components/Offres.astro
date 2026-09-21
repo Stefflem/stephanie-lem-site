@@ -4,10 +4,13 @@
  * Le contenu vit dans src/content/pages/offres.md, modifiable par Stéphanie.
  */
 import { getEntry } from 'astro:content';
+import { sansLesPauses } from '../offres';
 interface Props { titre?: string; sauf?: string }
 const { titre = 'Par où commencer', sauf } = Astro.props;
 const page = await getEntry('pages', 'offres');
-const offres = (page?.data.offres ?? []).filter((o) => o.href !== sauf);
+/* Une offre dont la page est en pause disparaît d'ici toute seule :
+   Stéphanie n'a qu'une case à décocher, pas deux endroits à penser. */
+const offres = await sansLesPauses((page?.data.offres ?? []).filter((o) => o.href !== sauf));
 ---
 {offres.length > 0 && (
   <section class="offres">

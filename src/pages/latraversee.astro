@@ -1,6 +1,7 @@
 ---
 /** Soi-m'aime : La Traversée. Copy dans src/content/vente/latraversee.md. */
 import Vente from '../layouts/Vente.astro';
+import PageEnPause from '../components/PageEnPause.astro';
 import VenteCorps from '../components/VenteCorps.astro';
 import { getEntry } from 'astro:content';
 import { reglagesVente } from '../vente';
@@ -29,7 +30,10 @@ const schema = {
   ].filter(Boolean),
 };
 ---
-<Vente title={`${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
+<Vente title={`${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema} noindex={d.en_ligne === false}>
+{d.en_ligne === false ? (
+  <PageEnPause titre={d.titre} message={d.message_pause} banniere={d.banniere} />
+) : (<>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1200" height="1200" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>
@@ -99,4 +103,5 @@ const schema = {
       <p class="note">Une question ? <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a></p>
     </div>
   </div>
+</>)}
 </Vente>

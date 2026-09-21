@@ -1,6 +1,7 @@
 ---
 /** Déclic Immersif. Copy dans src/content/vente/guideoffert.md. */
 import Vente from '../layouts/Vente.astro';
+import PageEnPause from '../components/PageEnPause.astro';
 import VenteCorps from '../components/VenteCorps.astro';
 import { getEntry } from 'astro:content';
 import { reglagesVente } from '../vente';
@@ -9,7 +10,10 @@ const page = await getEntry('vente', 'guideoffert');
 if (!page) throw new Error('Contenu guideoffert manquant');
 const d = page.data;
 ---
-<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.image}>
+<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.image} noindex={d.en_ligne === false}>
+{d.en_ligne === false ? (
+  <PageEnPause titre={d.titre} message={d.message_pause} banniere={d.banniere} />
+) : (<>
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>
     <h1>{d.titre}</h1>
@@ -44,4 +48,5 @@ const d = page.data;
       </form>
     </div>
   </div>
+</>)}
 </Vente>

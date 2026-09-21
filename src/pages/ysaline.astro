@@ -3,6 +3,7 @@
  *  ⚠️ Sa page systeme.io était cassée : le corps reprenait Le Socle. Seul le
  *  contenu réellement consacré au roman est repris ici, le reste est à écrire. */
 import Vente from '../layouts/Vente.astro';
+import PageEnPause from '../components/PageEnPause.astro';
 import VenteCorps from '../components/VenteCorps.astro';
 import { getEntry } from 'astro:content';
 import { APERCU } from '../site';
@@ -26,7 +27,10 @@ const schema = {
 };
 const lien = VENTE.ysalineLienPaiement || (APERCU ? '/acces/' : `mailto:${VENTE.contact}?subject=La%20traversee%20d%27Ysaline`);
 ---
-<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
+<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema} noindex={d.en_ligne === false}>
+{d.en_ligne === false ? (
+  <PageEnPause titre={d.titre} message={d.message_pause} banniere={d.banniere} />
+) : (<>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1200" height="675" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>
@@ -56,4 +60,5 @@ const lien = VENTE.ysalineLienPaiement || (APERCU ? '/acces/' : `mailto:${VENTE.
       <p>{d.contact_texte} <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a></p>
     </section>
   </div>
+</>)}
 </Vente>

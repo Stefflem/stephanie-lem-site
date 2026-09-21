@@ -2,6 +2,7 @@
 /** Étude de cas en direct. Copy dans src/content/vente/etudenoelfinlande.md.
  *  ⚠️ noindex : la séance annoncée du 8 septembre 2026 est passée. */
 import Vente from '../layouts/Vente.astro';
+import PageEnPause from '../components/PageEnPause.astro';
 import VenteCorps from '../components/VenteCorps.astro';
 import { getEntry } from 'astro:content';
 import { reglagesVente } from '../vente';
@@ -10,7 +11,10 @@ const page = await getEntry('vente', 'etudenoelfinlande');
 if (!page) throw new Error('Contenu etudenoelfinlande manquant');
 const d = page.data;
 ---
-<Vente title={`${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.image} noindex={true}>
+<Vente title={`${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.image} noindex={d.en_ligne === false || (true)}>
+{d.en_ligne === false ? (
+  <PageEnPause titre={d.titre} message={d.message_pause} banniere={d.banniere} />
+) : (<>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1500" height="844" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>
@@ -51,4 +55,5 @@ const d = page.data;
       </form>
     </div>
   </div>
+</>)}
 </Vente>

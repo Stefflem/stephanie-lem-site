@@ -1,6 +1,7 @@
 ---
 /** Deep Drive 360. Copy dans src/content/vente/deepdrive.md. Réservation Calendly. */
 import Vente from '../layouts/Vente.astro';
+import PageEnPause from '../components/PageEnPause.astro';
 import VenteCorps from '../components/VenteCorps.astro';
 import { getEntry } from 'astro:content';
 import { reglagesVente } from '../vente';
@@ -22,7 +23,10 @@ const schema = {
     : undefined,
 };
 ---
-<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
+<Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema} noindex={d.en_ligne === false}>
+{d.en_ligne === false ? (
+  <PageEnPause titre={d.titre} message={d.message_pause} banniere={d.banniere} />
+) : (<>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1366" height="768" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>
@@ -47,4 +51,5 @@ const schema = {
       <p class="note">Une question avant de réserver ? <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a></p>
     </div>
   </div>
+</>)}
 </Vente>

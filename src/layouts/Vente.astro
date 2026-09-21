@@ -9,6 +9,7 @@ import '../styles/global.css';
 import '../styles/vente.css';
 import Schema from '../components/Schema.astro';
 import { reglagesVente } from '../vente';
+import { adressesEnPause } from '../offres';
 const VENTE = await reglagesVente();
 import { AUDIENCE, PALETTE, APERCU } from '../site';
 import ChoixPalette from '../components/ChoixPalette.astro';
@@ -20,6 +21,14 @@ const { title, titreExact, description = '', image = '/images/portrait-accueil.j
 /* Si la page fournit un titre pour Google, il fait foi tel quel : c'est le
    seul moyen de tenir les 50 à 60 caractères. Sinon, comportement d'avant. */
 const fullTitle = titreExact || title;
+const enPause = await adressesEnPause();
+const liensOffres = ([
+  ['/guideoffert/', 'Guide offert'],
+  ['/lesocle/', 'Le Socle'],
+  ['/latraversee/', 'La Traversée'],
+  ['/deepdrive/', 'Deep Drive'],
+  ['/ysaline/', 'Le roman'],
+] as [string, string][]).filter(([href]) => !enPause.has(href));
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
@@ -68,11 +77,7 @@ const ogImage = new URL(image, Astro.site);
   <div class="v-pied-in">
     <span>© {new Date().getFullYear()} Stellaé Experiences · Stéphanie Lem</span>
     <span>
-      <a href="/guideoffert/">Guide offert</a> ·
-      <a href="/lesocle/">Le Socle</a> ·
-      <a href="/latraversee/">La Traversée</a> ·
-      <a href="/deepdrive/">Deep Drive</a> ·
-      <a href="/ysaline/">Le roman</a> ·
+      {liensOffres.map(([href, nom]) => <><a href={href}>{nom}</a> · </>)}
       <a href="/mentions-legales/">Mentions légales</a> ·
       <a href="/conditions-generales-de-vente/">CGV</a> ·
       <a href="/politique-de-confidentialite/">Confidentialité</a> ·

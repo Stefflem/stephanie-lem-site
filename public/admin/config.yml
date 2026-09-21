@@ -128,6 +128,8 @@ collections:
         label: Le Socle
         file: src/content/vente/lesocle.md
         fields:
+          - { name: en_ligne, label: "Page en ligne", widget: boolean, default: true, hint: "Décoche pour mettre cette offre en pause. La page affiche un message d'attente, disparaît du menu, du bas de page et de la liste des offres, et sort de Google. L'adresse continue de répondre, donc les liens déjà partagés ne tombent pas dans le vide." }
+          - { name: message_pause, label: "Message affiché pendant la pause", widget: text, required: false, hint: "Laisse vide pour le message par défaut." }
           - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
           - { name: titre, label: Grand titre, widget: string }
           - { name: accroche, label: Phrase sous le titre, widget: string, required: false }
@@ -165,6 +167,8 @@ collections:
         label: Guide offert, Déclic Immersif
         file: src/content/vente/guideoffert.md
         fields:
+          - { name: en_ligne, label: "Page en ligne", widget: boolean, default: true, hint: "Décoche pour mettre cette offre en pause. La page affiche un message d'attente, disparaît du menu, du bas de page et de la liste des offres, et sort de Google. L'adresse continue de répondre, donc les liens déjà partagés ne tombent pas dans le vide." }
+          - { name: message_pause, label: "Message affiché pendant la pause", widget: text, required: false, hint: "Laisse vide pour le message par défaut." }
           - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
           - { name: titre, label: Grand titre, widget: string }
           - { name: accroche, label: Phrase sous le titre, widget: string, required: false }
@@ -183,6 +187,8 @@ collections:
         label: Deep Drive 360
         file: src/content/vente/deepdrive.md
         fields:
+          - { name: en_ligne, label: "Page en ligne", widget: boolean, default: true, hint: "Décoche pour mettre cette offre en pause. La page affiche un message d'attente, disparaît du menu, du bas de page et de la liste des offres, et sort de Google. L'adresse continue de répondre, donc les liens déjà partagés ne tombent pas dans le vide." }
+          - { name: message_pause, label: "Message affiché pendant la pause", widget: text, required: false, hint: "Laisse vide pour le message par défaut." }
           - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
           - { name: titre, label: Grand titre, widget: string }
           - { name: accroche, label: Phrase sous le titre, widget: string, required: false }
@@ -201,6 +207,8 @@ collections:
         label: La traversée d'Ysaline
         file: src/content/vente/ysaline.md
         fields:
+          - { name: en_ligne, label: "Page en ligne", widget: boolean, default: true, hint: "Décoche pour mettre cette offre en pause. La page affiche un message d'attente, disparaît du menu, du bas de page et de la liste des offres, et sort de Google. L'adresse continue de répondre, donc les liens déjà partagés ne tombent pas dans le vide." }
+          - { name: message_pause, label: "Message affiché pendant la pause", widget: text, required: false, hint: "Laisse vide pour le message par défaut." }
           - { name: contact_texte, label: Phrase avant l'adresse e-mail, widget: text, required: false }
           - { name: visuel_ensemble, label: Couverture du roman, widget: image, required: false }
           - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
@@ -220,6 +228,8 @@ collections:
         label: "Soi-m'aime : La Traversée"
         file: src/content/vente/latraversee.md
         fields:
+          - { name: en_ligne, label: "Page en ligne", widget: boolean, default: true, hint: "Décoche pour mettre cette offre en pause. La page affiche un message d'attente, disparaît du menu, du bas de page et de la liste des offres, et sort de Google. L'adresse continue de répondre, donc les liens déjà partagés ne tombent pas dans le vide." }
+          - { name: message_pause, label: "Message affiché pendant la pause", widget: text, required: false, hint: "Laisse vide pour le message par défaut." }
           - name: intervenantes
             label: Les intervenantes
             widget: list
@@ -265,6 +275,8 @@ collections:
         label: Étude de cas en direct
         file: src/content/vente/etudenoelfinlande.md
         fields:
+          - { name: en_ligne, label: "Page en ligne", widget: boolean, default: true, hint: "Décoche pour mettre cette offre en pause. La page affiche un message d'attente, disparaît du menu, du bas de page et de la liste des offres, et sort de Google. L'adresse continue de répondre, donc les liens déjà partagés ne tombent pas dans le vide." }
+          - { name: message_pause, label: "Message affiché pendant la pause", widget: text, required: false, hint: "Laisse vide pour le message par défaut." }
           - { name: surtitre, label: Petite ligne au dessus du titre, widget: string, required: false }
           - { name: titre, label: Grand titre, widget: string }
           - { name: accroche, label: Date et heure, widget: string, required: false }

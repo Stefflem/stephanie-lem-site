@@ -1,6 +1,7 @@
 ---
 /** Le Socle. Copy dans src/content/vente/lesocle.md, modifiable par Stéphanie. */
 import Vente from '../layouts/Vente.astro';
+import PageEnPause from '../components/PageEnPause.astro';
 import VenteCorps from '../components/VenteCorps.astro';
 import { getEntry } from 'astro:content';
 import { APERCU } from '../site';
@@ -38,7 +39,10 @@ const libelleBouton = peutEncaisser || APERCU
   ? `${d.bouton} – ${VENTE.soclePrix}${VENTE.soclePrixBarre ? ` au lieu de ${VENTE.soclePrixBarre}` : ''} !`
   : 'Écrire à Stéphanie pour recevoir Le Socle';
 ---
-<Vente title={`${d.surtitre} · ${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema}>
+<Vente title={`${d.surtitre} · ${d.titre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema} noindex={d.en_ligne === false}>
+{d.en_ligne === false ? (
+  <PageEnPause titre={d.titre} message={d.message_pause} banniere={d.banniere} />
+) : (<>
   {d.banniere && <div class="v-banniere"><img src={d.banniere} alt={d.titre} width="1366" height="768" fetchpriority="high"></div>}
   <section class="v-wrap v-hero">
     <p class="v-eyebrow">{d.surtitre}</p>
@@ -113,4 +117,5 @@ const libelleBouton = peutEncaisser || APERCU
     </section>
   </div>
   {VENTE.socleFinPromo && <script is:inline src="/js/compteur.js"></script>}
+</>)}
 </Vente>

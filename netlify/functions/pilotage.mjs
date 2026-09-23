@@ -49,26 +49,32 @@ export const enEuros = (centimes) => Math.round((centimes / 100) * 100) / 100;
 /** Les ventes Stripe des N derniers jours. */
 export async function ventesStripe(cle, jours = 30, fetchImpl = fetch) {
   if (!cle) return { configure: false };
+  /* On lit les sessions de paiement, pas les charges : c'est la seule ressource
+     que la clé restreinte sait lire, et c'est volontaire. Une clé qui ne peut
+     lire que ça ne permet ni remboursement ni virement si elle fuite. Tout ce
+     que le site vend passe par un lien de paiement, donc par une session. */
   const depuis = Math.floor(Date.now() / 1000) - jours * 86400;
-  const r = await fetchImpl(`https://api.stripe.com/v1/charges?limit=100&created[gte]=${depuis}`, {
-    headers: { Authorization: 'Basic ' + Buffer.from(cle + ':').toString('base64') },
-  });
+  const r = await fetchImpl(
+    `https://api.stripe.com/v1/checkout/sessions?limit=100&created[gte]=${depuis}&expand[]=data.line_items`,
+    { headers: { Authorization: 'Basic ' + Buffer.from(cle + ':').toString('base64') } },
+  );
   if (!r.ok) return { configure: true, erreur: 'Stripe a refusé la demande' };
   const d = await r.json();
-  const reussies = (d.data ?? []).filter((c) => c.paid && c.status === 'succeeded' && !c.refunded);
-  const total = reussies.reduce((s, c) => s + c.amount, 0);
-  const rembourses = (d.data ?? []).filter((c) => c.refunded).length;
+  const payees = (d.data ?? []).filter((x) => x.payment_status === 'paid' && x.status === 'complete');
+  const total = payees.reduce((s, x) => s + (x.amount_total ?? 0), 0);
   return {
     configure: true,
     jours,
-    nombre: reussies.length,
+    nombre: payees.length,
     total: enEuros(total),
-    rembourses,
-    dernieres: reussies.slice(0, 8).map((c) => ({
-      montant: enEuros(c.amount),
-      quoi: c.description || c.calculated_statement_descriptor || 'Paiement',
-      qui: c.billing_details?.email || c.receipt_email || '',
-      quand: new Date(c.created * 1000).toISOString(),
+    /* Les remboursements ne se voient pas sur une session. On ne les invente
+       pas : la page renvoie vers Stripe pour ça. */
+    rembourses: null,
+    dernieres: payees.slice(0, 8).map((x) => ({
+      montant: enEuros(x.amount_total ?? 0),
+      quoi: (x.line_items?.data ?? []).map((l) => l.description).filter(Boolean).join(' + ') || 'Paiement',
+      qui: x.customer_details?.email || x.customer_email || '',
+      quand: new Date(x.created * 1000).toISOString(),
     })),
   };
 }

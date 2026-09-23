@@ -57,19 +57,23 @@ test('Stripe non configuré : on le signale, on n invente rien', async () => {
   assert.deepEqual(v, { configure: false });
 });
 
-test('Stripe : remboursements et échecs exclus du total', async () => {
-  const faux = async () => ({
+test('Stripe : seules les sessions payées et complètes comptent', async () => {
+  let url = '';
+  const faux = async (u) => ({
     ok: true,
-    json: async () => ({ data: [
-      { paid: true, status: 'succeeded', refunded: false, amount: 11100, created: 1758000000, description: 'Le Socle' },
-      { paid: true, status: 'succeeded', refunded: true,  amount: 11100, created: 1758000000 },
-      { paid: false, status: 'failed',   refunded: false, amount: 2490,  created: 1758000000 },
+    json: async () => ((url = u), { data: [
+      { payment_status: 'paid',   status: 'complete', amount_total: 11100, created: 1758000000, customer_details: { email: 'a@b.fr' }, line_items: { data: [{ description: 'Le Socle' }] } },
+      { payment_status: 'unpaid', status: 'expired',  amount_total: 444400, created: 1758000000 },
+      { payment_status: 'unpaid', status: 'open',     amount_total: 20000, created: 1758000000 },
     ] }),
   });
-  const v = await ventesStripe('sk_test_x', 30, faux);
+  const v = await ventesStripe('rk_test_x', 30, faux);
+  assert.match(url, /\/v1\/checkout\/sessions\?/, 'on lit les sessions, la seule ressource ouverte à la clé restreinte');
   assert.equal(v.nombre, 1, 'une seule vente compte');
   assert.equal(v.total, 111);
-  assert.equal(v.rembourses, 1);
+  assert.equal(v.rembourses, null, 'les remboursements ne se devinent pas depuis une session');
+  assert.equal(v.dernieres[0].quoi, 'Le Socle');
+  assert.equal(v.dernieres[0].qui, 'a@b.fr');
 });
 
 test('Brevo non configuré : on le signale', async () => {

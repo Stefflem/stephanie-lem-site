@@ -79,6 +79,7 @@
         });
         l += '</tbody></table>';
         if (v.rembourses) l += '<p class="pil-discret">' + v.rembourses + ' remboursement(s) sur la période.</p>';
+        else if (v.rembourses === null) l += '<p class="pil-discret">Les remboursements, s’il y en a, se voient dans Stripe.</p>';
         zv.innerHTML = l;
       }
 

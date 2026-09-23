@@ -6,7 +6,7 @@ seo_description: "Mentions légales du site stephanielem.fr."
 
 ## Éditrice du site
 
-**STELLAE EXPERIENCES**, société par actions simplifiée (SAS) au capital de [capital social à compléter] euros.
+**STELLAE EXPERIENCES**, société par actions simplifiée (SAS) au capital de 1 euro.
 Siège social : 60 rue François Ier, 75008 Paris, France.
 Immatriculée au RCS de Paris sous le numéro 991 529 009.
 SIRET : 991 529 009 00011. Code APE : 70.22Z.

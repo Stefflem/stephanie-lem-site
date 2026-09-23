@@ -16,16 +16,22 @@ const schema = {
   '@context': 'https://schema.org', '@type': 'Book',
   name: d.surtitre, alternateName: d.titre, description: d.seo_description,
   author: { '@type': 'Person', name: 'Stéphanie Lem' },
-  inLanguage: 'fr', bookFormat: 'https://schema.org/EBook',
+  inLanguage: 'fr', bookFormat: 'https://schema.org/Paperback',
+  numberOfPages: 220, datePublished: '2026-02-17',
   image: d.visuel_ensemble ? `https://www.stephanielem.fr${d.visuel_ensemble}` : undefined,
   url: 'https://www.stephanielem.fr/ysaline/',
   offers: VENTE.ysalinePrix
     ? { '@type': 'Offer', price: VENTE.ysalinePrix.replace(/[^0-9,.]/g, '').replace(',', '.'),
         priceCurrency: 'EUR', availability: 'https://schema.org/InStock',
-        url: 'https://www.stephanielem.fr/ysaline/' }
+        url: VENTE.ysalineLienPaiement || 'https://www.stephanielem.fr/ysaline/',
+        seller: { '@type': 'Organization', name: 'Lulu' } }
     : undefined,
 };
 const lien = VENTE.ysalineLienPaiement || (APERCU ? '/acces/' : `mailto:${VENTE.contact}?subject=La%20traversee%20d%27Ysaline`);
+/** La commande part chez Lulu : on ouvre dehors, sans laisser la page ouverte
+ *  d accès à la nôtre (noopener) ni transmettre d où vient la visiteuse. */
+const dehors = /^https?:\/\//.test(lien) && !lien.includes('stephanielem.fr');
+const sortie = dehors ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 ---
 <Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema} noindex={d.en_ligne === false}>
 {d.en_ligne === false ? (
@@ -38,7 +44,7 @@ const lien = VENTE.ysalineLienPaiement || (APERCU ? '/acces/' : `mailto:${VENTE.
     <p class="v-sur">{d.accroche}</p>
     {d.sous_titres.map((s) => <p class="v-sous">{s}</p>)}
     <div class="v-cta-bloc">
-      <a class="v-cta" href={lien}>{d.bouton}{VENTE.ysalinePrix ? ` – ${VENTE.ysalinePrix}` : ''}</a>
+      <a class="v-cta" href={lien} {...sortie}>{d.bouton}{VENTE.ysalinePrix ? ` – ${VENTE.ysalinePrix}` : ''}</a>
       <p class="v-rassure">{d.rassurance}</p>
     </div>
   </section>
@@ -51,7 +57,7 @@ const lien = VENTE.ysalineLienPaiement || (APERCU ? '/acces/' : `mailto:${VENTE.
       <p>{d.final_sous}</p>
       <div class="v-cta-bloc">
         {VENTE.ysalineLienPaiement
-          ? <a class="v-cta" href={VENTE.ysalineLienPaiement}>{d.bouton}</a>
+          ? <a class="v-cta" href={VENTE.ysalineLienPaiement} {...sortie}>{d.bouton}</a>
           : <a class="v-cta" href={`mailto:${VENTE.contact}?subject=La%20traversee%20d%27Ysaline`}>Écrire à Stéphanie pour le recevoir</a>}
         <p class="v-rassure">{d.final_rassurance}</p>
       </div>

@@ -9,7 +9,6 @@
  *   STRIPE_SECRET_KEY        la clé secrète Stripe (sk_live_…)
  *   SIGNATURE_SECRET         une longue chaîne aléatoire (openssl rand -hex 32)
  *   STRIPE_PRICE_SOCLE       identifiant du tarif du Socle (price_…)
- *   STRIPE_PRICE_ROMAN       identifiant du tarif du roman
  *   STRIPE_PRICE_DEEPDRIVE   identifiant du tarif de Deep Drive
  *   TELEGRAM_INVITE          lien d'invitation au canal privé (Socle)
  *   CALENDLY_DEEPDRIVE       lien de réservation (Deep Drive)
@@ -36,12 +35,6 @@ export const OFFRES = [
       { cle: 'hypnose-ancrage', nom: 'Speed hypnose « Ancrage »', act: "Télécharger l'audio" },
     ],
     lienEnPlus: { env: 'TELEGRAM_INVITE', nom: 'Canal Telegram privé', act: 'Rejoindre le canal' },
-  },
-  {
-    env: 'STRIPE_PRICE_ROMAN',
-    titre: "La traversée d'Ysaline",
-    intro: 'Bonne lecture. Ce lien vous est personnel et reste valable 24 heures.',
-    fichiers: [{ cle: 'roman', nom: "La traversée d'Ysaline", act: 'Télécharger le roman' }],
   },
   {
     env: 'STRIPE_PRICE_DEEPDRIVE',

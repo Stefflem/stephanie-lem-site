@@ -6,7 +6,6 @@ import { writeFile, mkdir, rm } from 'node:fs/promises';
 process.env.SIGNATURE_SECRET = 'secret-de-test-tres-long-0123456789';
 process.env.STRIPE_SECRET_KEY = 'sk_test_bidon';
 process.env.STRIPE_PRICE_SOCLE = 'price_SOCLE';
-process.env.STRIPE_PRICE_ROMAN = 'price_ROMAN';
 process.env.STRIPE_PRICE_DEEPDRIVE = 'price_DD';
 process.env.CALENDLY_DEEPDRIVE = 'https://calendly.com/exemple';
 
@@ -48,14 +47,15 @@ test('payé pour Le Socle : liens signés délivrés', async () => {
   assert.ok(d.expire > Date.now());
 });
 
-test('le roman : un seul fichier, pas ceux du Socle', async () => {
+// Le roman est un livre papier imprime et expedie par Lulu. Il ne se paie
+// pas ici et rien ne se telecharge. Ce test garde la porte fermee.
+test('le roman ne se livre plus depuis le site', async () => {
+  process.env.STRIPE_PRICE_ROMAN = 'price_ROMAN';
   simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_ROMAN' } }] } });
   const r = await appel(acces, 'session_id=' + SESSION);
-  const d = await r.json();
-  assert.equal(r.status, 200);
-  assert.equal(d.titre, "La traversée d'Ysaline");
-  assert.equal(d.items.length, 1);
-  assert.match(d.items[0].lien, /f=roman&/);
+  assert.equal(r.status, 403);
+  assert.match((await r.json()).message, /ne correspond à aucune offre/);
+  delete process.env.STRIPE_PRICE_ROMAN;
 });
 
 test('Deep Drive : aucun fichier, mais le lien de réservation', async () => {
@@ -70,8 +70,8 @@ test('Deep Drive : aucun fichier, mais le lien de réservation', async () => {
   assert.ok(!d.items.some((i) => /telecharger/.test(i.lien)), 'aucun fichier ne doit sortir');
 });
 
-test('acheter le roman ne donne jamais les fichiers du Socle', async () => {
-  simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_ROMAN' } }] } });
+test('Deep Drive ne donne jamais les fichiers du Socle', async () => {
+  simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_DD' } }] } });
   const d = await (await appel(acces, 'session_id=' + SESSION)).json();
   for (const interdit of ['tenir-lespace', 'quick-start', 'hypnose-peur', 'hypnose-ancrage']) {
     assert.ok(!d.items.some((i) => i.lien.includes(interdit)), interdit + ' ne doit pas sortir');
@@ -79,14 +79,12 @@ test('acheter le roman ne donne jamais les fichiers du Socle', async () => {
 });
 
 test('configuration incomplète : ne livre pas', async () => {
-  const garde = { s: process.env.STRIPE_PRICE_SOCLE, r: process.env.STRIPE_PRICE_ROMAN, d: process.env.STRIPE_PRICE_DEEPDRIVE };
+  const garde = { s: process.env.STRIPE_PRICE_SOCLE, d: process.env.STRIPE_PRICE_DEEPDRIVE };
   delete process.env.STRIPE_PRICE_SOCLE;
-  delete process.env.STRIPE_PRICE_ROMAN;
   delete process.env.STRIPE_PRICE_DEEPDRIVE;
   const r = await appel(acces, 'session_id=' + SESSION);
   assert.equal(r.status, 503);
   process.env.STRIPE_PRICE_SOCLE = garde.s;
-  process.env.STRIPE_PRICE_ROMAN = garde.r;
   process.env.STRIPE_PRICE_DEEPDRIVE = garde.d;
 });
 

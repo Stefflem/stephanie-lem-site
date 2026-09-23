@@ -4,17 +4,17 @@ surtitre: "La traversée d'Ysaline"
 accroche: "Un roman qui se lit comme une expérience."
 sous_titres:
   - "Une traversée qui change la façon dont tu regardes ton travail, ton corps, ta vie."
-  - "Version Intégrale PDF - Téléchargement immédiat"
-bouton: "Je veux lire ce livre !"
-rassurance: "Téléchargement immédiat"
+  - "Livre broché, 220 pages, imprimé à la commande."
+bouton: "Commander le livre"
+rassurance: "Imprimé et expédié sous 3 à 5 jours ouvrés"
 banniere: "/images/vente/ys-banniere.jpg"
 visuel_ensemble: "/images/vente/ys-couverture.png"
 final_titre: "Je veux lire ce livre"
-final_sous: "Version intégrale en PDF, téléchargement immédiat."
-final_rassurance: "Paiement 100% sécurisé - Accès immédiat après achat - Garantie 14 jours"
+final_sous: "Livre broché de 220 pages, imprimé à la commande et expédié chez toi."
+final_rassurance: "Commande sur Lulu, mon imprimeur. Paiement sécurisé, impression sous 3 à 5 jours ouvrés."
 contact_texte: "Tu as une question, un doute ou juste besoin de t'assurer d'un détail ? Contacte nous par mail :"
 seo_titre: "La traversée d'Ysaline : le roman de Stéphanie Lem"
-seo_description: "Un roman qui se lit comme une expérience. Cinq jours en mer pour comprendre que la liberté ne se trouve pas dans une méthode de plus. Version PDF."
+seo_description: "Un roman qui se lit comme une expérience. Cinq jours en mer pour comprendre que la liberté ne se trouve pas dans une méthode de plus. Livre broché de 220 pages."
 ---
 
 ## L'histoire

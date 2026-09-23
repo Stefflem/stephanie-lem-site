@@ -117,7 +117,7 @@ collections:
           - { name: deepdrive_prix, label: "DEEP DRIVE · prix affiché", widget: string, required: false, hint: "Par exemple 200 €. Vide = aucun prix sur la page." }
           - { name: deepdrive_lien_paiement, label: "DEEP DRIVE · lien de paiement Stripe", widget: string, required: false, hint: "Si tu encaisses par Stripe plutôt qu'à la réservation Calendly." }
           - { name: ysaline_prix, label: "LE ROMAN · prix affiché", widget: string, required: false, hint: "Tant qu'il est vide, aucun prix n'apparaît sur la page du roman." }
-          - { name: ysaline_lien_paiement, label: "LE ROMAN · lien de paiement Stripe", widget: string, required: false }
+          - { name: ysaline_lien_paiement, label: "LE ROMAN · lien de la boutique Lulu", widget: string, required: false, hint: "Le livre est imprimé et expédié par Lulu. La lectrice commande là bas, pas ici. Si tu changes d'imprimeur un jour, colle la nouvelle adresse." }
           - { name: fichier_guide_offert, label: "FICHIER · guide offert « Déclic immersif »", widget: string, required: false, hint: "Colle ici l'adresse de téléchargement du PDF" }
           - { name: contact, label: "Adresse e-mail affichée en bas des pages de vente", widget: string }
 

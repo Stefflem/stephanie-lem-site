@@ -1,7 +1,6 @@
 /** Vérifie que la livraison ne s'ouvre que dans le seul cas prévu. */
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { writeFile, mkdir, rm } from 'node:fs/promises';
 
 process.env.SIGNATURE_SECRET = 'secret-de-test-tres-long-0123456789';
 process.env.STRIPE_SECRET_KEY = 'sk_test_bidon';
@@ -12,6 +11,7 @@ process.env.CALENDLY_DEEPDRIVE = 'https://calendly.com/exemple';
 const acces = (await import('../functions/acces.mjs')).default;
 const { signer } = await import('../functions/acces.mjs');
 const telecharger = (await import('../functions/telecharger.mjs')).default;
+const { definirLecteur } = await import('../functions/telecharger.mjs');
 
 const appel = (fn, qs) => fn(new Request('https://x.fr/api?' + qs));
 const vraiFetch = globalThis.fetch;
@@ -123,15 +123,31 @@ test('téléchargement : échéance rallongée sans resigner, refus', async () =
   assert.equal(r.status, 403);
 });
 
-test('téléchargement : lien valide, le fichier sort', async () => {
-  await mkdir(new URL('../../fichiers-proteges/', import.meta.url), { recursive: true });
-  await writeFile(new URL('../../fichiers-proteges/quick-start.pdf', import.meta.url), 'PDF-DE-TEST');
+// Les fichiers vivent dans Netlify Blobs. Les tests n'ont pas de coffre : ils
+// remplacent la lecture, et verifient que la fonction ne livre que ce que le
+// coffre rend, et rien quand il ne rend rien.
+test('téléchargement : lien valide, le fichier sort du coffre', async () => {
+  definirLecteur(async (nom) => (nom === 'quick-start.pdf' ? 'PDF-DE-TEST' : null));
   const e = Date.now() + 60000;
   const r = await appel(telecharger, `f=quick-start&e=${e}&s=${signer('quick-start', e, process.env.SIGNATURE_SECRET)}`);
   assert.equal(r.status, 200);
   assert.equal(r.headers.get('content-type'), 'application/pdf');
   assert.match(r.headers.get('content-disposition'), /attachment/);
   assert.equal(await r.text(), 'PDF-DE-TEST');
-  await rm(new URL('../../fichiers-proteges/quick-start.pdf', import.meta.url));
   globalThis.fetch = vraiFetch;
+});
+
+test('téléchargement : fichier absent du coffre, refus sans rien livrer', async () => {
+  definirLecteur(async () => null);
+  const e = Date.now() + 60000;
+  const r = await appel(telecharger, `f=quick-start&e=${e}&s=${signer('quick-start', e, process.env.SIGNATURE_SECRET)}`);
+  assert.equal(r.status, 404);
+  assert.match(await r.text(), /pas encore en place/);
+});
+
+test('téléchargement : coffre en panne, refus propre, jamais une erreur brute', async () => {
+  definirLecteur(async () => { throw new Error('coffre injoignable'); });
+  const e = Date.now() + 60000;
+  const r = await appel(telecharger, `f=quick-start&e=${e}&s=${signer('quick-start', e, process.env.SIGNATURE_SECRET)}`);
+  assert.equal(r.status, 404);
 });

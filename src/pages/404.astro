@@ -1,0 +1,33 @@
+---
+/** Page servie par Netlify pour toute adresse inconnue, avec le vrai code 404.
+ *  Astro la sort en dist/404.html, Netlify la reconnaît sans réglage.
+ *  Elle propose des issues plutôt qu'une impasse : les pages fixes, et les
+ *  offres qui ne sont pas en pause. */
+import Base from '../layouts/Base.astro';
+import { sansLesPauses } from '../offres';
+const offres = await sansLesPauses([
+  { href: '/guideoffert/', nom: 'Le guide offert', act: 'Recevoir le guide' },
+  { href: '/lesocle/', nom: 'Le Socle', act: 'Préparer ta première journée' },
+  { href: '/deepdrive/', nom: 'Deep Drive 360°', act: 'Deux heures pour y voir clair' },
+  { href: '/ysaline/', nom: 'Le roman', act: "La traversée d'Ysaline" },
+]);
+---
+<Base title="Cette page n'existe pas" titreExact="Page introuvable · Stellaé Experiences" description="Le lien que tu as suivi ne mène nulle part. Voici par où continuer." noindex={true}>
+  <header class="page-head">
+    <p class="eyebrow">Erreur 404</p>
+    <h1>Cette page <em>n'existe pas</em></h1>
+  </header>
+  <div class="wrap narrow">
+    <div class="lead">
+      <p class="lead-first">Le lien que tu as suivi ne mène nulle part. Il a peut être changé, ou une lettre s'est glissée dans l'adresse.</p>
+      <p>Rien de grave. Voici par où continuer.</p>
+    </div>
+    <div class="canaux">
+      <a class="canal" href="/"><span class="canal-name">Accueil</span><span class="canal-act">Revenir au début</span></a>
+      <a class="canal" href="/organiser-une-retraite/"><span class="canal-name">Organiser une retraite</span><span class="canal-act">Vision, organisation, terrain</span></a>
+      <a class="canal" href="/blog/"><span class="canal-name">Blog</span><span class="canal-act">Les articles</span></a>
+      {offres.map((o) => <a class="canal" href={o.href}><span class="canal-name">{o.nom}</span><span class="canal-act">{o.act}</span></a>)}
+      <a class="canal" href="/contact/"><span class="canal-name">Contact</span><span class="canal-act">M'écrire</span></a>
+    </div>
+  </div>
+</Base>

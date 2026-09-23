@@ -57,7 +57,7 @@ import Base from '../layouts/Base.astro';
         <tr><td>Articles du blog</td><td>Tes articles. Tu peux en ajouter autant que tu veux</td></tr>
         <tr><td>Projets en cours</td><td>Les retraites que tu accompagnes, avec leur photo</td></tr>
         <tr><td>Pages que je crée</td><td>Pour fabriquer une page entièrement nouvelle</td></tr>
-        <tr><td>Boutique et livraison</td><td>Tes prix et tes liens de paiement</td></tr>
+        <tr><td>Boutique et livraison</td><td>Tes prix, tes liens de paiement Stripe, le lien de ta fiche Lulu, ton adresse de contact</td></tr>
         <tr><td>Pages de vente</td><td>Le Socle, La Traversée, Deep Drive, le roman, le guide offert</td></tr>
         <tr><td>Pages du site</td><td>Accueil, À propos, Contact, mentions légales</td></tr>
       </tbody>
@@ -124,6 +124,26 @@ import Base from '../layouts/Base.astro';
       <li>Modifie le prix, puis <strong>Publier</strong></li>
     </ol>
     <p>Le prix change partout d'un coup : sur le bouton, sur la page des offres, et dans ce que lit Google.</p>
+    <p>⚠️ Le prix affiché sur le site et le prix encaissé par Stripe sont deux choses différentes. Si tu changes un prix ici, il faut aussi le changer dans Stripe, sinon le bouton annonce un montant et la page de paiement en demande un autre. Dans le doute, écris à Emmanuel avant de publier.</p>
+
+    <h2>Ce que reçoit une acheteuse, et d'où ça vient</h2>
+    <table class="aide-table">
+      <thead><tr><th>Offre</th><th>Ce qui se passe après le paiement</th></tr></thead>
+      <tbody>
+        <tr><td>Le Socle</td><td>Elle paie sur Stripe, puis arrive sur une page qui lui remet tes deux guides, tes deux speed hypnoses, et le lien de ton canal Telegram privé. Les liens de téléchargement sont personnels et valables 24 heures.</td></tr>
+        <tr><td>Deep Drive 360°</td><td>Elle paie sur Stripe, puis arrive sur ton agenda pour choisir son créneau. Ton agenda n'est jamais visible sans paiement.</td></tr>
+        <tr><td>Le roman</td><td>Le bouton l'emmène sur ta fiche Lulu. Lulu encaisse, imprime et expédie. Rien ne passe par le site ni par ton Stripe.</td></tr>
+        <tr><td>Le guide offert</td><td>Elle laisse son adresse, elle reçoit le guide par e-mail, et elle entre dans ta liste Brevo.</td></tr>
+      </tbody>
+    </table>
+    <p>Tes fichiers payants ne sont pas sur le site : ils sont dans un coffre à part, que seule la livraison peut ouvrir, et seulement après un paiement vérifié auprès de Stripe. Personne ne peut les télécharger en devinant une adresse.</p>
+
+    <h2>Les questions qui reviennent</h2>
+    <p><strong>Où sont mes fichiers ?</strong> Dans le coffre Netlify du site, hors de tout ce qui est public. Emmanuel les y a déposés une fois. Pour en remplacer un, envoie lui la nouvelle version, c'est lui qui la met en place.</p>
+    <p><strong>Le canal Telegram, je le règle comment ?</strong> Dans Telegram, mets ton canal en « approbation requise » pour rejoindre. Le lien circule forcément, c'est toi qui valides les prénoms que tu reconnais.</p>
+    <p><strong>Je veux remettre La Traversée en ligne.</strong> Tu recoches la case dans sa page de vente. Ses liens de paiement existent déjà dans ton Stripe, avec les paiements en plusieurs fois : dis le à Emmanuel, il les branche sur la page.</p>
+    <p><strong>Une cliente n'a rien reçu après avoir payé.</strong> Dans ton tableau de bord, la vente apparaît. Si elle a fermé la page trop vite, renvoie lui le lien de la page d'accès qui figure dans son reçu Stripe, ou écris à Emmanuel.</p>
+    <p><strong>Quelqu'un tombe sur une page qui n'existe pas.</strong> Il voit une page « Cette page n'existe pas » à tes couleurs, avec le chemin vers tes offres. Rien à faire de ton côté.</p>
 
     <h2>Changer une photo</h2>
     <ol>
@@ -166,8 +186,8 @@ import Base from '../layouts/Base.astro';
     </p>
     <p>
       En revanche, deux choses ne se modifient pas depuis ton espace, et c'est volontaire :
-      les <strong>couleurs et la structure</strong> des pages, et les <strong>fichiers que tu vends</strong>.
-      Pour ceux là, passez par Emmanuel.
+      les <strong>couleurs et la structure</strong> des pages, et les <strong>fichiers que tu vends</strong>,
+      qui vivent dans un coffre à part. Pour ceux là, passe par Emmanuel.
     </p>
 
     <h2>Le rendez vous du mois</h2>

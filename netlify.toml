@@ -21,17 +21,17 @@
 # ==========================================================================
 # Livraison protégée des fichiers payants
 # ==========================================================================
-# Les fichiers vivent dans fichiers-proteges/, hors de dist/, donc ils ne sont
-# jamais publiés. Seule la fonction telecharger peut les lire, et seulement
-# contre un lien signé non expiré, lui même délivré par la fonction acces
-# après vérification du paiement auprès de Stripe.
+# Les fichiers vivent dans un coffre Netlify Blobs nommé « fichiers-proteges »,
+# jamais dans ce dépôt (il est public). Seule la fonction telecharger peut les
+# lire, et seulement contre un lien signé non expiré, lui même délivré par la
+# fonction acces après vérification du paiement auprès de Stripe.
+# Dépôt d'un fichier dans le coffre : voir PAIEMENT-ET-MAILS.md, section Blobs.
 #
 # Variables à poser dans Netlify (Site settings, Environment variables),
 # JAMAIS dans ce dépôt :
-#   STRIPE_SECRET_KEY    sk_live_…
+#   STRIPE_SECRET_KEY    rk_live_…  cle RESTREINTE, lecture seule des sessions de paiement
 #   SIGNATURE_SECRET     openssl rand -hex 32
 #   STRIPE_PRICE_SOCLE     price_…  tarif du Socle
-#   STRIPE_PRICE_ROMAN     price_…  tarif du roman
 #   STRIPE_PRICE_DEEPDRIVE price_…  tarif de Deep Drive
 #   TELEGRAM_INVITE        lien d'invitation au canal privé (remis avec Le Socle)
 #   CALENDLY_DEEPDRIVE     lien de réservation (remis après un Deep Drive payé)
@@ -46,7 +46,6 @@
 
 [functions]
   node_bundler = "esbuild"
-  included_files = ["fichiers-proteges/**"]
 
 [[redirects]]
   from = "/api/acces"

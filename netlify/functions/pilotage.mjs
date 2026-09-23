@@ -98,15 +98,23 @@ export default async (req) => {
     inscritsBrevo(process.env.BREVO_API_KEY).catch(() => ({ configure: true, erreur: 'Brevo injoignable' })),
   ]);
 
+  /* Les fichiers du Socle, comptés dans le coffre et non supposés. */
+  const ATTENDUS = ['tenir-lespace.pdf', 'quick-start.pdf', 'hypnose-peur.m4a', 'hypnose-ancrage.m4a'];
+  const coffre = await getStore('fichiers-proteges').list()
+    .then((r) => { const noms = new Set((r?.blobs || []).map((b) => b.key)); return ATTENDUS.filter((n) => noms.has(n)).length; })
+    .catch(() => 0);
+
   /* L'état du branchement, calculé et non supposé. C'est ce qui dit à
      Stéphanie et à Emmanuel ce qui reste à faire, sans avoir à chercher. */
   const branchement = [
     { quoi: 'Encaissement Stripe', pret: !!process.env.STRIPE_SECRET_KEY },
     { quoi: 'Envoi des e-mails Brevo', pret: !!process.env.BREVO_API_KEY },
     { quoi: 'Livraison des fichiers payants', pret: !!process.env.SIGNATURE_SECRET && !!process.env.STRIPE_PRICE_SOCLE },
+    { quoi: `Fichiers du Socle dans le coffre (${coffre} sur ${ATTENDUS.length})`, pret: coffre === ATTENDUS.length },
     { quoi: 'Canal Telegram du Socle', pret: !!process.env.TELEGRAM_INVITE },
     { quoi: 'Réservation Deep Drive', pret: !!process.env.CALENDLY_DEEPDRIVE },
   ];
 
   return json({ ok: true, ventes, inscrits, branchement, genere: new Date().toISOString() });
-};
+};import { getStore } from '@netlify/blobs';
+

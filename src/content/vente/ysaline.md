@@ -14,7 +14,7 @@ final_sous: "Livre broché de 220 pages, imprimé à la commande et expédié ch
 final_rassurance: "Commande sur Lulu, mon imprimeur. Paiement sécurisé, impression sous 3 à 5 jours ouvrés."
 contact_texte: "Tu as une question, un doute ou juste besoin de t'assurer d'un détail ? Contacte nous par mail :"
 seo_titre: "La traversée d'Ysaline : le roman de Stéphanie Lem"
-seo_description: "Un roman qui se lit comme une expérience. Cinq jours en mer pour comprendre que la liberté ne se trouve pas dans une méthode de plus. Livre broché de 220 pages."
+seo_description: "Un roman qui se lit comme une expérience. Cinq jours en mer pour comprendre que la liberté ne se trouve pas dans une méthode de plus. Broché, 220 pages."
 ---
 
 ## L'histoire

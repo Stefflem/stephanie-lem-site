@@ -6,7 +6,9 @@
  * retour : https://…/acces/?session_id={CHECKOUT_SESSION_ID}
  *
  * Variables d'environnement, à poser chez Netlify, JAMAIS dans le dépôt :
- *   STRIPE_SECRET_KEY        la clé secrète Stripe (sk_live_…)
+ *   STRIPE_SECRET_KEY        une clé RESTREINTE (rk_live_…), en lecture seule
+ *                            sur les sessions de paiement. Cette fonction ne fait
+ *                            qu'un GET, une sk_live_ donnerait bien trop de droits.
  *   SIGNATURE_SECRET         une longue chaîne aléatoire (openssl rand -hex 32)
  *   STRIPE_PRICE_SOCLE       identifiant du tarif du Socle (price_…)
  *   STRIPE_PRICE_DEEPDRIVE   identifiant du tarif de Deep Drive

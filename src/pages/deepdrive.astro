@@ -15,13 +15,19 @@ const schema = {
   provider: { '@type': 'Organization', name: 'Stellaé Experiences', url: 'https://www.stephanielem.fr' },
   areaServed: 'FR', audience: { '@type': 'Audience', audienceType: 'Entrepreneuses et accompagnantes' },
   url: 'https://www.stephanielem.fr/deepdrive/',
-  potentialAction: d.calendly ? { '@type': 'ReserveAction', target: d.calendly } : undefined,
+  potentialAction: { '@type': 'ReserveAction', target: 'https://www.stephanielem.fr/deepdrive/' },
   offers: VENTE.deepdrivePrix
     ? { '@type': 'Offer', price: VENTE.deepdrivePrix.replace(/[^0-9,.]/g, '').replace(',', '.'),
         priceCurrency: 'EUR', availability: 'https://schema.org/InStock',
-        url: 'https://www.stephanielem.fr/deepdrive/' }
+        url: VENTE.deepdriveLienPaiement || 'https://www.stephanielem.fr/deepdrive/' }
     : undefined,
 };
+/** Deep Drive se paie. L agenda ne s ouvre qu apres paiement verifie, via
+ *  /acces/. Sans lien de paiement pose, on retombe sur l agenda direct pour
+ *  ne pas laisser un bouton mort. */
+const achat = VENTE.deepdriveLienPaiement || d.calendly;
+const dehors = /^https?:\/\//.test(achat) && !achat.includes('stephanielem.fr');
+const sortie = dehors ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 ---
 <Vente title={`${d.surtitre} | Stellaé Experiences`} description={d.seo_description} image={d.banniere} titreExact={d.seo_titre || undefined} schema={schema} noindex={d.en_ligne === false}>
 {d.en_ligne === false ? (
@@ -45,7 +51,7 @@ const schema = {
       <h2>{d.final_titre}</h2>
       <p>{d.final_sous}</p>
       <div class="v-cta-bloc">
-        <a class="v-cta" href={d.calendly} target="_blank" rel="noopener">{d.bouton}</a>
+        <a class="v-cta" href={achat} {...sortie}>{d.bouton}</a>
         <p class="v-rassure">{d.final_rassurance}</p>
       </div>
       <p class="note">Une question avant de réserver ? <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a></p>

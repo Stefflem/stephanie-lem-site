@@ -5,3 +5,6 @@ dist/
 .DS_Store
 .env
 .env.*
+
+# Fichiers payants : JAMAIS dans le depot, il est public. Ils vivent dans Netlify Blobs.
+fichiers-proteges/

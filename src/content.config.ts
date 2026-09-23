@@ -127,7 +127,7 @@ const reglages = defineCollection({
     contact: z.string().optional().default(''),
     // Seul le guide OFFERT reste ici : il n'est pas payant, un lien public
     // ne lui fait rien perdre. Les quatre fichiers du Socle et l'invitation
-    // Telegram sont servis par les fonctions Netlify, contre paiement vérifié.
+    // WhatsApp sont servis par les fonctions Netlify, contre paiement vérifié.
     fichier_guide_offert: z.string().optional().default(''),
   }),
 });

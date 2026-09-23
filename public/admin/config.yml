@@ -104,7 +104,7 @@ collections:
         description: >-
           Tes prix et tes liens de paiement. Tu les changes ici, le site se met
           à jour tout seul en une à deux minutes.
-          ⚠️ Les quatre fichiers du Socle et l'invitation Telegram ne sont pas
+          ⚠️ Les quatre fichiers du Socle et l'accès WhatsApp ne sont pas
           ici : ils ne sont remis qu'après un paiement vérifié, par un lien
           personnel qui expire au bout de 24 heures. Un lien posé sur cette page
           serait un lien public, donc un produit payant qui ne l'est plus.

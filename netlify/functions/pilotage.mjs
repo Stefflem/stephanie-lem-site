@@ -117,7 +117,7 @@ export default async (req) => {
     { quoi: 'Envoi des e-mails Brevo', pret: !!process.env.BREVO_API_KEY },
     { quoi: 'Livraison des fichiers payants', pret: !!process.env.SIGNATURE_SECRET && !!process.env.STRIPE_PRICE_SOCLE },
     { quoi: `Fichiers du Socle dans le coffre (${coffre} sur ${ATTENDUS.length})`, pret: coffre === ATTENDUS.length },
-    { quoi: 'Canal Telegram du Socle', pret: !!process.env.TELEGRAM_INVITE },
+    { quoi: 'Accès WhatsApp remis avec Le Socle', pret: !!process.env.WHATSAPP_SOCLE },
     { quoi: 'Réservation Deep Drive', pret: !!process.env.CALENDLY_DEEPDRIVE },
   ];
 

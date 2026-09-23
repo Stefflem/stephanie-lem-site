@@ -58,6 +58,18 @@ test('le roman ne se livre plus depuis le site', async () => {
   delete process.env.STRIPE_PRICE_ROMAN;
 });
 
+test('Le Socle : avec le numéro WhatsApp, un cinquième élément, en lien wa.me prérempli', async () => {
+  process.env.WHATSAPP_SOCLE = '33749649683';
+  simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_SOCLE' } }] } });
+  const d = await (await appel(acces, 'session_id=' + SESSION)).json();
+  assert.equal(d.items.length, 5);
+  const wa = d.items[4];
+  assert.equal(wa.externe, true);
+  assert.match(wa.lien, /^https:\/\/wa\.me\/33749649683\?text=/);
+  assert.match(decodeURIComponent(wa.lien), /Le Socle/);
+  delete process.env.WHATSAPP_SOCLE;
+});
+
 test('Deep Drive : aucun fichier, mais le lien de réservation', async () => {
   simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_DD' } }] } });
   const r = await appel(acces, 'session_id=' + SESSION);

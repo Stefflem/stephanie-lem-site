@@ -24,7 +24,7 @@ inclus:
   - "Le guide « Tenir l'Espace » (PDF)"
   - "Le Quick Start 7 jours (PDF)"
   - "Les 2 speed hypnoses audio téléchargeables"
-  - "L’accès au canal Telegram privé"
+  - "Un accès direct à moi sur WhatsApp"
   - "Les mises à jour futures du guide"
 faq:
   - q: "Je travaille uniquement en cabinet, pas en ligne. C'est adapté ?"
@@ -51,7 +51,7 @@ visuels:
   - image: "/images/vente/audio-ancrage.jpg"
     legende: "Speed hypnose « Ancrage »"
 seo_titre: "Le Socle : organiser ta première journée en présentiel"
-seo_description: "Le programme complet pour organiser ta première journée en présentiel avec tes clientes. Deux guides, deux speed hypnoses, un canal Telegram privé."
+seo_description: "Le programme complet pour organiser ta première journée en présentiel avec tes clientes. Deux guides, deux speed hypnoses, un accès direct sur WhatsApp."
 ---
 
 ## Tu veux proposer une journée en présentiel, mais tu ne sais pas par où commencer.
@@ -115,15 +115,11 @@ Le Quick Start te propose :
 
 **1 Speed hypnose « Ancrage » :** Un ancrage corporel à utiliser avant ta journée pour retrouver stabilité et présence.
 
-### ➡️ L'accès au canal Telegram privé
+### ➡️ Un accès direct à moi sur WhatsApp
 
-Un espace réservé aux acheteuses du guide. Tu y retrouveras tous mes partages indispensables :
+Après ton achat, tu reçois un lien pour m'écrire directement. Pendant que tu prépares ta première journée, tu peux me poser tes questions, me soumettre un doute sur ton cadre ou ton déroulé, et recevoir mes rappels pratiques.
 
-- Des ressources complémentaires
-- Des rappels pratiques
-- Des réponses aux questions qui reviennent
-
-Tu pourras aussi échanger avec d'autres femmes qui préparent leur premier présentiel.
+Pas un groupe, pas un fil de discussion à suivre : toi, moi, et ta journée à construire.
 
 C'est un réel lieu de soutien collectif.
 

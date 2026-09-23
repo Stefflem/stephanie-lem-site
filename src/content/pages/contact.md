@@ -3,7 +3,7 @@ title: "Me contacter"
 eyebrow: "Contact"
 instagram: "https://www.instagram.com/stephanie.lem.doula/"
 email: contact@stephanielem.fr
-whatsapp: ""
+whatsapp: "https://wa.me/33749649683"
 seo_titre: "Me parler de ton projet de retraite | Stéphanie Lem"
 seo_description: "Tu prépares une retraite ou un séjour immersif ? Raconte moi ton projet, je te dis où tu en es et ce qu'il te reste à poser pour qu'il tienne debout."
 ---

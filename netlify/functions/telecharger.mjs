@@ -13,8 +13,8 @@ import { signer, signatureValide } from './acces.mjs';
 const CATALOGUE = {
   'tenir-lespace':   { fichier: 'tenir-lespace.pdf',   type: 'application/pdf',  nom: "Tenir l'espace.pdf" },
   'quick-start':     { fichier: 'quick-start.pdf',     type: 'application/pdf',  nom: 'Quick Start 7 jours.pdf' },
-  'hypnose-peur':    { fichier: 'hypnose-peur.mp3',    type: 'audio/mpeg',       nom: 'Speed hypnose Peur.mp3' },
-  'hypnose-ancrage': { fichier: 'hypnose-ancrage.mp3', type: 'audio/mpeg',       nom: 'Speed hypnose Ancrage.mp3' },
+  'hypnose-peur':    { fichier: 'hypnose-peur.m4a',    type: 'audio/mp4',        nom: 'Speed hypnose Peur.m4a' },
+  'hypnose-ancrage': { fichier: 'hypnose-ancrage.m4a', type: 'audio/mp4',        nom: 'Speed hypnose Ancrage.m4a' },
   'roman':           { fichier: 'roman-ysaline.pdf',   type: 'application/pdf',  nom: "La traversee d'Ysaline.pdf" },
 };
 

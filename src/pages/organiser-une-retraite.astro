@@ -14,7 +14,9 @@ const d = page.data;
   </header>
   <div class="wrap">
     <Editorial body={page.body ?? ''} />
-    <Offres sauf="/contact/" />
+    {/* Stéphanie : cette page est pour les retraites. Le guide vit sur l'accueil,
+    Le Socle a sa page. Ici, seule La Traversée, quand elle est en ligne. */}
+    <Offres seulement={['/latraversee/']} titre="Le séjour" />
     <section class="closing">
       <p class="signature"><span>Vision</span><i></i><span>Organisation</span><i></i><span>Terrain</span></p>
       <h2>{d.closing}</h2>

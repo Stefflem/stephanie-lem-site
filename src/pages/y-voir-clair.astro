@@ -1,0 +1,27 @@
+---
+/** La deuxième porte du site. L'accueil et « Organiser une retraite » parlent
+ *  à la coach qui crée un séjour ; cette page parle à l'entrepreneuse dont le
+ *  business déborde. Elle regroupe les offres de la famille « clarte » :
+ *  Deep Drive 360° et le roman. Le texte vit dans src/content/pages/y-voir-clair.md. */
+import Offres from '../components/Offres.astro';
+import Base from '../layouts/Base.astro';
+import Editorial from '../components/Editorial.astro';
+import { getEntry } from 'astro:content';
+const page = await getEntry('pages', 'y-voir-clair');
+if (!page) throw new Error('Contenu y-voir-clair manquant');
+const d = page.data;
+---
+<Base title={d.title} description={d.seo_description} titreExact={d.seo_titre || undefined}>
+  <header class="page-head">
+    <p class="eyebrow">{d.eyebrow}</p>
+    <h1>Y voir <em>clair</em></h1>
+  </header>
+  <div class="wrap">
+    <Editorial body={page.body ?? ''} />
+    <Offres famille="clarte" titre="Deux portes" />
+    <section class="closing">
+      <h2>{d.closing}</h2>
+      <a class="btn" href={d.cta_href}>{d.cta_label}</a>
+    </section>
+  </div>
+</Base>

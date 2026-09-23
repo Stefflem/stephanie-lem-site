@@ -30,6 +30,9 @@ const pages = defineCollection({
       bouton: z.string(),
       href: z.string(),
       mise_en_avant: z.boolean().optional().default(false),
+      /* Deux lectrices, deux portes : « retraite » pour la coach qui crée un
+         séjour, « clarte » pour l'entrepreneuse dont le business déborde. */
+      famille: z.enum(['retraite', 'clarte']).optional().default('retraite'),
     })).optional().default([]),
   }),
 });

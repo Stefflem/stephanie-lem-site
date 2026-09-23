@@ -329,6 +329,18 @@ collections:
           - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Sections (chaque « Titre 2 » devient une section), widget: markdown }
+      - name: y-voir-clair
+        label: Y voir clair
+        file: src/content/pages/y-voir-clair.md
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: eyebrow, label: Petite ligne au dessus du titre, widget: string, required: false }
+          - { name: closing, label: Phrase de fin de page, widget: text }
+          - { name: cta_label, label: Bouton, widget: string }
+          - { name: cta_href, label: Lien du bouton, widget: string, default: /deepdrive/ }
+          - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
+          - { name: seo_description, label: Description pour Google, widget: text, required: false }
+          - { name: body, label: Sections (chaque « Titre 2 » devient une section), widget: markdown }
       - name: a-propos
         label: À propos
         file: src/content/pages/a-propos.md
@@ -383,6 +395,7 @@ collections:
               - { name: bouton, label: Texte du lien, widget: string }
               - { name: href, label: Adresse de la page, widget: string, hint: "/lesocle/ ou /guideoffert/ ou /contact/" }
               - { name: mise_en_avant, label: Mettre cette offre en avant, widget: boolean, default: false }
+              - { name: famille, label: "Pour qui", widget: select, options: [{ label: "Retraite (coachs qui créent un séjour)", value: retraite }, { label: "Y voir clair (entrepreneuses dont le business déborde)", value: clarte }], default: retraite, hint: "Décide sur quelles pages l'offre apparaît. Les pages « retraite » ne montrent que la famille retraite, la page « Y voir clair » ne montre que la sienne." }
           - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
           - { name: seo_description, label: Description pour Google, widget: text, required: false }
           - { name: body, label: Phrase d'introduction, widget: text }

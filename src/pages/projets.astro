@@ -28,7 +28,7 @@ const projets = (await getCollection('projets')).sort((a, b) => a.data.ordre - b
         </article>
       ))}
     </div>
-    <Offres sauf="/contact/" />
+    <Offres famille="retraite" sauf="/contact/" />
     <section class="closing">
       <p class="eyebrow">Et ton projet ?</p>
       <h2>{d.closing}</h2>

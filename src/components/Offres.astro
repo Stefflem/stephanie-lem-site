@@ -5,12 +5,14 @@
  */
 import { getEntry } from 'astro:content';
 import { sansLesPauses } from '../offres';
-interface Props { titre?: string; sauf?: string }
-const { titre = 'Par où commencer', sauf } = Astro.props;
+interface Props { titre?: string; sauf?: string; famille?: 'retraite' | 'clarte'; seulement?: string[] }
+const { titre = 'Par où commencer', sauf, famille, seulement } = Astro.props;
 const page = await getEntry('pages', 'offres');
 /* Une offre dont la page est en pause disparaît d'ici toute seule :
    Stéphanie n'a qu'une case à décocher, pas deux endroits à penser. */
-const offres = await sansLesPauses((page?.data.offres ?? []).filter((o) => o.href !== sauf));
+/* Sans famille, tout s'affiche (À propos). Avec, seule la famille de la page :
+   la coach qui prépare une retraite ne se voit pas proposer un roman. */
+const offres = await sansLesPauses((page?.data.offres ?? []).filter((o) => o.href !== sauf && (!famille || o.famille === famille) && (!seulement || seulement.includes(o.href))));
 ---
 {offres.length > 0 && (
   <section class="offres">

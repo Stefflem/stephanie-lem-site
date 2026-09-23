@@ -30,15 +30,11 @@ This plan allows only verified account members to push to private repos
 
 Le reste du code n'a rien de secret : le HTML du site est public dès qu'il est en ligne.
 
-## ⚠️ La contrepartie, à tenir avant la première vente
+## ✅ La contrepartie, tenue le 2026-09-23
 
 **Les fichiers payants ne doivent JAMAIS entrer dans ce dépôt.** Deux guides PDF et deux audios vendus 111 € dans un dépôt public, ce serait les offrir.
 
-Le dossier `fichiers-proteges/` et le `included_files` de `netlify.toml` **doivent être remplacés** par un stockage qui n'est pas versionné, avant que Stéphanie envoie ses fichiers :
-
-- **Netlify Blobs**, téléversé une fois par Emmanuel, lu par la fonction `telecharger`
-- La fonction garde exactement sa logique : paiement vérifié chez Stripe, puis lien signé valable 24 heures
-- Compter environ une heure
+**Fait le 2026-09-23.** Les quatre fichiers du Socle vivent dans un coffre **Netlify Blobs** nommé `fichiers-proteges`, déposés une fois par Emmanuel et relus depuis Netlify (4 sur 4). La fonction `telecharger` lit dans ce coffre, plus aucun fichier n'est embarqué dans les fonctions (`included_files` retiré), et `fichiers-proteges/` est dans `.gitignore` pour qu'aucun fichier n'entre dans le dépôt par réflexe. La logique n'a pas bougé : paiement vérifié chez Stripe, puis lien signé valable 24 heures. Procédure de remplacement d'un fichier dans `PAIEMENT-ET-MAILS.md`, section Blobs.
 
 C'est de toute façon la bonne pratique. Un fichier vendu n'a rien à faire dans un dépôt Git, public ou privé.
 

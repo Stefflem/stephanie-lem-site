@@ -380,3 +380,6 @@ body.avec-revue{padding-bottom:96px}   /* laisse la place a la barre de comparai
 .pil-attente{background:#fdf0e6;color:#8a4a1e}
 .pil-pause{background:#f0ece6;color:#6b6259}
 @media(max-width:560px){.pil-table{font-size:.82rem}.pil-table th,.pil-table td{padding:8px 6px}}
+
+/* Mention « facultatif » à côté d'un libellé de champ. */
+.facultatif{font-size:.82em;font-weight:400;opacity:.62;letter-spacing:.02em}

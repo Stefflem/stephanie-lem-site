@@ -9,7 +9,7 @@ process.env.BREVO_LISTE_CONTACT = '9';
 
 const mod = await import('../functions/submission-created.mjs');
 const envoyer = mod.default;
-const { veutLaSuite, contactBrevo } = mod;
+const { veutLaSuite, contactBrevo, veutEtreAppelee, telephoneInternational } = mod;
 
 let appels = [];
 const vraiFetch = globalThis.fetch;
@@ -83,4 +83,42 @@ test('sans clé API : rien envoyé, et pas d erreur', async () => {
 test('le message du contact est borné', () => {
   const c = contactBrevo({ email: 'a@b.fr', message: 'x'.repeat(5000) }, 'contact');
   assert.equal(c.attributes.MESSAGE.length, 2000);
+});
+
+// Le numéro et les deux accords, ajoutés le 2026-09-29.
+test('le téléphone est normalisé au format international', () => {
+  assert.equal(telephoneInternational('06 12 34 56 78'), '+33612345678');
+  assert.equal(telephoneInternational('0612345678'), '+33612345678');
+  assert.equal(telephoneInternational('+33612345678'), '+33612345678');
+  assert.equal(telephoneInternational('33612345678'), '+33612345678');
+  assert.equal(telephoneInternational('06.12.34.56.78'), '+33612345678');
+  assert.equal(telephoneInternational('12'), undefined, 'un numéro incomplet n est pas transmis de travers');
+  assert.equal(telephoneInternational(''), undefined);
+});
+
+test('les deux accords sont distincts : l un ne vaut jamais pour l autre', () => {
+  const mailSeul = contactBrevo({ email: 'a@b.fr', prenom: 'Ana', telephone: '0612345678', suite: 'oui' }, 'guide');
+  assert.equal(mailSeul.attributes.OPTIN_EMAIL, 'oui');
+  assert.equal(mailSeul.attributes.OPTIN_TEL, 'non', 'cocher les e-mails n autorise pas l appel');
+
+  const telSeul = contactBrevo({ email: 'a@b.fr', telephone: '0612345678', appel: 'oui' }, 'guide');
+  assert.equal(telSeul.attributes.OPTIN_EMAIL, 'non');
+  assert.equal(telSeul.attributes.OPTIN_TEL, 'oui');
+
+  const rien = contactBrevo({ email: 'a@b.fr', telephone: '0612345678' }, 'guide');
+  assert.equal(rien.attributes.OPTIN_EMAIL, 'non');
+  assert.equal(rien.attributes.OPTIN_TEL, 'non');
+  assert.equal(rien.attributes.DATE_CONSENTEMENT, undefined, 'sans accord, aucune date à produire');
+  assert.equal(rien.attributes.SMS, '+33612345678', 'le numéro reste, pour la reconnaître si elle écrit');
+});
+
+test('un accord porte sa date, la preuve sans laquelle il ne vaut rien', () => {
+  const c = contactBrevo({ email: 'a@b.fr', telephone: '0612345678', appel: 'oui' }, 'guide');
+  assert.match(c.attributes.DATE_CONSENTEMENT, /^\d{4}-\d{2}-\d{2}$/);
+});
+
+test('sans numéro, aucun drapeau téléphone à renseigner', () => {
+  const c = contactBrevo({ email: 'a@b.fr', suite: 'oui' }, 'guide');
+  assert.equal(c.attributes.SMS, undefined);
+  assert.equal(c.attributes.OPTIN_TEL, undefined);
 });

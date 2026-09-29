@@ -29,20 +29,53 @@ export const LISTES = {
  * Pour le contact et le webinaire, la demande elle même est l'objet du
  * traitement : on enregistre, sans opt in marketing.
  */
+const coche = (v) => ['oui', 'on', 'true'].includes(String(v ?? '').toLowerCase());
+
 export function veutLaSuite(form, data) {
   if (form !== 'guide') return true;
-  const v = String(data.suite ?? '').toLowerCase();
-  return v === 'oui' || v === 'on' || v === 'true';
+  return coche(data.suite);
+}
+
+/** Accord pour être appelée ou contactée sur WhatsApp. Jamais présumé, jamais
+ *  déduit de l'accord e-mail : depuis le 11 août 2026, démarcher par téléphone
+ *  un particulier sans accord préalable et prouvable est interdit. */
+export function veutEtreAppelee(data) {
+  return coche(data.appel);
+}
+
+/** Numéro au format international attendu par Brevo. Un numéro français saisi
+ *  en 06… devient +336…. Tout ce qui n'est pas exploitable est écarté plutôt
+ *  que transmis de travers. */
+export function telephoneInternational(brut) {
+  const v = String(brut ?? '').replace(/[\s.\-()]/g, '');
+  if (!v) return undefined;
+  if (/^\+[1-9]\d{7,14}$/.test(v)) return v;
+  if (/^0[1-9]\d{8}$/.test(v)) return '+33' + v.slice(1);
+  if (/^33[1-9]\d{8}$/.test(v)) return '+' + v;
+  return undefined;
 }
 
 export function contactBrevo(data, form) {
   const email = String(data.email ?? '').trim().toLowerCase();
+  const tel = telephoneInternational(data.telephone);
+  const okMail = veutLaSuite(form, data);
+  const okTel = veutEtreAppelee(data);
+  /* La date d'accord est la preuve. Sans elle, un consentement ne vaut rien
+     le jour où quelqu'un demande sur quoi on se fonde pour l'avoir appelée. */
+  const leJour = new Date().toISOString().slice(0, 10);
   return {
     email,
     attributes: {
       PRENOM: String(data.prenom ?? data.nom ?? '').trim() || undefined,
       SOURCE: `site:${form}`,
       MESSAGE: form === 'contact' ? String(data.message ?? '').slice(0, 2000) || undefined : undefined,
+      SMS: tel,
+      /* Le numéro est conservé même sans accord d'appel : il sert à la
+         reconnaître si elle écrit. Ce sont les deux drapeaux ci dessous qui
+         disent ce qu'on a le droit d'en faire. */
+      OPTIN_EMAIL: okMail ? 'oui' : 'non',
+      OPTIN_TEL: tel ? (okTel ? 'oui' : 'non') : undefined,
+      DATE_CONSENTEMENT: okMail || okTel ? leJour : undefined,
     },
     updateEnabled: true,
   };

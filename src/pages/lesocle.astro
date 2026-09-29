@@ -27,11 +27,11 @@ const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     { '@type': 'Product', name: d.titre, description: d.seo_description,
-      image: d.banniere ? `${'https://www.stephanielem.fr'}${d.banniere}` : undefined,
+      image: d.banniere ? `${'https://stephanielem.fr'}${d.banniere}` : undefined,
       brand: { '@type': 'Brand', name: 'Stellaé Experiences' },
       offers: { '@type': 'Offer', price: VENTE.soclePrix.replace(/[^0-9,.]/g, '').replace(',', '.'),
         priceCurrency: 'EUR', availability: 'https://schema.org/InStock',
-        url: `${'https://www.stephanielem.fr'}/lesocle/` } },
+        url: `${'https://stephanielem.fr'}/lesocle/` } },
     faq.length ? { '@type': 'FAQPage', mainEntity: faq } : undefined,
   ].filter(Boolean),
 };

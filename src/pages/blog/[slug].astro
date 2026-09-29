@@ -16,13 +16,13 @@ const dateFr = post.data.date.toLocaleDateString('fr-FR', { day: 'numeric', mont
 const schema = {
   '@context': 'https://schema.org', '@type': 'Article',
   headline: post.data.title, description: post.data.description,
-  image: post.data.image ? `https://www.stephanielem.fr${post.data.image}` : undefined,
+  image: post.data.image ? `https://stephanielem.fr${post.data.image}` : undefined,
   datePublished: post.data.date.toISOString(),
   dateModified: post.data.date.toISOString(),
   inLanguage: 'fr',
-  author: { '@type': 'Person', name: 'Stéphanie Lem', url: `https://www.stephanielem.fr/a-propos/` },
-  publisher: { '@type': 'Organization', name: 'Stellaé Experiences', url: 'https://www.stephanielem.fr' },
-  mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.stephanielem.fr/blog/${post.id}/` },
+  author: { '@type': 'Person', name: 'Stéphanie Lem', url: `https://stephanielem.fr/a-propos/` },
+  publisher: { '@type': 'Organization', name: 'Stellaé Experiences', url: 'https://stephanielem.fr' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': `https://stephanielem.fr/blog/${post.id}/` },
 };
 ---
 <Base title={post.data.title} titreExact={post.data.seo_titre || undefined} description={post.data.description} image={post.data.image}>

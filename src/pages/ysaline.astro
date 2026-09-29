@@ -18,12 +18,12 @@ const schema = {
   author: { '@type': 'Person', name: 'Stéphanie Lem' },
   inLanguage: 'fr', bookFormat: 'https://schema.org/Paperback',
   numberOfPages: 220, datePublished: '2026-02-17',
-  image: d.visuel_ensemble ? `https://www.stephanielem.fr${d.visuel_ensemble}` : undefined,
-  url: 'https://www.stephanielem.fr/ysaline/',
+  image: d.visuel_ensemble ? `https://stephanielem.fr${d.visuel_ensemble}` : undefined,
+  url: 'https://stephanielem.fr/ysaline/',
   offers: VENTE.ysalinePrix
     ? { '@type': 'Offer', price: VENTE.ysalinePrix.replace(/[^0-9,.]/g, '').replace(',', '.'),
         priceCurrency: 'EUR', availability: 'https://schema.org/InStock',
-        url: VENTE.ysalineLienPaiement || 'https://www.stephanielem.fr/ysaline/',
+        url: VENTE.ysalineLienPaiement || 'https://stephanielem.fr/ysaline/',
         seller: { '@type': 'Organization', name: 'Lulu' } }
     : undefined,
 };

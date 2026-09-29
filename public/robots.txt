@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /merci/
 
-Sitemap: https://www.stephanielem.fr/sitemap-index.xml
+Sitemap: https://stephanielem.fr/sitemap-index.xml

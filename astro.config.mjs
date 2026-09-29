@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://www.stephanielem.fr',
+  site: 'https://stephanielem.fr',
   integrations: [sitemap()],
   build: { format: 'directory' },
 });

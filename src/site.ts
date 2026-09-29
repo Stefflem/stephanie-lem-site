@@ -55,4 +55,4 @@ export const AUDIENCE: Audience = { outil: 'aucune' };
  *         s'affichent comme des exemples.
  * false : comportement réel, à passer le jour de la mise en ligne.
  */
-export const APERCU = true;
+export const APERCU = false;

@@ -12,14 +12,14 @@ const d = page.data;
 const schema = {
   '@context': 'https://schema.org', '@type': 'Service',
   name: d.surtitre, description: d.seo_description, serviceType: 'Séance de clarification',
-  provider: { '@type': 'Organization', name: 'Stellaé Experiences', url: 'https://www.stephanielem.fr' },
+  provider: { '@type': 'Organization', name: 'Stellaé Experiences', url: 'https://stephanielem.fr' },
   areaServed: 'FR', audience: { '@type': 'Audience', audienceType: 'Entrepreneuses et accompagnantes' },
-  url: 'https://www.stephanielem.fr/deepdrive/',
-  potentialAction: { '@type': 'ReserveAction', target: 'https://www.stephanielem.fr/deepdrive/' },
+  url: 'https://stephanielem.fr/deepdrive/',
+  potentialAction: { '@type': 'ReserveAction', target: 'https://stephanielem.fr/deepdrive/' },
   offers: VENTE.deepdrivePrix
     ? { '@type': 'Offer', price: VENTE.deepdrivePrix.replace(/[^0-9,.]/g, '').replace(',', '.'),
         priceCurrency: 'EUR', availability: 'https://schema.org/InStock',
-        url: VENTE.deepdriveLienPaiement || 'https://www.stephanielem.fr/deepdrive/' }
+        url: VENTE.deepdriveLienPaiement || 'https://stephanielem.fr/deepdrive/' }
     : undefined,
 };
 /** Deep Drive se paie. L agenda ne s ouvre qu apres paiement verifie, via

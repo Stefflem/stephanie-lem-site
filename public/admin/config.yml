@@ -44,6 +44,8 @@ collections:
       - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false, hint: "Les articles s'affichent du plus ancien au plus récent" }
       - { name: seo_titre, label: "Titre affiché dans Google", widget: string, required: false, hint: "50 à 60 caractères. Laisse vide pour reprendre le titre de la page. Sert à parler à Google sans déformer ton texte." }
       - { name: description, label: Résumé (pour Google et les partages, 150 caractères), widget: text, required: false }
+      - { name: reponse, label: "Réponse courte à la question du titre", widget: text, required: false, hint: "Deux ou trois phrases, affichées en tête de l'article. C'est ce passage que ChatGPT et Google reprennent pour te citer. Réponds tout de suite, sans introduction." }
+      - { name: maj, label: "Mis à jour le", widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false, required: false, hint: "À renseigner seulement si tu reprends l'article plus tard. Un article révisé récemment est mieux repris." }
       - { name: image, label: Photo de l'article, widget: image, required: false, hint: "Affichée dans la rubrique Prochainement" }
       - { name: draft, label: Brouillon (affiché dans « Prochainement », pas encore lisible), widget: boolean, default: true }
       - { name: body, label: Texte de l'article, widget: markdown, hint: "Les sous titres se font avec « Titre 2 »" }

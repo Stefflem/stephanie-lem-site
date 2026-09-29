@@ -4,6 +4,13 @@ theme: "Expérience"
 date: 2026-09-02
 seo_titre: "Ce qui transforme une retraite en vraie expérience"
 description: "Un programme rempli ne fait pas une expérience. Ce qui fait la différence entre un séjour agréable et une retraite dont on parle encore des mois après."
+reponse: >-
+  Ce n’est pas le programme qui rend une retraite immersive, c’est la
+  cohérence de tout ce qui l’entoure. Ce qui se passe entre les moments
+  prévus, les repas, les trajets, les temps vides, compte autant que ce que tu
+  as organisé. Une retraite devient une expérience quand elle crée un monde
+  qui tient du début à la fin, et que les participantes peuvent vraiment y
+  entrer.
 draft: false
 ---
 

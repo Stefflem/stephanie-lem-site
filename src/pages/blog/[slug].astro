@@ -12,13 +12,22 @@ export async function getStaticPaths() {
 }
 const { post, next } = Astro.props;
 const { Content } = await render(post);
-const dateFr = post.data.date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+const enFr = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+const dateFr = enFr(post.data.date);
+/* La révision compte autant que la publication pour un moteur de réponse :
+   entre deux sources, il préfère la plus récente. Encore faut-il qu'elle soit
+   distincte, et lisible par un humain sur la page. */
+const maj = post.data.maj && post.data.maj.valueOf() !== post.data.date.valueOf() ? post.data.maj : null;
 const schema = {
   '@context': 'https://schema.org', '@type': 'Article',
   headline: post.data.title, description: post.data.description,
   image: post.data.image ? `https://stephanielem.fr${post.data.image}` : undefined,
   datePublished: post.data.date.toISOString(),
-  dateModified: post.data.date.toISOString(),
+  dateModified: (maj ?? post.data.date).toISOString(),
+  /* `abstract` est ce qu'un assistant reprend pour répondre. Il vaut
+     exactement la réponse affichée en tête : jamais un texte que la
+     visiteuse ne verrait pas. */
+  abstract: post.data.reponse || undefined,
   inLanguage: 'fr',
   author: { '@type': 'Person', name: 'Stéphanie Lem', url: `https://stephanielem.fr/a-propos/` },
   publisher: { '@type': 'Organization', name: 'Stellaé Experiences', url: 'https://stephanielem.fr' },
@@ -31,8 +40,16 @@ const schema = {
     <a class="back" href="/blog/">Retour au blog</a>
     <p class="eyebrow">{post.data.theme}</p>
     <h1>{post.data.title}</h1>
-    <p class="note"><time datetime={post.data.date.toISOString()}>{dateFr}</time></p>
+    <p class="note">
+      <time datetime={post.data.date.toISOString()}>{dateFr}</time>
+      {maj && <> · mis à jour le <time datetime={maj.toISOString()}>{enFr(maj)}</time></>}
+    </p>
   </header>
+  {post.data.reponse && (
+    <div class="reading reading-reponse">
+      <p class="reponse-courte">{post.data.reponse}</p>
+    </div>
+  )}
   <div class="reading">
     <Content />
     <hr>

@@ -4,6 +4,12 @@ theme: "Groupe"
 date: 2026-09-04
 seo_titre: "Combien de participants pour une retraite réussie ?"
 description: "Trop peu et l'énergie retombe, trop et tu ne tiens plus l'espace. Comment choisir le nombre de participantes selon ton format, ton lieu et ton expérience."
+reponse: >-
+  Il n’y a pas de bon chiffre universel. Le nombre se déduit de ta façon
+  d’accompagner, de ce que le lieu permet et du seuil à partir duquel le
+  séjour est viable. Fixe toujours deux nombres, le maximum que tu peux
+  accueillir sans t’épuiser, et le minimum en dessous duquel tu n’ouvres pas.
+  Pour une première retraite, un petit groupe est souvent le bon choix.
 draft: false
 ---
 

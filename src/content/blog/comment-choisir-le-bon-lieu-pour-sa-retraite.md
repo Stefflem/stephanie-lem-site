@@ -4,6 +4,12 @@ theme: "Lieu"
 date: 2026-09-03
 seo_titre: "Choisir le lieu de sa retraite : les vrais critères"
 description: "Le lieu porte la moitié de l'expérience. Les critères qui comptent vraiment, ceux qu'on croit importants et qui ne le sont pas, et quoi demander avant."
+reponse: >-
+  Un lieu se choisit à partir de ce que les personnes vont y vivre, pas depuis
+  des photos. Ce qui décide vraiment, ce sont les espaces communs, la
+  configuration des chambres, la façon dont on arrive jusque là, et ce que le
+  lieu coûte au regard de ton budget. Quand le projet est clair, le bon lieu
+  devient presque évident.
 draft: false
 ---
 

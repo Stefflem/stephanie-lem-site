@@ -248,6 +248,20 @@ img{max-width:100%;height:auto;display:block}
 .back::before{content:"←  "}
 .reading{max-width:66ch;margin:0 auto;padding:30px 28px 90px;font-size:1.08rem}
 .reading>p:first-child{font-size:1.28rem;font-weight:300;color:var(--encre);line-height:1.55}
+/* La réponse courte, en tête d'article. Elle sert deux lectures : la visiteuse
+   pressée qui veut savoir tout de suite, et l'assistant qui cherche un passage
+   à citer. Elle doit donc rester visible, jamais un texte caché pour les
+   robots. Le sélecteur porte la classe pour passer devant le style de chapô. */
+.reading-reponse{padding-bottom:0}
+.reading>p.reponse-courte:first-child{
+  margin:0;padding:18px 22px;
+  border-left:3px solid var(--accent);
+  background:var(--accent-soft);
+  border-radius:0 4px 4px 0;
+  font-family:var(--body);font-size:1.04rem;font-weight:400;
+  line-height:1.62;color:var(--encre);
+}
+@media (max-width:640px){.reading>p.reponse-courte:first-child{padding:15px 17px;font-size:1rem}}
 .reading h2{margin:2.2em 0 .7em;font-size:1.9rem}
 .reading h3{margin:1.6em 0 .5em}
 .reading img{margin:1.5em 0}

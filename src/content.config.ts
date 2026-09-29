@@ -58,6 +58,15 @@ const blog = defineCollection({
     description: z.string().optional().default(''),
     image: z.string().optional(),
     draft: z.boolean().default(false),
+    /** La réponse courte à la question du titre, deux ou trois phrases.
+     *  Elle s'affiche en tête d'article et c'est elle que les assistants
+     *  reprennent quand on leur pose la question. Écrite pour être citée
+     *  telle quelle : pas d'accroche, pas de « on va voir ensemble », la
+     *  réponse tout de suite. */
+    reponse: z.string().optional().default(''),
+    /** Date de dernière révision, quand l'article a été repris depuis sa
+     *  publication. Vide = il n'a pas bougé. */
+    maj: z.coerce.date().optional(),
   }),
 });
 

@@ -4,6 +4,12 @@ theme: "Budget"
 date: 2026-09-06
 seo_titre: "Fixer le prix d'une retraite sans le choisir au hasard"
 description: "Le prix d'une retraite se construit, il ne se devine pas. Les coûts à compter, le seuil de rentabilité, et comment arriver à un prix que tu peux défendre."
+reponse: >-
+  Le prix se construit en partant des coûts réels du séjour, jamais des tarifs
+  des autres. Additionne les dépenses fixes et celles qui dépendent du nombre
+  de participantes, ajoute ta rémunération, qui doit exister dans le budget,
+  puis une marge pour que le projet respire. Le bon prix est celui que tu peux
+  défendre et qui te laisse encore envie d’organiser la retraite.
 draft: false
 ---
 

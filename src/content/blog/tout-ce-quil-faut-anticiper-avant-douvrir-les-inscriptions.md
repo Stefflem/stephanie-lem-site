@@ -4,6 +4,13 @@ theme: "Inscriptions"
 date: 2026-09-05
 seo_titre: "Ce qu'il faut anticiper avant d'ouvrir les inscriptions"
 description: "Avant d'annoncer ta retraite, une liste de choses doit être posée. Ce qui doit être prêt, ce qui peut attendre, et ce qui se paye si tu l'oublies."
+reponse: >-
+  Avant d’ouvrir les inscriptions, la participante doit savoir exactement ce
+  qu’elle achète : ce qui est inclus, comment sont réparties les chambres, si
+  le transport est à sa charge, comment elle paie, et ce qui se passe si elle
+  annule. Fixe aussi le nombre minimum en dessous duquel le séjour ne part
+  pas. Tout n’a pas besoin d’être terminé, mais ces points là coûtent cher si
+  tu les découvres après.
 draft: false
 ---
 

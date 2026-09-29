@@ -4,6 +4,11 @@ theme: "Vision"
 date: 2026-09-01
 seo_titre: "Organiser une retraite : par où commencer vraiment"
 description: "Tu veux organiser une retraite et tu ne sais pas par quel bout la prendre. Voici l'ordre qui évite de tout construire à l'envers, et ce qui vient d'abord."
+reponse: >-
+  Commence par imaginer la fin, c’est à dire ce que la personne emporte en
+  repartant. Cette image guide ensuite toutes les décisions : le lieu, le
+  rythme, le nombre, le prix. Construire dans l’autre sens, en partant de la
+  logistique, oblige presque toujours à tout refaire.
 draft: false
 ---
 

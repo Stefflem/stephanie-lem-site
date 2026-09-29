@@ -1,6 +1,64 @@
+# Ce que Stéphanie veut : être trouvée par les moteurs de recherche ET citée
+# par les assistants qui répondent à la place d'une liste de liens.
+#
+# Deux familles de robots IA, à ne surtout pas confondre :
+#   - ceux qui lisent une page au moment où quelqu'un pose une question.
+#     Les bloquer, c'est disparaître des réponses de ChatGPT ou Perplexity.
+#     C'est l'erreur la plus fréquente, et elle coûte de la visibilité.
+#   - ceux qui collectent pour entraîner un modèle. Ils sont autorisés ici :
+#     son métier est peu représenté, être connue des modèles la sert.
+#
+# Rien de sensible n'est protégé par ce fichier : il est public et se lit.
+# Ce qui est privé l'est par mot de passe ou par signature, pas par une ligne
+# de texte ici.
+
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /acces/
+Disallow: /pilotage/
 Disallow: /merci/
+Disallow: /merci-guide/
+Disallow: /merci-webinaire/
+
+# --- Assistants qui répondent en direct : autorisés, c'est là qu'on est cité
+
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: ClaudeBot
+User-agent: DuckAssistBot
+User-agent: Meta-ExternalFetcher
+User-agent: YouBot
+Allow: /
+Disallow: /admin/
+Disallow: /acces/
+Disallow: /pilotage/
+Disallow: /merci/
+Disallow: /merci-guide/
+Disallow: /merci-webinaire/
+
+# --- Collecte pour l'entraînement : autorisée, décision assumée
+
+User-agent: GPTBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: anthropic-ai
+User-agent: CCBot
+User-agent: Amazonbot
+User-agent: Meta-ExternalAgent
+User-agent: cohere-ai
+User-agent: Bytespider
+User-agent: Diffbot
+Allow: /
+Disallow: /admin/
+Disallow: /acces/
+Disallow: /pilotage/
+Disallow: /merci/
+Disallow: /merci-guide/
+Disallow: /merci-webinaire/
 
 Sitemap: https://stephanielem.fr/sitemap-index.xml

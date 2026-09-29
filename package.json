@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/nettoie-sitemap.mjs",
+    "build": "astro build && node scripts/nettoie-sitemap.mjs && node scripts/genere-llms-full.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "test": "node --test netlify/tests/*.test.mjs",

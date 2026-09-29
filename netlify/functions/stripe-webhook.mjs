@@ -21,6 +21,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { getStore } from '@netlify/blobs';
 import { offrePayee } from './acces.mjs';
+import { jourAParis } from '../lib/dates.mjs';
 
 /** Un appel plus vieux que ça n'est plus accepté, même bien signé. */
 const TOLERANCE_S = 300;
@@ -82,7 +83,7 @@ export function lienAcces(sessionId, site = process.env.SITE_URL || 'https://ste
 async function poserContact(cle, email, prenom, liste, fetchImpl) {
   const corps = {
     email,
-    attributes: { PRENOM: prenom, SOURCE: 'stripe:achat', OPTIN_EMAIL: 'oui', DATE_CONSENTEMENT: new Date().toISOString().slice(0, 10) },
+    attributes: { PRENOM: prenom, SOURCE: 'stripe:achat', OPTIN_EMAIL: 'oui', DATE_CONSENTEMENT: jourAParis() },
     updateEnabled: true,
   };
   if (liste) corps.listIds = [Number(liste)];

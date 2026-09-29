@@ -14,6 +14,8 @@
  *   BREVO_LISTE_WEBINAIRE identifiant de la liste « étude de cas »
  */
 
+import { jourAParis } from '../lib/dates.mjs';
+
 /** Quel formulaire alimente quelle liste. Un formulaire inconnu n'écrit rien. */
 export const LISTES = {
   guide: 'BREVO_LISTE_GUIDE',
@@ -62,7 +64,7 @@ export function contactBrevo(data, form) {
   const okTel = veutEtreAppelee(data);
   /* La date d'accord est la preuve. Sans elle, un consentement ne vaut rien
      le jour où quelqu'un demande sur quoi on se fonde pour l'avoir appelée. */
-  const leJour = new Date().toISOString().slice(0, 10);
+  const leJour = jourAParis();
   return {
     email,
     attributes: {

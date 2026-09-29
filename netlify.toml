@@ -67,3 +67,8 @@
   from = "/api/telecharger"
   to = "/.netlify/functions/telecharger"
   status = 200
+
+[[redirects]]
+  from = "/api/stripe-webhook"
+  to = "/.netlify/functions/stripe-webhook"
+  status = 200

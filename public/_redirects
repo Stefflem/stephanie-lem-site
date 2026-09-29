@@ -25,8 +25,15 @@
 # (balises canonical, plan du site, images de partage, retour de paiement
 # Stripe). Une seule adresse fait autorité, jamais deux.
 
-https://stephanielem.fr/*             https://www.stephanielem.fr/:splat   301!
-http://stephanielem.fr/*              https://www.stephanielem.fr/:splat   301!
+# ⚠️ NEUTRALISÉ le 2026-09-29. Netlify a `stephanielem.fr` en domaine principal
+# et refuse d'en changer tant que le certificat est en cours d'émission. Il
+# redirige donc déjà www vers l'apex ; ces deux lignes faisaient l'inverse, et
+# les deux ensemble donnaient une boucle qui rendait le site injoignable.
+# À réactiver le jour où `www.stephanielem.fr` devient le domaine principal
+# dans Netlify (Domain management → Options → Set as primary domain), ce qui
+# remettra l'adresse servie en accord avec les balises canonical du site.
+# https://stephanielem.fr/*             https://www.stephanielem.fr/:splat   301!
+# http://stephanielem.fr/*              https://www.stephanielem.fr/:splat   301!
 
 # L'ancienne adresse de retour du Socle mène à la nouvelle, commune aux trois
 # offres. Gardée pour que rien ne casse si elle traîne quelque part.

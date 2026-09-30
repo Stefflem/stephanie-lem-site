@@ -2,8 +2,11 @@
 /**
  * Mode d'emploi de Stéphanie. Écrit pour elle, au tutoiement (Emmanuel la tutoie),
  * sans jargon.
- * En noindex : c'est sa page, pas une page de son site.
- * Lien posé dans son espace d'édition, en bas à gauche.
+ * En noindex, hors du plan du site, fermée aux robots, et le contenu ne
+ * s'affiche qu'avec une session ouverte sur /admin/ : c'est sa page, pas une
+ * page de son site. Le seul lien qui y mène est dans son espace d'édition.
+ * Le verrou vit dans public/js/aide.js, la politique interdit les scripts en
+ * ligne.
  */
 import Base from '../layouts/Base.astro';
 ---
@@ -13,6 +16,19 @@ import Base from '../layouts/Base.astro';
   description="Comment modifier ton site toi même."
   noindex={true}
 >
+  <div id="aide-porte" class="reading aide" hidden>
+    <header class="page-head">
+      <p class="eyebrow">Page réservée</p>
+      <h1>Cette page est pour Stéphanie</h1>
+      <p class="head-lead">
+        Elle s'ouvre une fois connectée à ton espace.
+      </p>
+    </header>
+    <p><a class="btn" href="/admin/">Ouvrir mon espace</a></p>
+    <p class="aide-note">Tu n'es pas Stéphanie ? <a href="/">Retourner sur le site</a>.</p>
+  </div>
+
+  <div id="aide-contenu" hidden>
   <header class="page-head">
     <p class="eyebrow">Pour toi, Stéphanie</p>
     <h1>Mode d'emploi de ton site</h1>
@@ -261,4 +277,6 @@ import Base from '../layouts/Base.astro';
       <li>l'article à écrire ce mois ci, choisi d'après ce que Google montre</li>
     </ul>
   </div>
+  </div>
+  <script is:inline src="/js/aide.js"></script>
 </Base>

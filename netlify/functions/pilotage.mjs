@@ -15,6 +15,14 @@
  *   GITHUB_REPO         dépôt de référence, défaut Stefflem/stephanie-lem-site
  */
 
+import { getStore } from '@netlify/blobs';
+import { adresseDe, tropSollicite } from '../lib/debit.mjs';
+
+/** Tentatives d'ouverture du tableau de bord, par adresse et par quart d'heure.
+ *  Stéphanie s'y connecte quelques fois par jour, jamais vingt par minute. */
+const TENTATIVES = 20;
+const TENTATIVES_MS = 15 * 60 * 1000;
+
 const DEPOT = process.env.GITHUB_REPO || 'Stefflem/stephanie-lem-site';
 
 const json = (corps, code = 200) =>
@@ -96,6 +104,13 @@ export default async (req) => {
   const entete = req.headers.get('authorization') || '';
   const jeton = entete.startsWith('Bearer ') ? entete.slice(7) : '';
 
+  /* Un jeton au bon format mais inconnu déclenche un appel à GitHub. Répété,
+     il fait blacklister l'adresse de sortie de Netlify, et c'est le tableau de
+     bord de Stéphanie qui tombe, pas celui de l'attaquant. */
+  if (await tropSollicite(`pilotage-${adresseDe(req)}`, TENTATIVES, TENTATIVES_MS)) {
+    return json({ ok: false, message: 'Trop de tentatives. Réessayez dans quelques minutes.' }, 429);
+  }
+
   const droit = await droitVerifie(jeton);
   if (!droit.ok) return json({ ok: false, message: droit.motif }, 401);
 
@@ -122,5 +137,5 @@ export default async (req) => {
   ];
 
   return json({ ok: true, ventes, inscrits, branchement, genere: new Date().toISOString() });
-};import { getStore } from '@netlify/blobs';
+};
 

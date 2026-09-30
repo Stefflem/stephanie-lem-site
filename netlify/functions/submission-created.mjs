@@ -15,6 +15,17 @@
  */
 
 import { jourAParis } from '../lib/dates.mjs';
+import { tropSollicite } from '../lib/debit.mjs';
+
+/** Inscriptions acceptées depuis une même adresse, par heure.
+ *
+ *  Le formulaire est public : n'importe qui peut l'envoyer avec l'adresse
+ *  d'une autre personne, ce qui fabrique une preuve de consentement au nom de
+ *  Stéphanie. On ne peut pas l'empêcher entièrement sans captcha, mais on peut
+ *  empêcher que ce soit fait en série. Une visiteuse remplit un formulaire,
+ *  parfois deux, jamais quinze. */
+const PAR_ADRESSE = 5;
+const PAR_ADRESSE_MS = 60 * 60 * 1000;
 
 /** Quel formulaire alimente quelle liste. Un formulaire inconnu n'écrit rien. */
 export const LISTES = {
@@ -102,6 +113,19 @@ export default async (req) => {
   const data = charge?.payload?.data ?? charge?.data ?? {};
   const nomVar = Object.hasOwn(LISTES, form) ? LISTES[form] : null;
   if (!nomVar) { console.warn(`[brevo] formulaire inconnu : ${form}`); return new Response('', { status: 200 }); }
+
+  /* Netlify a déjà enregistré la soumission quand cette fonction est appelée :
+     ce compteur ne protège pas le quota du formulaire, il protège le fichier
+     de contacts de Stéphanie et la valeur de ses preuves de consentement. */
+  const ip =
+    charge?.payload?.ip ||
+    req.headers.get('x-nf-client-connection-ip') ||
+    (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() ||
+    'inconnue';
+  if (await tropSollicite(`form-${ip}`, PAR_ADRESSE, PAR_ADRESSE_MS)) {
+    console.warn(`[brevo] trop d'envois depuis ${ip}, contact non écrit`);
+    return new Response('', { status: 200 });
+  }
 
   const contact = contactBrevo(data, form);
   if (!EMAIL_OK.test(contact.email)) { console.warn('[brevo] e-mail invalide, ignoré'); return new Response('', { status: 200 }); }

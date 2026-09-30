@@ -17,9 +17,25 @@
  *   CALENDLY_DEEPDRIVE       lien de réservation (Deep Drive)
  */
 import { createHmac, timingSafeEqual } from 'node:crypto';
+import { adresseDe, tropSollicite } from '../lib/debit.mjs';
 
 /** Durée de validité d'un lien de téléchargement. */
 const VALIDITE_MS = 24 * 60 * 60 * 1000;
+
+/** Une même session ne délivre que quelques fois par jour.
+ *
+ *  Le lien envoyé par e-mail contient le `session_id` et refabrique des liens
+ *  neufs à chaque visite : publié sur un forum, il servirait indéfiniment à
+ *  qui n'a rien payé. Une acheteuse revient une ou deux fois, pas huit. Le
+ *  compteur se remet à zéro chaque jour, donc elle n'est jamais enfermée
+ *  dehors. */
+const PAR_SESSION = 6;
+const PAR_SESSION_MS = 24 * 60 * 60 * 1000;
+
+/** Et une même adresse ne tente pas des sessions à la chaîne : chaque appel
+ *  interroge Stripe, y compris pour un identifiant inventé. */
+const PAR_ADRESSE = 30;
+const PAR_ADRESSE_MS = 10 * 60 * 1000;
 
 /**
  * Ce que donne chaque offre. Une offre inconnue ne délivre rien.
@@ -95,10 +111,20 @@ export default async (req) => {
   const session = new URL(req.url).searchParams.get('session_id') || '';
   if (!/^cs_[A-Za-z0-9_]{10,200}$/.test(session)) return refus('Lien de retour invalide.');
 
+  if (await tropSollicite(`ip-${adresseDe(req)}`, PAR_ADRESSE, PAR_ADRESSE_MS)) {
+    return refus('Trop de demandes depuis cette connexion. Réessayez dans quelques minutes.', 429);
+  }
+  if (await tropSollicite(`session-${session}`, PAR_SESSION, PAR_SESSION_MS)) {
+    return refus(
+      "Ce lien a été ouvert trop de fois aujourd'hui. Réessayez demain, ou écrivez à Stéphanie qui vous renverra vos accès.",
+      429,
+    );
+  }
+
   let data;
   try {
     const r = await fetch(
-      `https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(session)}?expand[]=line_items`,
+      `https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(session)}?expand[]=line_items&expand[]=payment_intent`,
       { headers: { Authorization: 'Basic ' + Buffer.from(cleStripe + ':').toString('base64') } },
     );
     if (!r.ok) return refus("Ce paiement n'a pas pu être vérifié.");
@@ -108,6 +134,20 @@ export default async (req) => {
   }
 
   if (data.payment_status !== 'paid') return refus("Ce paiement n'est pas confirmé.");
+
+  /* Un remboursement ne se voit pas sur la session, seulement sur l'intention
+     de paiement. Sans ce contrôle, la garantie 14 jours affichée sur la page
+     revient à offrir le contenu : remboursée, l'acheteuse garde son accès
+     pour toujours. Si la clé restreinte ne permet pas de lire l'intention,
+     `payment_intent` reste une chaîne et on ne peut rien conclure : on
+     continue comme avant plutôt que de bloquer une vraie cliente. */
+  const intention = data.payment_intent;
+  if (intention && typeof intention === 'object') {
+    const rembourse = intention.status === 'canceled' || Number(intention.amount_received) === 0;
+    if (rembourse) return refus('Cet achat a été remboursé, les accès sont clos.');
+  } else if (intention) {
+    console.warn('[acces] intention de paiement non lisible : remboursements non vérifiés');
+  }
 
   // Payé ne suffit pas : il faut savoir CE QUI a été payé.
   const offre = offrePayee(data.line_items?.data ?? []);

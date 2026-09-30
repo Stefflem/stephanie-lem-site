@@ -1,0 +1,50 @@
+---
+/**
+ * Les questions de son blog, rassemblées avec leur réponse courte.
+ *
+ * Pourquoi cette page compte plus qu'elle n'en a l'air : ses articles posent
+ * tous une question, et c'est exactement sous cette forme que les assistants
+ * cherchent une source à citer. Réunies au même endroit, avec le balisage
+ * FAQPage, ces réponses deviennent citables sans que l'IA ait à lire six
+ * pages.
+ *
+ * Rien n'est recopié : les questions et les réponses viennent des articles
+ * eux mêmes. Le jour où Stéphanie en écrit un septième avec sa réponse
+ * courte, il apparaît ici tout seul. Une FAQ tenue à la main se périme.
+ *
+ * Le texte affiché et le texte balisé sont le même : un résumé réservé aux
+ * robots serait du texte caché, et Google le sanctionne.
+ */
+import { getCollection } from 'astro:content';
+import Schema from './Schema.astro';
+
+const articles = (await getCollection('blog'))
+  .filter((a) => !a.data.draft && a.data.reponse)
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+
+const schema = articles.length >= 2 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'fr',
+  mainEntity: articles.map((a) => ({
+    '@type': 'Question',
+    name: a.data.title,
+    acceptedAnswer: { '@type': 'Answer', text: a.data.reponse },
+  })),
+} : null;
+---
+{articles.length >= 2 && (
+  <section class="faq-articles">
+    {schema && <Schema data={schema} />}
+    <h2>Les questions qu'on me pose le plus</h2>
+    {articles.map((a) => (
+      <details>
+        <summary>{a.data.title}</summary>
+        <div class="faq-rep">
+          <p>{a.data.reponse}</p>
+          <a href={`/blog/${a.id}/`}>Lire la réponse complète</a>
+        </div>
+      </details>
+    ))}
+  </section>
+)}

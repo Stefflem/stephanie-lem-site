@@ -252,6 +252,23 @@ img{max-width:100%;height:auto;display:block}
    pressée qui veut savoir tout de suite, et l'assistant qui cherche un passage
    à citer. Elle doit donc rester visible, jamais un texte caché pour les
    robots. Le sélecteur porte la classe pour passer devant le style de chapô. */
+/* La FAQ de la page pilier. Les réponses sont ouvrables une par une :
+   la visiteuse balaye les questions, l'assistant lit tout de toute façon,
+   le contenu est dans le HTML quel que soit l'état du repli. */
+.faq-articles{max-width:72ch;margin:0 auto;padding:10px 0 40px}
+.faq-articles h2{margin:0 0 22px;font-size:1.9rem}
+.faq-articles details{border-bottom:1px solid var(--ligne)}
+.faq-articles summary{cursor:pointer;list-style:none;padding:16px 28px 16px 0;position:relative;
+  font-family:var(--body);font-size:1.02rem;line-height:1.5;color:var(--encre)}
+.faq-articles summary::-webkit-details-marker{display:none}
+.faq-articles summary::after{content:'+';position:absolute;right:4px;top:14px;
+  font-size:1.4rem;line-height:1;color:var(--accent);transition:transform .18s}
+.faq-articles details[open] summary::after{content:'\2212'}
+.faq-articles summary:hover{color:var(--accent)}
+.faq-rep{padding:0 0 18px}
+.faq-rep p{margin:0 0 12px;font-size:1rem;line-height:1.65;color:var(--texte)}
+.faq-rep a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-size:.94rem}
+
 .reading-reponse{padding-bottom:0}
 .reading>p.reponse-courte:first-child{
   margin:0;padding:18px 22px;

@@ -2,6 +2,7 @@
 import Offres from '../components/Offres.astro';
 import Base from '../layouts/Base.astro';
 import Editorial from '../components/Editorial.astro';
+import FaqArticles from '../components/FaqArticles.astro';
 import { getEntry } from 'astro:content';
 const page = await getEntry('pages', 'organiser-une-retraite');
 if (!page) throw new Error('Contenu organiser manquant');
@@ -17,6 +18,7 @@ const d = page.data;
     {/* Stéphanie : cette page est pour les retraites. Le guide vit sur l'accueil,
     Le Socle a sa page. Ici, seule La Traversée, quand elle est en ligne. */}
     <Offres seulement={['/latraversee/']} titre="Le séjour" />
+    <FaqArticles />
     <section class="closing">
       <p class="signature"><span>Vision</span><i></i><span>Organisation</span><i></i><span>Terrain</span></p>
       <h2>{d.closing}</h2>

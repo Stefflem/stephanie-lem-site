@@ -13,28 +13,34 @@
 # ⚠️ Si le site Netlify est nommé autrement que `stephanie-lem`, corriger les
 #    deux lignes ci dessous, sinon elles ne correspondent à rien.
 
-# ⚠️ EN ATTENTE, à réactiver LE JOUR de la bascule DNS, pas avant.
-# Tant que www.stephanielem.fr pointe encore sur systeme.io, ces deux lignes
-# renvoient l'adresse de prévisualisation vers une page 404 : impossible de
-# montrer le site à Stéphanie. Retirer les deux « # » une fois le domaine
-# branché sur Netlify.
-# https://stephanie-lem.netlify.app/*   https://www.stephanielem.fr/:splat   301!
-# http://stephanie-lem.netlify.app/*    https://www.stephanielem.fr/:splat   301!
+# ACTIVÉ le 2026-09-30. L'adresse technique servait encore tout le site en 200 :
+# Google pouvait l'indexer, et elle apparaissait telle quelle dans les partages.
+# Deux adresses qui servent le même site, c'est du contenu en double.
+https://stephanie-lem.netlify.app/*   https://stephanielem.fr/:splat   301!
+http://stephanie-lem.netlify.app/*    https://stephanielem.fr/:splat   301!
 
-# Le domaine nu renvoie vers www, qui est l'adresse canonique de tout le site
-# (balises canonical, plan du site, images de partage, retour de paiement
-# Stripe). Une seule adresse fait autorité, jamais deux.
+# ⚠️ L'adresse canonique est le DOMAINE NU, `stephanielem.fr`, décidé le
+# 2026-09-29 et appliqué partout : balises canonical, plan du site, images de
+# partage, retour de paiement Stripe, modèles d'e-mail. Le paragraphe ci
+# dessous décrivait l'inverse, il datait d'avant la bascule.
 
-# ⚠️ NEUTRALISÉ le 2026-09-29. Netlify a `stephanielem.fr` en domaine principal
-# et refuse d'en changer tant que le certificat est en cours d'émission. Il
-# redirige donc déjà www vers l'apex ; ces deux lignes faisaient l'inverse, et
-# les deux ensemble donnaient une boucle qui rendait le site injoignable.
-# À réactiver le jour où `www.stephanielem.fr` devient le domaine principal
-# dans Netlify (Domain management → Options → Set as primary domain), ce qui
-# remettra l'adresse servie en accord avec les balises canonical du site.
-# https://stephanielem.fr/*             https://www.stephanielem.fr/:splat   301!
-# http://stephanielem.fr/*              https://www.stephanielem.fr/:splat   301!
+# ⚠️ NE PAS RÉACTIVER. Ces deux lignes renvoyaient l'apex vers www. Netlify
+# redirige déjà www vers l'apex, et les deux ensemble formaient une boucle qui
+# rendait le site injoignable le 2026-09-29. Elles ne sont pas en attente,
+# elles sont contraires à la décision prise : Emmanuel veut le domaine nu.
+# Gardées visibles pour que personne ne refasse le trajet inverse.
+
 
 # L'ancienne adresse de retour du Socle mène à la nouvelle, commune aux trois
 # offres. Gardée pour que rien ne casse si elle traîne quelque part.
 /acces-le-socle/*   /acces/   301
+
+# ==========================================================================
+# Articles renommés le 2026-09-30
+# ==========================================================================
+# Le script d'import coupait les noms de fichier à 60 caractères, ce qui
+# donnait des adresses tranchées en plein mot, dont une finissant par un
+# tiret. Corrigé avant que Google ne les indexe. Ces règles restent en place
+# pour les liens déjà partagés.
+/blog/comment-construire-le-prix-dune-retraite-sans-le-choisir-au-/   /blog/comment-construire-le-prix-dune-retraite/   301
+/blog/quest-ce-qui-fait-quune-retraite-devient-une-vraie-experienc/   /blog/quest-ce-qui-fait-une-vraie-experience-immersive/   301

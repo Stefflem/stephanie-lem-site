@@ -46,23 +46,28 @@ export const MODELES = {
  */
 export function signatureStripeValide(corps, entete, secret, maintenantS = Math.floor(Date.now() / 1000)) {
   if (!corps || !entete || !secret) return false;
-  const champs = new Map(
-    String(entete)
-      .split(',')
-      .map((p) => p.split('=', 2))
-      .filter((p) => p.length === 2)
-      .map(([k, v]) => [k.trim(), v.trim()]),
-  );
-  const t = Number(champs.get('t'));
-  const recue = champs.get('v1');
-  if (!Number.isFinite(t) || !recue) return false;
+  /* Pendant une rotation de secret, Stripe envoie PLUSIEURS `v1=`, un par
+     secret encore actif. Ne garder que le dernier ferait échouer la
+     vérification au hasard de l'ordre, et les paiements seraient encaissés
+     sans être livrés, sans qu'aucune alerte ne le dise. On les lit tous. */
+  const paires = String(entete)
+    .split(',')
+    .map((p) => p.split('=', 2))
+    .filter((p) => p.length === 2)
+    .map(([k, v]) => [k.trim(), v.trim()]);
+
+  const t = Number(paires.find(([k]) => k === 't')?.[1]);
+  const signatures = paires.filter(([k]) => k === 'v1').map(([, v]) => v);
+  if (!Number.isFinite(t) || signatures.length === 0) return false;
   if (Math.abs(maintenantS - t) > TOLERANCE_S) return false;
 
   const attendue = createHmac('sha256', secret).update(`${t}.${corps}`).digest('hex');
   const a = Buffer.from(attendue, 'utf8');
-  const b = Buffer.from(recue, 'utf8');
-  if (a.length !== b.length) return false;
-  return timingSafeEqual(a, b);
+  return signatures.some((recue) => {
+    const b = Buffer.from(recue, 'utf8');
+    if (a.length !== b.length) return false;
+    return timingSafeEqual(a, b);
+  });
 }
 
 /** Le prénom, tel qu'on peut le deviner du nom donné à Stripe. */

@@ -99,15 +99,15 @@ test('le téléphone est normalisé au format international', () => {
 test('les deux accords sont distincts : l un ne vaut jamais pour l autre', () => {
   const mailSeul = contactBrevo({ email: 'a@b.fr', prenom: 'Ana', telephone: '0612345678', suite: 'oui' }, 'guide');
   assert.equal(mailSeul.attributes.OPTIN_EMAIL, 'oui');
-  assert.equal(mailSeul.attributes.OPTIN_TEL, 'non', 'cocher les e-mails n autorise pas l appel');
+  assert.equal(mailSeul.attributes.OPTIN_TEL, undefined, 'cocher les e-mails n autorise pas l appel');
 
   const telSeul = contactBrevo({ email: 'a@b.fr', telephone: '0612345678', appel: 'oui' }, 'guide');
-  assert.equal(telSeul.attributes.OPTIN_EMAIL, 'non');
+  assert.equal(telSeul.attributes.OPTIN_EMAIL, undefined);
   assert.equal(telSeul.attributes.OPTIN_TEL, 'oui');
 
   const rien = contactBrevo({ email: 'a@b.fr', telephone: '0612345678' }, 'guide');
-  assert.equal(rien.attributes.OPTIN_EMAIL, 'non');
-  assert.equal(rien.attributes.OPTIN_TEL, 'non');
+  assert.equal(rien.attributes.OPTIN_EMAIL, undefined);
+  assert.equal(rien.attributes.OPTIN_TEL, undefined);
   assert.equal(rien.attributes.DATE_CONSENTEMENT, undefined, 'sans accord, aucune date à produire');
   assert.equal(rien.attributes.SMS, '+33612345678', 'le numéro reste, pour la reconnaître si elle écrit');
 });
@@ -121,4 +121,15 @@ test('sans numéro, aucun drapeau téléphone à renseigner', () => {
   const c = contactBrevo({ email: 'a@b.fr', suite: 'oui' }, 'guide');
   assert.equal(c.attributes.SMS, undefined);
   assert.equal(c.attributes.OPTIN_TEL, undefined);
+});
+
+test('un formulaire public ne peut pas RETIRER un accord déjà donné', () => {
+  /* N'importe qui peut envoyer ce formulaire avec l'adresse d'une inscrite.
+     Si un accord non coché écrivait « non », il suffirait d'une requête pour
+     la sortir des envois de Stéphanie, et pour écraser son prénom au passage.
+     Un champ absent ne touche à rien chez Brevo : c'est la protection. */
+  const sansAccord = contactBrevo({ email: 'inscrite@exemple.fr', prenom: 'PIRATE' }, 'guide');
+  assert.equal(sansAccord.attributes.OPTIN_EMAIL, undefined, 'aucun retrait possible par ce chemin');
+  assert.equal(sansAccord.attributes.OPTIN_TEL, undefined);
+  assert.equal(sansAccord.attributes.DATE_CONSENTEMENT, undefined);
 });

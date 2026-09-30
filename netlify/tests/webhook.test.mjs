@@ -158,6 +158,33 @@ test('un paiement sans e-mail ne fait pas tomber la fonction', async () => {
   assert.equal(brevo.length, 0);
 });
 
+test('pendant une rotation de secret, Stripe envoie plusieurs signatures', async () => {
+  monter();
+  stripeRepond = { ok: true, prix: 'price_socle' };
+  const corps = evenement();
+  const t = Math.floor(Date.now() / 1000);
+  const bonne = createHmac('sha256', SECRET).update(`${t}.${corps}`).digest('hex');
+  const autre = createHmac('sha256', 'whsec_ancien_secret').update(`${t}.${corps}`).digest('hex');
+
+  // L'ancienne signature en second : c'est elle que `new Map` retenait.
+  assert.equal((await poster(corps, `t=${t},v1=${bonne},v1=${autre}`)).status, 200);
+  assert.equal(brevo.at(-1).body.templateId, 6, 'la livraison passe malgré la rotation');
+
+  monter();
+  // Et dans l'autre ordre.
+  assert.equal((await poster(corps, `t=${t},v1=${autre},v1=${bonne}`)).status, 200);
+  assert.equal(brevo.length, 2);
+});
+
+test('plusieurs signatures toutes fausses restent refusées', async () => {
+  monter();
+  const corps = evenement();
+  const t = Math.floor(Date.now() / 1000);
+  const r = await poster(corps, `t=${t},v1=deadbeef,v1=cafebabe`);
+  assert.equal(r.status, 400);
+  assert.equal(brevo.length, 0);
+});
+
 test('signature, prénom et lien d’accès', () => {
   assert.equal(signatureStripeValide('', '', SECRET), false);
   assert.equal(prenomDe('  Marie  Dupont '), 'Marie');

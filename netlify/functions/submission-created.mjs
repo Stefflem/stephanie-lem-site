@@ -75,8 +75,14 @@ export function contactBrevo(data, form) {
       /* Le numéro est conservé même sans accord d'appel : il sert à la
          reconnaître si elle écrit. Ce sont les deux drapeaux ci dessous qui
          disent ce qu'on a le droit d'en faire. */
-      OPTIN_EMAIL: okMail ? 'oui' : 'non',
-      OPTIN_TEL: tel ? (okTel ? 'oui' : 'non') : undefined,
+      /* Un accord s'ajoute, il ne se retire JAMAIS depuis un formulaire public.
+         N'importe qui peut envoyer ce formulaire avec l'adresse d'une vraie
+         inscrite : écrire 'non' ici la sortirait des envois de Stéphanie, et
+         écraserait son prénom et son numéro au passage. Un champ laissé vide
+         n'écrase rien chez Brevo, c'est ce qu'on veut. Le retrait du
+         consentement se fait par le lien de désinscription, qui est tracé. */
+      OPTIN_EMAIL: okMail ? 'oui' : undefined,
+      OPTIN_TEL: tel && okTel ? 'oui' : undefined,
       DATE_CONSENTEMENT: okMail || okTel ? leJour : undefined,
     },
     updateEnabled: true,

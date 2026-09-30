@@ -30,9 +30,19 @@ Les messages et les demandes de guide sont conservés le temps nécessaire à l'
 
 ## Cookies, statistiques et polices
 
-**Ce site ne dépose aucun cookie publicitaire, aucun traceur, et ne mesure pas l'audience.** Aucune bannière de consentement n'est donc nécessaire.
+**Ce site ne dépose aucun cookie publicitaire et ne revend rien à personne.**
 
-Les polices de caractères sont **installées sur le site lui même** et non appelées chez un tiers : ton adresse IP n'est transmise à aucun fournisseur de polices. Le site ne charge aucune ressource extérieure à son propre domaine.
+Il utilise **Google Analytics** pour compter les visites et comprendre quelles pages sont lues. Cet outil dépose des cookies, il n'est donc **chargé qu'après ton accord**. Tant que tu n'as pas répondu à la bannière, aucune mesure n'a lieu et aucun cookie n'est déposé : le script de Google n'est même pas présent dans la page.
+
+Concrètement :
+
+- **Tu refuses** : rien n'est chargé, et les cookies éventuellement déposés lors d'une visite précédente sont effacés.
+- **Tu acceptes** : trois cookies de mesure sont déposés (`_ga`, `_gid`, `_gat`). Ils servent à distinguer les visites, jamais à t'identifier personnellement. Ton adresse IP est tronquée avant d'être enregistrée.
+- **Tu changes d'avis** : le lien « Gérer mes choix », en bas de chaque page, rouvre la question à tout moment.
+
+Ton choix est conservé dans ton navigateur pendant **six mois**, puis la question t'est reposée. Les données de mesure sont conservées par Google pendant **quatorze mois**.
+
+Les polices de caractères sont **installées sur le site lui même** et non appelées chez un tiers : ton adresse IP n'est transmise à aucun fournisseur de polices.
 
 ## Liens vers d'autres services
 
@@ -49,4 +59,4 @@ Tu peux également saisir la **CNIL** (cnil.fr) si tu estimes que tes droits ne 
 **STELLAE EXPERIENCES**, SAS, 60 rue François Ier, 75008 Paris, SIRET 991 529 009 00011.
 Représentée par Stéphanie Lemaire, présidente.
 
-Dernière mise à jour : 20 septembre 2026.
+Dernière mise à jour : 30 septembre 2026.

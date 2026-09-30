@@ -23,6 +23,12 @@
         return;
       }
       if (res.d.titre) titre.textContent = res.d.titre;
+      /* La vente est comptée ici, et nulle part ailleurs : c'est le seul
+         endroit où le paiement a été vérifié auprès de Stripe. La compter au
+         clic sur le bouton compterait aussi ceux qui n'ont jamais payé. */
+      if (typeof window.stellaeEvenement === 'function') {
+        window.stellaeEvenement('achat', { offre: res.d.titre || 'inconnue' });
+      }
       if (res.d.intro) { intro.textContent = res.d.intro; intro.hidden = false; }
       res.d.items.forEach(function (i) {
         var a = document.createElement('a');

@@ -13,7 +13,11 @@ const page = await getEntry('pages', legal);
 if (!page) throw new Error(`Contenu ${legal} manquant`);
 const { Content } = await render(page);
 ---
-<Base title={page.data.title} description={page.data.seo_description} noindex={true}>
+{/* Ces pages sont indexables. Elles n'apportent pas de trafic, mais Google
+    les cherche pour vérifier qu'un site qui encaisse dit qui il est et à
+    quelles règles il se tient. Les cacher prive Stéphanie de ce signal de
+    sérieux sans rien lui faire gagner. */}
+<Base title={page.data.title} description={page.data.seo_description}>
   <header class="page-head">
     <p class="eyebrow">{page.data.eyebrow}</p>
     <h1>{page.data.title}</h1>

@@ -2,6 +2,7 @@
 import '../styles/polices.css';
 import '../styles/global.css';
 import ChoixPalette from '../components/ChoixPalette.astro';
+import Consentement from '../components/Consentement.astro';
 import { REVUE_PALETTE } from '../revue';
 import { AUDIENCE, PALETTE } from '../site';
 import { getCollection } from 'astro:content';
@@ -101,9 +102,13 @@ const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWit
       <a href="/conditions-generales-de-vente/">CGV</a>
       <a href="/politique-de-confidentialite/">Politique de confidentialité</a>
       <a href="/admin/" rel="nofollow">Espace Stéphanie</a>
+    {AUDIENCE.outil === 'ga4' && (
+      <button type="button" class="foot-choix" onclick="stellaeRouvrir()">Gérer mes choix</button>
+    )}
     </div>
     <span>© {new Date().getFullYear()} Stellaé Experiences · Stéphanie Lem · stephanielem.fr</span>
   </div>
 </footer>
+<Consentement />
 </body>
 </html>

@@ -1,0 +1,130 @@
+---
+/**
+ * Consentement à la mesure d'audience.
+ *
+ * Google Analytics dépose des cookies. En France, il ne peut donc rien faire
+ * avant que la visiteuse ait dit oui. Ce composant le garantit de la seule
+ * façon qui vaille : la balise Google n'est pas dans la page tant qu'il n'y a
+ * pas de réponse. Elle n'est pas « chargée puis bridée », elle est absente.
+ *
+ * Quatre règles, ce sont celles que la CNIL contrôle :
+ *   1. rien ne part avant le choix ;
+ *   2. refuser est aussi simple qu'accepter, deux boutons de même poids ;
+ *   3. le choix se change à tout moment, depuis le pied de page ;
+ *   4. un refus efface aussi ce qui aurait été déposé avant.
+ *
+ * Le mode consentement de Google est posé en « refusé » par défaut avant même
+ * le chargement : si la balise arrivait par un autre chemin, elle mesurerait
+ * sans cookie plutôt que d'en poser un.
+ */
+import { AUDIENCE, CONSENTEMENT_JOURS } from '../site';
+const ga = AUDIENCE.outil === 'ga4' ? AUDIENCE.id : null;
+---
+{ga && (
+  <>
+    <div id="consentement" role="dialog" aria-label="Mesure d'audience" hidden>
+      <div class="cons-in">
+        <p>
+          Ce site mesure son audience pour comprendre ce qui est lu et améliorer ses pages.
+          Rien ne se charge tant que tu n'as pas choisi.
+          <a href="/politique-de-confidentialite/">En savoir plus</a>.
+        </p>
+        <div class="cons-actions">
+          <button type="button" class="cons-btn" onclick="stellaeChoisir('oui')">Accepter</button>
+          <button type="button" class="cons-btn cons-btn-2" onclick="stellaeChoisir('non')">Refuser</button>
+        </div>
+      </div>
+    </div>
+    <script is:inline define:vars={{ ga, jours: CONSENTEMENT_JOURS }}>
+      (function () {
+        var CLE = 'stellae_mesure';
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+        /* Avant tout chargement : tout est refusé. Le mode consentement de
+           Google lit cet état, et sans lui une balise posée par erreur
+           déposerait ses cookies immédiatement. */
+        gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          wait_for_update: 500,
+        });
+
+        function lire() {
+          try {
+            var brut = localStorage.getItem(CLE);
+            if (!brut) return null;
+            var s = JSON.parse(brut);
+            if ((Date.now() - s.at) / 86400000 > jours) return null;
+            return s.choix;
+          } catch (e) { return null; }
+        }
+
+        /* Un refus doit aussi effacer ce qui traîne, sinon la visiteuse reste
+           identifiée alors qu'elle a dit non. */
+        function effacer() {
+          var hote = location.hostname;
+          var domaines = [hote, '.' + hote, '.' + hote.split('.').slice(-2).join('.')];
+          document.cookie.split(';').forEach(function (part) {
+            var nom = part.split('=')[0].trim();
+            if (!/^(_ga|_gid|_gat)/.test(nom)) return;
+            domaines.forEach(function (d) {
+              document.cookie = nom + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=' + d;
+            });
+            document.cookie = nom + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+          });
+        }
+
+        var charge = false;
+        function charger() {
+          if (charge) return;
+          charge = true;
+          gtag('consent', 'update', { analytics_storage: 'granted' });
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga;
+          document.head.appendChild(s);
+          gtag('js', new Date());
+          gtag('config', ga, { anonymize_ip: true });
+        }
+
+        function bandeau(visible) {
+          var el = document.getElementById('consentement');
+          if (el) el.hidden = !visible;
+        }
+
+        window.stellaeChoisir = function (choix) {
+          try { localStorage.setItem(CLE, JSON.stringify({ choix: choix, at: Date.now() })); } catch (e) {}
+          if (choix === 'oui') charger(); else effacer();
+          bandeau(false);
+        };
+        window.stellaeRouvrir = function () { bandeau(true); };
+
+        /** Un événement de conversion, ignoré tant que rien n'est accepté. */
+        window.stellaeEvenement = function (nom, param) {
+          if (typeof window.gtag === 'function' && charge) window.gtag('event', nom, param || {});
+        };
+
+        /* Ce script est placé APRÈS le bandeau, donc l'élément existe déjà :
+           inutile d'attendre un événement, et rien ne peut le manquer. */
+        /* Trois moments valent la peine d'être comptés, et seulement trois.
+           Ils ne partent que si la mesure a été acceptée : `stellaeEvenement`
+           ne fait rien tant que rien n'est chargé. */
+        document.addEventListener('click', function (e) {
+          var a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.com"]') : null;
+          if (a) window.stellaeEvenement('paiement_ouvert', { lien: a.getAttribute('href') });
+        });
+        if (/^\/merci-guide\/?$/.test(location.pathname)) window.stellaeEvenement('guide_demande');
+        if (/^\/merci\/?$/.test(location.pathname)) window.stellaeEvenement('message_envoye');
+
+        var deja = lire();
+        if (deja === 'oui') charger();
+        else if (deja === null) bandeau(true);
+      })();
+    </script>
+
+  </>
+)}

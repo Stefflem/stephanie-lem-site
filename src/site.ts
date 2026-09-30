@@ -2,17 +2,19 @@
  * Réglages du site qui ne sont pas du contenu.
  *
  * MESURE D'AUDIENCE
- * Par défaut : aucune. Le site ne dépose alors aucun cookie, donc aucune bannière
- * de consentement n'est nécessaire, ce qu'annonce sa politique de confidentialité.
+ * Trois outils possibles, et ils ne se valent pas au regard de la loi :
+ *   - umami, plausible : aucun cookie, aucun identifiant personnel. Rien à
+ *     demander au visiteur, la mesure démarre toute seule.
+ *   - ga4 : dépose des cookies. En France, cela impose un consentement
+ *     préalable, explicite, et aussi facile à refuser qu'à accepter.
  *
- * Deux outils sans cookie sont prêts, il suffit de remplir les valeurs :
- *   - umami    : gratuit si auto hébergé, par exemple sur le VPS WF4L
- *   - plausible: hébergé, payant, rien à administrer
+ * ⚠️ Si `ga4` est choisi ici, le bandeau de consentement s'affiche et RIEN
+ * n'est chargé tant que la visiteuse n'a pas répondu. C'est `Consentement.astro`
+ * qui le garantit. Ne jamais insérer de balise Google ailleurs dans le site :
+ * elle contournerait le bandeau et mettrait Stéphanie en infraction.
  *
- * ⚠️ Google Analytics n'est volontairement pas branché ici. Il dépose des cookies,
- * ce qui impose en France une bannière de consentement conforme CNIL et une
- * réécriture de la politique de confidentialité. C'est un lot à part, à chiffrer.
- * Le brancher sans bannière mettrait Stéphanie en infraction.
+ * La politique de confidentialité décrit ce réglage. Les deux doivent rester
+ * d'accord : changer l'un sans l'autre est une fausse déclaration.
  */
 
 /**
@@ -29,9 +31,19 @@ export const PALETTE: '' | 'lagon-clair' | 'lagon' | 'marron-vert' | 'petrole' =
 export type Audience =
   | { outil: 'aucune' }
   | { outil: 'umami'; src: string; siteId: string }
-  | { outil: 'plausible'; domaine: string };
+  | { outil: 'plausible'; domaine: string }
+  /** Google Analytics 4. `id` vaut G-XXXXXXXXXX. Impose le bandeau. */
+  | { outil: 'ga4'; id: string };
 
-export const AUDIENCE: Audience = { outil: 'aucune' };
+/** L'identifiant vient de la variable d'environnement PUBLIC_GA_ID : il change
+ *  sans toucher au code, et une variable absente éteint proprement la mesure. */
+const GA_ID = import.meta.env.PUBLIC_GA_ID as string | undefined;
+
+export const AUDIENCE: Audience = GA_ID ? { outil: 'ga4', id: GA_ID } : { outil: 'aucune' };
+
+/** Durée de validité d'un choix, en jours. La CNIL recommande de redemander
+ *  au bout de six mois environ, et interdit de conserver au delà de treize. */
+export const CONSENTEMENT_JOURS = 182;
 
 // Exemples, à recopier par dessus la ligne ci dessus le jour venu :
 //   export const AUDIENCE: Audience = { outil: 'umami', src: 'https://stats.exemple.fr/script.js', siteId: '00000000-0000-0000-0000-000000000000' };

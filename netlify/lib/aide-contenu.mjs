@@ -222,7 +222,7 @@ export const CONTENU = `
 
     <h2>Le bandeau « Mesure d'audience »</h2>
     <p>
-      Quand la mesure est branchée, un petit bandeau demande à chaque visiteuse si elle accepte
+      Depuis le 1er octobre 2026, un petit bandeau demande à chaque visiteuse si elle accepte
       qu'on compte sa visite. <strong>C'est obligatoire en France</strong>, et c'est ce qui te
       permet de savoir combien de personnes lisent tes articles et d'où elles viennent.
     </p>

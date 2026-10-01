@@ -147,6 +147,19 @@ export const CONTENU = `
     <p>Le prix change partout d'un coup : sur le bouton, sur la page des offres, et dans ce que lit Google.</p>
     <p>⚠️ Le prix affiché sur le site et le prix encaissé par Stripe sont deux choses différentes. Si tu changes un prix ici, il faut aussi le changer dans Stripe, sinon le bouton annonce un montant et la page de paiement en demande un autre. Dans le doute, écris à Emmanuel avant de publier.</p>
 
+    <h2>Ta vidéo, et le rendez-vous qu'elle propose</h2>
+    <p>
+      Après avoir demandé ton guide, la personne arrive sur une page avec ta vidéo, puis un
+      bouton <strong>Réserver mon temps d'échange</strong>, puis le guide. La vidéo est sur ton
+      site, pas sur YouTube : aucun logo, aucune vidéo suggérée, rien qui part chez un tiers.
+    </p>
+    <p>
+      Le bouton mène au lien que tu mets dans <strong>Boutique et livraison</strong>, champ
+      <strong>RENDEZ-VOUS · lien pour réserver l'échange gratuit</strong>. Tant qu'il est vide,
+      il mène à ta page Contact, donc rien ne casse. Dès que tu as ton lien de prise de
+      rendez-vous, colle-le là, et c'est tout.
+    </p>
+
     <h2>Ce que reçoit une acheteuse, et d'où ça vient</h2>
     <table class="aide-table">
       <thead><tr><th>Offre</th><th>Ce qui se passe après le paiement</th></tr></thead>

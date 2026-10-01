@@ -134,6 +134,9 @@ const reglages = defineCollection({
     ysaline_lien_paiement: z.string().optional().default(''),
     ysaline_prix: z.string().optional().default(''),
     contact: z.string().optional().default(''),
+    /** Le lien pour réserver l'échange gratuit que propose sa vidéo. Vide =
+     *  le bouton mène à la page contact, le tunnel ne casse jamais. */
+    appel_lien: z.string().optional().default(''),
     // Seul le guide OFFERT reste ici : il n'est pas payant, un lien public
     // ne lui fait rien perdre. Les quatre fichiers du Socle et l'invitation
     // WhatsApp sont servis par les fonctions Netlify, contre paiement vérifié.

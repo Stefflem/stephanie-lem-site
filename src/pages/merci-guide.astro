@@ -1,24 +1,60 @@
 ---
-/** Livraison immédiate du guide offert, après le formulaire. */
+/**
+ * La page qui suit la demande du guide. C'est son tunnel : sa vidéo d'abord,
+ * un seul bouton sous la vidéo vers ce qu'elle vend (un temps d'échange),
+ * puis le guide promis. La vidéo est servie par le site lui même, pas par un
+ * tiers : aucun cookie, aucun logo, et le jour où elle part, la vidéo part
+ * avec le site. Le lien du bouton se règle depuis son espace (Boutique et
+ * livraison). Les mots sont les siens, repris de la vidéo.
+ */
 import Vente from '../layouts/Vente.astro';
 import { reglagesVente } from '../vente';
 const VENTE = await reglagesVente();
 const f = VENTE.fichiers;
+const rdv = VENTE.appelLien;
 ---
 <Vente title="Ton guide est prêt | Stellaé Experiences" noindex={true}>
-  <div class="v-acces">
+  <div class="v-acces v-tunnel">
     <p class="v-eyebrow">C'est envoyé</p>
-    <h1>Ton guide t'attend, <em>bonne lecture</em></h1>
-    <p class="v-sous" style="margin:18px 0 0">Tu peux le télécharger tout de suite ci dessous. Tu en recevras aussi une copie par e-mail.</p>
+    <h1>Ton guide arrive. Avant de le lire, <em>cinq minutes</em>.</h1>
+    <p class="v-sous" style="margin:18px 0 0">
+      Si tu accompagnes déjà des personnes, que ton activité tourne, et que tu sens que la suite
+      se joue en présence plutôt que derrière un écran, regarde ça.
+    </p>
+
+    <div class="v-video">
+      <video id="vsl" controls playsinline preload="metadata"
+             poster="/video/declic-immersif-poster.jpg">
+        <source src="/video/declic-immersif.mp4" type="video/mp4">
+        Ton navigateur ne lit pas cette vidéo.
+      </video>
+    </div>
+
+    <div class="actions" style="margin-top:22px">
+      <a class="btn" id="rdv" href={rdv} target={rdv.startsWith('http') ? '_blank' : undefined} rel={rdv.startsWith('http') ? 'noopener' : undefined}>Réserver mon temps d'échange</a>
+    </div>
+    <p class="note" style="margin-top:12px">Gratuit, sans engagement. Tu repars en sachant exactement par quoi commencer.</p>
+
+    <h2 class="v-h2">Ce qu'on regarde ensemble</h2>
+    <ul class="v-points">
+      <li>Ce que tu fais déjà, et ce qui tourne.</li>
+      <li>Ce que tu veux offrir vraiment, en présence, à celles qui te suivent.</li>
+      <li>Comment en faire un séjour vivant, clair et rentable, sans investir de ta poche.</li>
+    </ul>
+
+    <h2 class="v-h2">Et ton guide, comme promis</h2>
+    <p class="v-sous" style="margin:0">Tu peux le télécharger tout de suite. Tu en reçois aussi une copie par e-mail.</p>
     <div class="v-acces-liste">
       {f.guideOffert
         ? <a href={f.guideOffert} download><span class="v-acces-nom">Déclic immersif</span><span class="v-acces-act">Télécharger le PDF</span></a>
         : <span><span class="v-acces-nom">Déclic immersif</span><span class="v-acces-act">Lien à venir</span></span>}
     </div>
     <p class="note">Le lien ne fonctionne pas ? Écris moi à <a href={`mailto:${VENTE.contact}`}>{VENTE.contact}</a> et je te l'envoie à la main.</p>
+
     <div class="actions" style="margin-top:34px">
-      <a class="btn" href="/lesocle/">Découvrir Le Socle</a>
-      <a class="btn ghost" href="/blog/">Lire le blog</a>
+      <a class="btn" href={rdv} target={rdv.startsWith('http') ? '_blank' : undefined} rel={rdv.startsWith('http') ? 'noopener' : undefined}>Réserver mon temps d'échange</a>
+      <a class="btn ghost" href="/lesocle/">Découvrir Le Socle</a>
     </div>
   </div>
+  <script is:inline src="/js/vsl.js"></script>
 </Vente>

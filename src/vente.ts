@@ -24,6 +24,7 @@ export async function reglagesVente() {
     ysalineLienPaiement: d.ysaline_lien_paiement,
     ysalinePrix: d.ysaline_prix,
     contact: d.contact,
+    appelLien: d.appel_lien || '/contact/',
     fichiers: {
       /** Le guide offert n'est pas payant, un lien public ne coûte rien.
        *  Les fichiers du Socle ne sont pas ici : un lien posé dans une page

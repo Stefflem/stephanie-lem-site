@@ -3,6 +3,16 @@
 (function () {
   var v = document.getElementById('vsl');
   var ev = function (nom, p) { if (typeof window.stellaeEvenement === 'function') window.stellaeEvenement(nom, p); };
+  var lancer = document.getElementById('lancer');
+  if (v && lancer) {
+    /* Au clic : l'habillage s'efface, les commandes natives apparaissent, la
+       vidéo démarre avec le son (c'est un geste de l'utilisatrice, autorisé). */
+    lancer.addEventListener('click', function () {
+      v.parentNode.classList.add('en-lecture');
+      v.setAttribute('controls', '');
+      v.play();
+    });
+  }
   if (v) {
     var lu = false;
     v.addEventListener('play', function () { if (!lu) { lu = true; ev('video_lecture'); } });

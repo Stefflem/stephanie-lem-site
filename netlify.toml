@@ -15,7 +15,12 @@
   # (periode du 10 au 9), production bloquee jusqu au 9 octobre. Cette regle
   # ignore les commits qui ne touchent que de la documentation : la
   # construction n a lieu que si un fichier utile au site a change.
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)*.md' ':(exclude)LICENSE'"
+  # ⚠️ Les exclusions sont NOMMÉES, jamais un motif. Un ':(exclude)*.md' a
+  # ignoré pendant deux jours tout ce que Stéphanie publiait depuis son
+  # espace, puisque le contenu de son site est en .md : la page restait en
+  # ligne telle quelle, sans erreur, sans message. Un motif se relit comme
+  # « la doc », il s'applique comme « tout ».
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude,top)CONTRIBUER.md' ':(exclude,top)fichiers-proteges/LISEZ-MOI.md' ':(exclude,top)LICENSE'"
 
 [build.environment]
   NODE_VERSION = "22"

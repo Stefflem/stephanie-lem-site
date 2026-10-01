@@ -156,8 +156,8 @@ export const CONTENU = `
       <strong>Réserver mon temps d'échange</strong>, et ce que vous allez poser ensemble.
     </p>
     <p>
-      Quand quelqu'un réserve, Cal.com l'envoie sur une page qui confirme et lui dit quoi
-      préparer. Toi, tu reçois la réservation dans ton agenda Google, comme n'importe quel
+      Le calendrier s'ouvre dans la page, sous le bouton, et une fois le créneau confirmé, la
+      personne arrive sur une page qui lui dit quoi préparer. Toi, tu reçois la réservation dans ton agenda Google, comme n'importe quel
       rendez-vous. La vidéo est sur ton site, pas sur YouTube : aucun logo, aucune vidéo
       suggérée, rien qui part chez un tiers.
     </p>

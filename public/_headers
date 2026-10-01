@@ -3,7 +3,7 @@
 # Polices auto hébergées, Decap auto hébergé, aucun appel tiers.
 
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://*.googletagmanager.com; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; form-action 'self'; frame-ancestors 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://*.googletagmanager.com; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; form-action 'self'; frame-ancestors 'none'; frame-src https://cal.com https://app.cal.com; object-src 'none'; base-uri 'self'; upgrade-insecure-requests
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -14,6 +14,8 @@
 
 # ⚠️ Si la mesure d'audience est un jour allumée dans src/site.ts, ajouter son
 # domaine à script-src ET à connect-src ci dessus, sinon le script sera bloqué.
+# frame-src : seul le calendrier Cal.com, ouvert dans la page au clic sur
+# « Réserver ». Tout autre cadre reste interdit.
 # Exemple pour Umami auto hébergé : script-src 'self' https://stats.stephanielem.fr
 
 # L'espace de Stéphanie parle à GitHub, il lui faut sa propre règle.

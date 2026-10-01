@@ -151,3 +151,11 @@
 .v-lancer-sous{font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;opacity:.92}
 .v-video.en-lecture .v-lancer{display:none}
 @media (max-width:520px){.v-lancer{gap:10px;padding:14px;padding-bottom:18px}.v-lancer-rond{width:60px;height:60px}.v-lancer-tri{border-left-width:17px;border-top-width:10px;border-bottom-width:10px}}
+
+/* Le calendrier Cal.com, ouvert dans la page au clic sur le bouton. La hauteur
+   suit ce que le calendrier annonce ; en attendant, assez pour un mois. */
+.v-cal{margin:28px 0 8px;border:1px solid var(--ligne);border-radius:6px;overflow:hidden;background:var(--carte);
+  box-shadow:0 10px 36px rgba(var(--ombre-teinte),.12)}
+.v-cal-titre{margin:0;padding:14px 18px;border-bottom:1px solid var(--ligne);font-family:var(--display);font-size:1.25rem;color:var(--encre)}
+.v-cal iframe{display:block;width:100%;height:760px;border:0;background:#fff}
+@media (max-width:640px){.v-cal iframe{height:820px}}

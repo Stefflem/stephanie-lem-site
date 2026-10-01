@@ -1,0 +1,30 @@
+---
+/**
+ * La page où Cal.com renvoie une fois le rendez-vous pris. Elle confirme,
+ * dit ce qui arrive ensuite, et occupe l'attente avec ce qui existe déjà :
+ * la méthode, le blog, Le Socle. Noindex, c'est une page de parcours.
+ */
+import Vente from '../layouts/Vente.astro';
+---
+<Vente title="C'est noté | Stellaé Experiences" noindex={true}>
+  <div class="v-acces">
+    <p class="v-eyebrow">C'est noté</p>
+    <h1>On se retrouve <em>bientôt</em>.</h1>
+    <p class="v-sous" style="margin:18px 0 0">
+      Ton créneau est réservé. Tu reçois une confirmation par e-mail avec le lien de la visio,
+      et un rappel la veille. Si tu dois changer d'horaire, tout se fait depuis cet e-mail.
+    </p>
+
+    <h2 class="v-h2">D'ici là, trois choses utiles</h2>
+    <ul class="v-points">
+      <li>Note en une phrase ce que tu veux que tes clientes emportent en repartant de ton séjour. C'est par là qu'on commencera.</li>
+      <li>Si tu as déjà une idée de lieu, de dates ou de nombre de personnes, garde-la sous la main. Si tu n'as rien de tout ça, c'est très bien aussi.</li>
+      <li>Relis la dernière page du guide : les trois points qu'on va poser ensemble y sont.</li>
+    </ul>
+
+    <div class="actions" style="margin-top:34px">
+      <a class="btn ghost" href="/organiser-une-retraite/">Lire la méthode complète</a>
+      <a class="btn ghost" href="/blog/">Lire le blog</a>
+    </div>
+  </div>
+</Vente>

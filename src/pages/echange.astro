@@ -1,0 +1,73 @@
+---
+/**
+ * La page vers laquelle renvoie son guide, en dernière page : « Clique ici ».
+ *
+ * Le guide promet « sur la page suivante, tu vas découvrir ce qu'il contient,
+ * comment il fonctionne ». Cette page tient ce rôle : sa vidéo, ce que
+ * propose le temps d'échange, le bouton pour le réserver. Pas de guide à
+ * télécharger ici, la lectrice l'a déjà. Les mots sont les siens, repris du
+ * guide et de la vidéo. Le lien de rendez-vous se règle dans son espace,
+ * Boutique et livraison.
+ */
+import Vente from '../layouts/Vente.astro';
+import Vsl from '../components/Vsl.astro';
+import { reglagesVente } from '../vente';
+const VENTE = await reglagesVente();
+const rdv = VENTE.appelLien;
+const ext = rdv.startsWith('http');
+const schema = {
+  '@context': 'https://schema.org', '@type': 'WebPage',
+  name: "Un temps d'échange pour créer ton séjour immersif",
+  description: "Trente minutes avec Stéphanie Lem pour poser les bases de ton premier séjour immersif rentable : ton idée, ton format, ton positionnement. Gratuit, sans engagement.",
+  url: 'https://stephanielem.fr/echange/', inLanguage: 'fr',
+  mainEntity: { '@type': 'Service', name: "Temps d'échange, création de séjour immersif", provider: { '@type': 'Person', name: 'Stéphanie Lem' }, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' } },
+};
+---
+<Vente
+  title="Un temps d'échange pour créer ton séjour immersif | Stellaé Experiences"
+  titreExact="Créer ton séjour immersif : un temps d'échange"
+  description="Trente minutes avec Stéphanie Lem pour poser les bases de ton premier séjour immersif rentable. Gratuit, sans engagement, tu repars en sachant par quoi commencer."
+  schema={schema}
+>
+  <div class="v-acces v-tunnel">
+    <p class="v-eyebrow">Et maintenant ?</p>
+    <h1>Ton premier séjour immersif commence par <em>un échange</em>.</h1>
+    <p class="v-sous" style="margin:18px 0 0">
+      Tu as lu le guide. Tu sais qu'avant de chercher un lieu ou de fixer un prix, il te faut
+      une base claire. C'est exactement ce qu'on pose ensemble, en trente minutes.
+    </p>
+
+    <Vsl />
+
+    <div class="actions" style="margin-top:22px">
+      <a class="btn" id="rdv" href={rdv} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>Réserver mon temps d'échange</a>
+    </div>
+    <p class="note" style="margin-top:12px">Gratuit, sans engagement. Tu repars avec un plan concret et l'élan pour passer à l'action.</p>
+
+    <h2 class="v-h2">Ce que tu vas pouvoir poser</h2>
+    <ul class="v-points">
+      <li>Clarifier ton idée de séjour et ton positionnement.</li>
+      <li>Choisir le bon format pour ton audience.</li>
+      <li>Structurer une expérience premium qui se remplit naturellement.</li>
+    </ul>
+
+    <h2 class="v-h2">Comment ça se passe</h2>
+    <ul class="v-points">
+      <li>Tu réserves un créneau de trente minutes, en visio.</li>
+      <li>On regarde ce que tu fais déjà, ce que tu veux offrir vraiment, et comment en faire un séjour vivant, clair et rentable.</li>
+      <li>Si après ça tu as envie de passer à l'action, tu sauras exactement par quoi commencer. Sinon, tu repars avec une vision plus claire, et c'est déjà beaucoup.</li>
+    </ul>
+
+    <h2 class="v-h2">Pour qui</h2>
+    <p class="v-sous" style="margin:0">
+      Coach, thérapeute, accompagnante, formatrice : tu as déjà une activité qui tourne, une
+      audience qui te suit, et tu sens que la suite se joue en présence plutôt que derrière un écran.
+    </p>
+
+    <div class="actions" style="margin-top:34px">
+      <a class="btn" href={rdv} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>Réserver mon temps d'échange</a>
+      <a class="btn ghost" href="/organiser-une-retraite/">Lire la méthode complète</a>
+    </div>
+  </div>
+  <script is:inline src="/js/vsl.js"></script>
+</Vente>

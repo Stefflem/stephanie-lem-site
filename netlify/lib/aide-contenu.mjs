@@ -149,9 +149,17 @@ export const CONTENU = `
 
     <h2>Ta vidéo, et le rendez-vous qu'elle propose</h2>
     <p>
-      Après avoir demandé ton guide, la personne arrive sur une page avec ta vidéo, puis un
-      bouton <strong>Réserver mon temps d'échange</strong>, puis le guide. La vidéo est sur ton
-      site, pas sur YouTube : aucun logo, aucune vidéo suggérée, rien qui part chez un tiers.
+      Ta vidéo vit à deux endroits, et c'est voulu. Juste après la demande du guide, sur la page
+      de remerciement, avec le guide en dessous. Et sur une page à elle,
+      <strong>stephanielem.fr/echange</strong>, celle vers laquelle mène le « Clique ici » en
+      dernière page de ton guide. Dans les deux cas : la vidéo, un bouton
+      <strong>Réserver mon temps d'échange</strong>, et ce que vous allez poser ensemble.
+    </p>
+    <p>
+      Quand quelqu'un réserve, Cal.com l'envoie sur une page qui confirme et lui dit quoi
+      préparer. Toi, tu reçois la réservation dans ton agenda Google, comme n'importe quel
+      rendez-vous. La vidéo est sur ton site, pas sur YouTube : aucun logo, aucune vidéo
+      suggérée, rien qui part chez un tiers.
     </p>
     <p>
       Le bouton mène au lien que tu mets dans <strong>Boutique et livraison</strong>, champ

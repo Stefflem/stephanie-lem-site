@@ -96,6 +96,7 @@
   });
   if (/^\/merci-guide\/?$/.test(location.pathname)) window.stellaeEvenement('guide_demande');
   if (/^\/merci\/?$/.test(location.pathname)) window.stellaeEvenement('message_envoye');
+  if (/^\/merci-rdv\/?$/.test(location.pathname)) window.stellaeEvenement('rdv_confirme');
 
   var deja = lire();
   if (deja === 'oui') charger();

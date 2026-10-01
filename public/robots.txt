@@ -21,6 +21,7 @@ Disallow: /aide/
 Disallow: /merci/
 Disallow: /merci-guide/
 Disallow: /merci-webinaire/
+Disallow: /merci-rdv/
 
 # --- Assistants qui répondent en direct : autorisés, c'est là qu'on est cité
 
@@ -42,6 +43,7 @@ Disallow: /aide/
 Disallow: /merci/
 Disallow: /merci-guide/
 Disallow: /merci-webinaire/
+Disallow: /merci-rdv/
 
 # --- Collecte pour l'entraînement : autorisée, décision assumée
 
@@ -63,5 +65,6 @@ Disallow: /aide/
 Disallow: /merci/
 Disallow: /merci-guide/
 Disallow: /merci-webinaire/
+Disallow: /merci-rdv/
 
 Sitemap: https://stephanielem.fr/sitemap-index.xml

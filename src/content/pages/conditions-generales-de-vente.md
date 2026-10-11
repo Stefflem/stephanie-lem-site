@@ -1,7 +1,7 @@
 ---
 title: "Conditions générales de vente"
 eyebrow: "Informations"
-seo_description: "Conditions générales de vente des produits numériques de Stellaé Experiences."
+seo_description: "Conditions générales de vente de Stellaé Experiences : commandes, paiement, accès aux contenus numériques, garantie 14 jours et droit de rétractation."
 ---
 
 ## Identité du vendeur

@@ -1,7 +1,7 @@
 ---
 title: "Politique de confidentialité"
 eyebrow: "Informations"
-seo_description: "Comment le site stephanielem.fr traite les données personnelles."
+seo_description: "Ce que fait stephanielem.fr de tes données : formulaires, e-mails, mesure d'audience avec ton accord, durées de conservation, et tes droits en détail."
 ---
 
 ## Quelles données sont collectées

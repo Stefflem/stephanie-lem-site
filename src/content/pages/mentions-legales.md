@@ -1,7 +1,8 @@
 ---
 title: "Mentions légales"
 eyebrow: "Informations"
-seo_description: "Mentions légales du site stephanielem.fr."
+seo_description: "Mentions légales de Stellaé Experiences, Stéphanie Lem : éditrice du site, hébergeur, propriété des contenus et contact. Ce que la loi demande, en clair."
+seo_titre: "Mentions légales, Stellaé Experiences, Stéphanie Lem"
 ---
 
 ## Éditrice du site

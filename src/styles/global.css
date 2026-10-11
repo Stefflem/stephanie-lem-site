@@ -335,6 +335,8 @@ footer{border-top:1px solid var(--ligne);background:var(--fond-2)}
 .foot-choix{background:none;border:0;padding:0;cursor:pointer;
   font:inherit;color:var(--texte);font-weight:500;letter-spacing:.06em}
 .foot-choix:hover{color:var(--accent)}
+/* Le copyright était en gris brume sur sable, sous le seuil de contraste 4,5. */
+.foot-in > span{color:var(--texte)}
 
 /* Bandeau de consentement. Les deux boutons ont le même poids visuel :
    un « refuser » effacé serait un consentement arraché, et la CNIL le

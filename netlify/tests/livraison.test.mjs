@@ -36,6 +36,32 @@ test('payé mais pas ce produit : refus', async () => {
   assert.match((await r.json()).message, /ne correspond à aucune offre/);
 });
 
+/* Forme réelle relevée chez Stripe à l'achat test du 2026-10-12 : remboursée,
+   l'intention reste `succeeded` avec son montant reçu, seule la charge change. */
+const intentionPayee = (charge) => ({ status: 'succeeded', amount_received: 500, latest_charge: charge });
+
+test('remboursé en totalité : refus, même si l intention reste succeeded', async () => {
+  simuleStripe({ payment_status: 'paid', payment_intent: intentionPayee({ refunded: true, amount_refunded: 500 }),
+    line_items: { data: [{ price: { id: 'price_DD' } }] } });
+  const r = await appel(acces, 'session_id=' + SESSION);
+  assert.equal(r.status, 403);
+  assert.match((await r.json()).message, /remboursé/);
+});
+
+test('remboursement partiel : l accès reste ouvert', async () => {
+  simuleStripe({ payment_status: 'paid', payment_intent: intentionPayee({ refunded: false, amount_refunded: 200 }),
+    line_items: { data: [{ price: { id: 'price_DD' } }] } });
+  const r = await appel(acces, 'session_id=' + SESSION);
+  assert.equal(r.status, 200);
+});
+
+test('payé, jamais remboursé, charge lisible : accès ouvert', async () => {
+  simuleStripe({ payment_status: 'paid', payment_intent: intentionPayee({ refunded: false, amount_refunded: 0 }),
+    line_items: { data: [{ price: { id: 'price_DD' } }] } });
+  const r = await appel(acces, 'session_id=' + SESSION);
+  assert.equal(r.status, 200);
+});
+
 test('payé pour Le Socle : liens signés délivrés', async () => {
   simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_SOCLE' } }] } });
   const r = await appel(acces, 'session_id=' + SESSION);

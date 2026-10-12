@@ -87,6 +87,17 @@ export function signatureValide(attendue, recue) {
 }
 
 /** Retrouve l'offre correspondant aux tarifs réellement payés. */
+/** ⚠️ Un remboursement ne change NI le statut de l'intention (elle reste
+ *  `succeeded`) NI `amount_received` : il ne se lit que sur la charge. Le
+ *  premier contrôle ne regardait que l'intention et laissait l'accès ouvert
+ *  après remboursement (trouvé à l'achat test du 2026-10-12). Un remboursement
+ *  partiel (`refunded` reste false) ne ferme pas l'accès, seul le total le fait. */
+export function estRembourse(intention) {
+  if (intention.status === 'canceled' || Number(intention.amount_received) === 0) return true;
+  const charge = intention.latest_charge;
+  return Boolean(charge && typeof charge === 'object' && charge.refunded === true);
+}
+
 export function offrePayee(lignes, env = process.env) {
   const prix = new Set(lignes.map((l) => l?.price?.id).filter(Boolean));
   return OFFRES.find((o) => env[o.env] && prix.has(env[o.env])) || null;
@@ -124,7 +135,7 @@ export default async (req) => {
   let data;
   try {
     const r = await fetch(
-      `https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(session)}?expand[]=line_items&expand[]=payment_intent`,
+      `https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(session)}?expand[]=line_items&expand[]=payment_intent.latest_charge`,
       { headers: { Authorization: 'Basic ' + Buffer.from(cleStripe + ':').toString('base64') } },
     );
     if (!r.ok) return refus("Ce paiement n'a pas pu être vérifié.");
@@ -143,8 +154,7 @@ export default async (req) => {
      continue comme avant plutôt que de bloquer une vraie cliente. */
   const intention = data.payment_intent;
   if (intention && typeof intention === 'object') {
-    const rembourse = intention.status === 'canceled' || Number(intention.amount_received) === 0;
-    if (rembourse) return refus('Cet achat a été remboursé, les accès sont clos.');
+    if (estRembourse(intention)) return refus('Cet achat a été remboursé, les accès sont clos.');
   } else if (intention) {
     console.warn('[acces] intention de paiement non lisible : remboursements non vérifiés');
   }

@@ -90,3 +90,14 @@ test('Brevo : listes triées de la plus grande à la plus petite', async () => {
   assert.equal(i.total, 19);
   assert.equal(i.listes[0].nom, 'Guide');
 });
+
+test('Brevo : le compte vient de uniqueSubscribers, totalSubscribers reste à 0 chez eux', async () => {
+  // Forme réelle relevée le 2026-10-22 sur son compte.
+  const faux = async () => ({ ok: true, json: async () => ({ lists: [
+    { id: 8, name: 'Clientes', uniqueSubscribers: 1, totalSubscribers: 0 },
+    { id: 3, name: 'Guide', uniqueSubscribers: 4, totalSubscribers: 0 },
+  ] }) });
+  const i = await inscritsBrevo('cle', faux);
+  assert.equal(i.total, 5);
+  assert.equal(i.listes[0].nombre, 4);
+});

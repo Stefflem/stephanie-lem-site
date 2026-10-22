@@ -94,8 +94,11 @@ export async function inscritsBrevo(cle, fetchImpl = fetch) {
   const r = await fetchImpl('https://api.brevo.com/v3/contacts/lists?limit=50', { headers: entetes });
   if (!r.ok) return { configure: true, erreur: 'Brevo a refusé la demande' };
   const d = await r.json();
+  /* ⚠️ `totalSubscribers` reste à 0 chez Brevo sur ses listes alors qu'elles
+     ont des contacts (relevé le 2026-10-22 : 4, 4 et 1 contacts, 0 partout).
+     Le vrai effectif est `uniqueSubscribers`. */
   const listes = (d.lists ?? [])
-    .map((l) => ({ nom: l.name, nombre: l.totalSubscribers ?? 0, id: l.id }))
+    .map((l) => ({ nom: l.name, nombre: l.uniqueSubscribers ?? l.totalSubscribers ?? 0, id: l.id }))
     .sort((a, b) => b.nombre - a.nombre);
   return { configure: true, total: listes.reduce((s, l) => s + l.nombre, 0), listes };
 }

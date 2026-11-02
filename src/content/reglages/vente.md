@@ -1,7 +1,7 @@
 ---
 socle_lien_paiement: "https://buy.stripe.com/14AcN53Mh4jjfgH7CrfAc03"
-socle_prix: "111 €"
-socle_prix_barre: "144 €"
+socle_prix: "47 €"
+socle_prix_barre: ""
 socle_fin_promo: ""
 deepdrive_prix: "200 €"
 deepdrive_lien_paiement: "https://buy.stripe.com/5kQ00j96B177ecD2i7fAc04"

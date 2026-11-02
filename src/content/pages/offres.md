@@ -12,7 +12,7 @@ offres:
     mise_en_avant: false
   - titre: "Le Socle"
     texte: "Le programme complet pour organiser ta première journée en présentiel : deux guides, deux speed hypnoses, un accès direct sur WhatsApp. Accès à vie, garantie 14 jours."
-    prix: "111 €"
+    prix: "47 €"
     bouton: "Découvrir Le Socle"
     href: "/lesocle/"
     famille: retraite

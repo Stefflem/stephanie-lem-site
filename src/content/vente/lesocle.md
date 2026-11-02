@@ -13,11 +13,9 @@ recois:
   - "2 speed hypnose"
   - "Canal Télégram privé"
   - "Accès immédiat"
-prix_titre: "Prix de lancement :"
+prix_titre: "Le prix :"
 prix_mentions:
-  - "Pendant 72h, ce bundle est accessible à 111 €."
-  - "C’est un prix de passage, pour celles qui sentent que la fin d’un cycle appelle une décision. Bye bye l'année 9!"
-  - "Ensuite, le prix passera à 144 €."
+  - "Le Socle est accessible à 47 €, en un seul paiement."
   - "Tu peux payer maintenant et recevoir les accès dans 2 minutes."
 inclus_titre: "Tu reçois immédiatement par mail juste après ton inscription :"
 inclus:
@@ -36,7 +34,7 @@ faq:
   - q: "Il y a une garantie ?"
     r: "Oui. Si le guide ne correspond pas à ce que tu attendais, tu as 14 jours pour demander un remboursement."
 final_titre: "Accéder au programme maintenant"
-final_sous: "Et bénéficier de l'offre limitée à 111 € au lieu de 144 €"
+final_sous: "Le programme complet à 47 €, accès immédiat après ton paiement"
 final_rassurance: "Paiement 100% sécurisé - Accès immédiat après achat - Garantie 14 jours"
 contact_texte: "Tu as une question, un doute ou juste besoin de t'assurer d'un détail ? Contacte nous par mail :"
 banniere: "/images/vente/socle-banniere.jpg"

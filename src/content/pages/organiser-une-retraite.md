@@ -75,4 +75,5 @@ Un séjour de six personnes dans une maison en France ne demande pas la même or
 C’est pour cette raison que je construis mon intervention à partir du projet réel.
 
 On regarde ensemble ce que tu as déjà, ce que tu veux garder, ce que tu souhaites déléguer et ce dont tu as besoin pour aller jusqu’au bout.
-Me parler de ta retraite(lien cliquable vers contact)
+
+**[Me parler de ta retraite](/contact/)**

@@ -46,4 +46,4 @@ L’idée n’est pas simplement d’avoir un beau programme ou un lieu incroyab
 
 Il faut que toutes les pièces fonctionnent ensemble.
 
-**Découvrir mon accompagnement (cliquable mène au deuxième onglet organiser une retraite)**
+**[Découvrir mon accompagnement](/organiser-une-retraite/)**

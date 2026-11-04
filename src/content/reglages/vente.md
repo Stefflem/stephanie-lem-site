@@ -1,5 +1,5 @@
 ---
-socle_lien_paiement: "https://buy.stripe.com/14AcN53Mh4jjfgH7CrfAc03"
+socle_lien_paiement: "https://buy.stripe.com/28E28r6Yt7vvgkL3mbfAc05"
 socle_prix: "47 €"
 socle_prix_barre: ""
 socle_fin_promo: ""

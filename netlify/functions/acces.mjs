@@ -45,6 +45,10 @@ const PAR_ADRESSE_MS = 10 * 60 * 1000;
 export const OFFRES = [
   {
     env: 'STRIPE_PRICE_SOCLE',
+    /* Le tarif à 47 € du 2026-11-03. Un identifiant de tarif n'est pas un
+       secret, il est écrit ici pour qu'un changement de prix ne dépende pas
+       d'une variable Netlify oubliée. Celui de la variable reste reconnu. */
+    tarifsEnPlus: ['price_1UXpwCG2I3jdcF62gumi1nZE'],
     titre: 'Le Socle',
     intro: 'Tout est ici. Ces liens vous sont personnels et restent valables 24 heures.',
     fichiers: [
@@ -100,7 +104,9 @@ export function estRembourse(intention) {
 
 export function offrePayee(lignes, env = process.env) {
   const prix = new Set(lignes.map((l) => l?.price?.id).filter(Boolean));
-  return OFFRES.find((o) => env[o.env] && prix.has(env[o.env])) || null;
+  return OFFRES.find((o) =>
+    (env[o.env] && prix.has(env[o.env])) || (o.tarifsEnPlus ?? []).some((t) => prix.has(t))
+  ) || null;
 }
 
 const refus = (message, code = 403) =>

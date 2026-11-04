@@ -73,6 +73,15 @@ test('payé pour Le Socle : liens signés délivrés', async () => {
   assert.ok(d.expire > Date.now());
 });
 
+test('Le Socle à 47 € : reconnu sans toucher à la variable Netlify', async () => {
+  simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_1UXpwCG2I3jdcF62gumi1nZE' } }] } });
+  const r = await appel(acces, 'session_id=' + SESSION);
+  assert.equal(r.status, 200);
+  const d = await r.json();
+  assert.equal(d.titre, 'Le Socle');
+  assert.equal(d.items.length, 4);
+});
+
 // Le roman est un livre papier imprime et expedie par Lulu. Il ne se paie
 // pas ici et rien ne se telecharge. Ce test garde la porte fermee.
 test('le roman ne se livre plus depuis le site', async () => {

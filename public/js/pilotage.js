@@ -49,19 +49,33 @@
         day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit',
       });
 
-      /* Les chiffres du mois */
+      /* Les trois chiffres qui comptent, essais de l'équipe déjà retirés */
       var v = d.ventes, i = d.inscrits, c = '';
+      var carte = function (nombre, label) {
+        return '<div class="pil-carte"><span class="pil-nombre">' + nombre + '</span><span class="pil-label">' + label + '</span></div>';
+      };
       if (v.configure && !v.erreur) {
-        c += '<div class="pil-carte"><span class="pil-nombre">' + euros(v.total) + '</span><span class="pil-label">encaissé</span></div>';
-        c += '<div class="pil-carte"><span class="pil-nombre">' + v.nombre + '</span><span class="pil-label">' + (v.nombre > 1 ? 'ventes' : 'vente') + '</span></div>';
+        c += carte(euros(v.total), 'encaissés sur 30 jours');
+        c += carte(v.nombre, (v.nombre > 1 ? 'ventes' : 'vente') + ' sur 30 jours');
       } else {
         c += '<div class="pil-carte pil-carte-attente"><span class="pil-nombre">—</span><span class="pil-label">' +
              (v.erreur || 'Stripe pas encore branché') + '</span></div>';
       }
       if (i.configure && !i.erreur) {
-        c += '<div class="pil-carte"><span class="pil-nombre">' + i.total + '</span><span class="pil-label">inscrits</span></div>';
+        c += carte(i.total, (i.total > 1 ? 'personnes' : 'personne') + ' dans tes listes' +
+             (i.nouveaux ? ', dont ' + i.nouveaux + ' ce mois ci' : ''));
       }
       document.getElementById('pil-chiffres').innerHTML = c;
+
+      /* L'état du site : une ligne verte, le détail seulement s'il y a un souci */
+      var soucis = d.branchement.filter(function (x) { return !x.pret; });
+      var ze = document.getElementById('pil-etat');
+      if (!soucis.length) {
+        ze.innerHTML = '<p class="pil-etat">✅ Tout fonctionne : paiements, e-mails et livraison des fichiers.</p>';
+      } else {
+        ze.innerHTML = '<div class="pil-etat pil-etat-souci">⚠️ Quelque chose est à régler. Préviens Emmanuel :<ul>' +
+          soucis.map(function (x) { return '<li>' + x.quoi + '</li>'; }).join('') + '</ul></div>';
+      }
 
       /* Les dernières ventes */
       var zv = document.getElementById('pil-ventes');
@@ -70,7 +84,7 @@
       } else if (v.erreur) {
         zv.innerHTML = vide(v.erreur);
       } else if (!v.dernieres.length) {
-        zv.innerHTML = vide('Aucune vente sur les 30 derniers jours.');
+        zv.innerHTML = vide('Pas encore de vente sur les 30 derniers jours. La première apparaîtra ici dans la minute.');
       } else {
         var l = '<table class="pil-table"><thead><tr><th>Quand</th><th>Quoi</th><th>Qui</th><th>Montant</th></tr></thead><tbody>';
         v.dernieres.forEach(function (x) {
@@ -78,35 +92,25 @@
                (x.qui || '—') + '</td><td><strong>' + euros(x.montant) + '</strong></td></tr>';
         });
         l += '</tbody></table>';
-        if (v.rembourses) l += '<p class="pil-discret">' + v.rembourses + ' remboursement(s) sur la période.</p>';
-        else if (v.rembourses === null) l += '<p class="pil-discret">Les remboursements, s’il y en a, se voient dans Stripe.</p>';
+        l += '<p class="pil-discret">Les remboursements, s’il y en a, se voient dans Stripe.</p>';
         zv.innerHTML = l;
       }
 
-      /* Les listes */
+      /* Les listes, avec les noms qu'elle comprend */
       var zi = document.getElementById('pil-inscrits');
       if (!i.configure) {
         zi.innerHTML = vide('Brevo n’est pas encore branché.');
       } else if (i.erreur) {
         zi.innerHTML = vide(i.erreur);
-      } else if (!i.listes.length) {
-        zi.innerHTML = vide('Aucune liste pour le moment.');
+      } else if (!i.total) {
+        zi.innerHTML = vide('Personne pour le moment. Chaque demande de guide ou message reçu s’ajoutera ici.');
       } else {
-        var li = '<table class="pil-table"><thead><tr><th>Liste</th><th>Inscrits</th></tr></thead><tbody>';
+        var li = '<table class="pil-table"><tbody>';
         i.listes.forEach(function (x) {
-          li += '<tr><td>' + x.nom + '</td><td><strong>' + x.nombre + '</strong></td></tr>';
+          if (x.nombre) li += '<tr><td>' + x.nom + '</td><td><strong>' + x.nombre + '</strong></td></tr>';
         });
         zi.innerHTML = li + '</tbody></table>';
       }
-
-      /* L'état du branchement */
-      var zb = document.getElementById('pil-branchement');
-      var b = '<ul class="pil-liste">';
-      d.branchement.forEach(function (x) {
-        b += '<li>' + (x.pret ? '<span class="pil-pastille pil-ok">prêt</span>' : '<span class="pil-pastille pil-attente">à faire</span>') +
-             ' ' + x.quoi + '</li>';
-      });
-      zb.innerHTML = b + '</ul>';
 
       contenu.hidden = false;
     })

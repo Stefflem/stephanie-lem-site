@@ -27,7 +27,11 @@ const offres = ventes
       v.id === 'lesocle' ? VENTE.soclePrix
       : v.id === 'ysaline' ? VENTE.ysalinePrix
       : v.id === 'deepdrive' ? VENTE.deepdrivePrix
+      : v.id === 'guideoffert' || v.id === 'etudenoelfinlande' ? 'gratuit'
       : '',
+    /* Le prix du Socle, d'Ysaline et de Deep Drive se change dans « Boutique »,
+       tout le reste dans la page de vente elle même. */
+    modifier: `/admin/#/collections/vente/entries/${v.id}`,
   }))
   .sort((a, b) => Number(b.enLigne) - Number(a.enLigne));
 ---
@@ -48,23 +52,19 @@ const offres = ventes
     <p class="pil-souci" id="pil-souci" hidden></p>
 
     <div id="pil-contenu" hidden>
-
-      <h2>Les 30 derniers jours</h2>
       <div class="pil-chiffres" id="pil-chiffres"></div>
+      <div id="pil-etat"></div>
 
       <h2>Tes dernières ventes</h2>
       <div id="pil-ventes"></div>
 
-      <h2>Tes inscrits</h2>
+      <h2>Les personnes qui te suivent</h2>
       <div id="pil-inscrits"></div>
-
-      <h2>Ce qui est branché</h2>
-      <div id="pil-branchement"></div>
     </div>
 
     <h2>Tes offres</h2>
     <table class="pil-table">
-      <thead><tr><th>Offre</th><th>Prix</th><th>État</th></tr></thead>
+      <thead><tr><th>Offre</th><th>Prix</th><th>État</th><th></th></tr></thead>
       <tbody>
         {offres.map((o) => (
           <tr>
@@ -75,14 +75,24 @@ const offres = ventes
                 ? <span class="pil-pastille pil-ok">en ligne</span>
                 : <span class="pil-pastille pil-pause">en pause</span>}
             </td>
+            <td><a class="pil-modifier" href={o.modifier}>Modifier</a></td>
           </tr>
         ))}
       </tbody>
     </table>
     <p class="aide-note">
-      Pour mettre une offre en pause ou la remettre en ligne, va dans
-      <strong>Pages de vente</strong> et coche ou décoche <strong>Page en ligne</strong>.
+      Pour mettre une offre en pause, clique sur <strong>Modifier</strong> et décoche{' '}<strong>Page en ligne</strong>. Le prix du Socle, d'Ysaline et de Deep Drive se change
+      dans <a href="/admin/#/collections/boutique/entries/vente">Boutique et livraison</a>.
     </p>
+
+    <h2>Tes raccourcis</h2>
+    <div class="pil-raccourcis">
+      <a href="/admin/"><strong>Modifier mon site</strong><span>textes, photos, articles, offres</span></a>
+      <a href="https://dashboard.stripe.com/payments" target="_blank" rel="noopener"><strong>Stripe</strong><span>tes paiements, tes remboursements</span></a>
+      <a href="https://app.brevo.com/contact/list" target="_blank" rel="noopener"><strong>Brevo</strong><span>tes contacts, tes e-mails</span></a>
+      <a href="https://app.cal.com/bookings/upcoming" target="_blank" rel="noopener"><strong>Cal.com</strong><span>tes rendez-vous à venir</span></a>
+      <a href="/aide/"><strong>Mode d'emploi</strong><span>comment tout faire, pas à pas</span></a>
+    </div>
   </div>
   <script is:inline src="/js/pilotage.js"></script>
 </Base>

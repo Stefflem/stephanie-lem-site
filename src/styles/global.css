@@ -439,6 +439,16 @@ body.avec-revue{padding-bottom:96px}   /* laisse la place a la barre de comparai
 .pil-ok{background:#e7f1ec;color:#1f5c42}
 .pil-attente{background:#fdf0e6;color:#8a4a1e}
 .pil-pause{background:#f0ece6;color:#6b6259}
+.pil-modifier{font-size:.85rem;white-space:nowrap}
+.pil-etat{margin:1.4em 0 0;padding:14px 18px;border-radius:4px;background:#e7f1ec;color:#1f5c42}
+.pil-etat-souci{background:#fdf0e6;color:#8a4a1e}
+.pil-etat ul{margin:.5em 0 0;padding-left:1.2em}
+.pil-raccourcis{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:1.2em 0}
+.pil-raccourcis a{display:flex;flex-direction:column;gap:4px;padding:16px 18px;text-decoration:none;
+  background:var(--carte,#fff);border:1px solid var(--trait,#e6e0d8);border-radius:4px;color:inherit}
+.pil-raccourcis a:hover{border-color:var(--accent,#0F4C5C)}
+.pil-raccourcis strong{color:var(--accent,#0F4C5C)}
+.pil-raccourcis span{font-size:.82rem;opacity:.7}
 @media(max-width:560px){.pil-table{font-size:.82rem}.pil-table th,.pil-table td{padding:8px 6px}}
 
 /* Mention « facultatif » à côté d'un libellé de champ. */

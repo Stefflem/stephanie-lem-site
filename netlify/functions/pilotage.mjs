@@ -54,8 +54,28 @@ export async function droitVerifie(jeton, fetchImpl = fetch) {
 /** Convertit des centimes en euros lisibles. */
 export const enEuros = (centimes) => Math.round((centimes / 100) * 100) / 100;
 
+/** Les adresses de l'équipe. Un achat ou une inscription faits avec l'une
+ *  d'elles est un essai, jamais une cliente. Gmail ignore les points et tout
+ *  ce qui suit un « + », on compare donc la forme réduite. La variable
+ *  ADRESSES_TEST, séparée par des virgules, en ajoute sans toucher au code. */
+const EQUIPE = ['stephanie.4c.advice@gmail.com', 'worksfreedom4life@gmail.com'];
+
+const reduite = (adresse) => {
+  const [local = '', domaine = ''] = String(adresse || '').trim().toLowerCase().split('@');
+  const gmail = domaine === 'gmail.com' || domaine === 'googlemail.com';
+  const l = local.split('+')[0];
+  return (gmail ? l.replace(/\./g, '') : l) + '@' + (gmail ? 'gmail.com' : domaine);
+};
+
+export function estUnEssai(adresse, env = process.env) {
+  if (!adresse) return false;
+  const liste = EQUIPE.concat(String(env.ADRESSES_TEST || '').split(',')).map((a) => a.trim()).filter(Boolean);
+  const r = reduite(adresse);
+  return liste.some((a) => reduite(a) === r);
+}
+
 /** Les ventes Stripe des N derniers jours. */
-export async function ventesStripe(cle, jours = 30, fetchImpl = fetch) {
+export async function ventesStripe(cle, jours = 30, fetchImpl = fetch, env = process.env) {
   if (!cle) return { configure: false };
   /* On lit les sessions de paiement, pas les charges : c'est la seule ressource
      que la clé restreinte sait lire, et c'est volontaire. Une clé qui ne peut
@@ -69,16 +89,26 @@ export async function ventesStripe(cle, jours = 30, fetchImpl = fetch) {
   if (!r.ok) return { configure: true, erreur: 'Stripe a refusé la demande' };
   const d = await r.json();
   const payees = (d.data ?? []).filter((x) => x.payment_status === 'paid' && x.status === 'complete');
-  const total = payees.reduce((s, x) => s + (x.amount_total ?? 0), 0);
+  /* Un essai n'est pas une vente : payé depuis une adresse de l'équipe, ou
+     avec une remise de 90 % et plus (le coupon TEST du 2026-10-12 en faisait
+     97,5 %). Le compter ferait croire à Stéphanie qu'elle a vendu. */
+  const essai = (x) => {
+    const avant = x.amount_subtotal ?? 0;
+    const remise = x.total_details?.amount_discount ?? 0;
+    return estUnEssai(x.customer_details?.email || x.customer_email, env) || (avant > 0 && remise / avant >= 0.9);
+  };
+  const vraies = payees.filter((x) => !essai(x));
+  const total = vraies.reduce((s, x) => s + (x.amount_total ?? 0), 0);
   return {
     configure: true,
     jours,
-    nombre: payees.length,
+    nombre: vraies.length,
     total: enEuros(total),
+    essais: payees.length - vraies.length,
     /* Les remboursements ne se voient pas sur une session. On ne les invente
        pas : la page renvoie vers Stripe pour ça. */
     rembourses: null,
-    dernieres: payees.slice(0, 8).map((x) => ({
+    dernieres: vraies.slice(0, 8).map((x) => ({
       montant: enEuros(x.amount_total ?? 0),
       quoi: (x.line_items?.data ?? []).map((l) => l.description).filter(Boolean).join(' + ') || 'Paiement',
       qui: x.customer_details?.email || x.customer_email || '',
@@ -87,20 +117,54 @@ export async function ventesStripe(cle, jours = 30, fetchImpl = fetch) {
   };
 }
 
-/** Les listes Brevo et leurs effectifs. */
-export async function inscritsBrevo(cle, fetchImpl = fetch) {
+/** Le nom qu'elle comprend, pour chaque liste que le site remplit.
+ *  Les listes créées d'office par Brevo ne la concernent pas, on les tait. */
+const NOMS_LISTES = {
+  'Site - Guide offert': 'Ont demandé ton guide',
+  'Site - Demandes de contact': 'T’ont écrit',
+  'Site - Etude de cas': 'Inscrites à l’étude de cas',
+  'Clientes - achat sur le site': 'Clientes',
+};
+const LISTES_TUES = new Set(['Votre première liste', 'identified_contacts']);
+
+/** Les listes Brevo et leurs effectifs, essais retirés. */
+export async function inscritsBrevo(cle, fetchImpl = fetch, env = process.env, jours = 30) {
   if (!cle) return { configure: false };
   const entetes = { 'api-key': cle, accept: 'application/json' };
   const r = await fetchImpl('https://api.brevo.com/v3/contacts/lists?limit=50', { headers: entetes });
   if (!r.ok) return { configure: true, erreur: 'Brevo a refusé la demande' };
   const d = await r.json();
-  /* ⚠️ `totalSubscribers` reste à 0 chez Brevo sur ses listes alors qu'elles
-     ont des contacts (relevé le 2026-10-22 : 4, 4 et 1 contacts, 0 partout).
-     Le vrai effectif est `uniqueSubscribers`. */
-  const listes = (d.lists ?? [])
-    .map((l) => ({ nom: l.name, nombre: l.uniqueSubscribers ?? l.totalSubscribers ?? 0, id: l.id }))
-    .sort((a, b) => b.nombre - a.nombre);
-  return { configure: true, total: listes.reduce((s, l) => s + l.nombre, 0), listes };
+  const depuis = Date.now() - jours * 86400000;
+  const vues = new Map();
+  let essais = 0;
+  let detail = true;
+
+  const listes = [];
+  for (const l of d.lists ?? []) {
+    if (LISTES_TUES.has(l.name)) continue;
+    /* ⚠️ `totalSubscribers` reste à 0 chez Brevo sur ses listes alors qu'elles
+       ont des contacts (relevé le 2026-10-22 : 4, 4 et 1 contacts, 0 partout).
+       Le vrai effectif est `uniqueSubscribers`, gardé si le détail manque. */
+    let nombre = l.uniqueSubscribers ?? l.totalSubscribers ?? 0;
+    const c = await fetchImpl(`https://api.brevo.com/v3/contacts/lists/${l.id}/contacts?limit=500`, { headers: entetes })
+      .then((x) => (x.ok ? x.json() : null)).catch(() => null);
+    if (Array.isArray(c?.contacts)) {
+      const vrais = c.contacts.filter((x) => !estUnEssai(x.email, env));
+      essais += c.contacts.length - vrais.length;
+      nombre = vrais.length;
+      for (const x of vrais) if (!vues.has(x.email)) vues.set(x.email, Date.parse(x.createdAt) || 0);
+    } else {
+      detail = false;
+    }
+    listes.push({ nom: NOMS_LISTES[l.name] ?? l.name, nombre, id: l.id });
+  }
+  listes.sort((a, b) => b.nombre - a.nombre);
+
+  /* Une personne inscrite au guide puis cliente compte une fois. Sans le
+     détail des contacts, on retombe sur la somme des listes. */
+  const total = detail ? vues.size : listes.reduce((s, l) => s + l.nombre, 0);
+  const nouveaux = detail ? [...vues.values()].filter((t) => t >= depuis).length : null;
+  return { configure: true, total, nouveaux, essais, listes };
 }
 
 export default async (req) => {

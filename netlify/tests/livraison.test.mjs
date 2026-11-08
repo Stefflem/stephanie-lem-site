@@ -93,16 +93,16 @@ test('le roman ne se livre plus depuis le site', async () => {
   delete process.env.STRIPE_PRICE_ROMAN;
 });
 
-test('Le Socle : avec le numéro WhatsApp, un cinquième élément, en lien wa.me prérempli', async () => {
-  process.env.WHATSAPP_SOCLE = '33749649683';
+test('Le Socle : avec l invitation Telegram, un cinquième élément, le canal privé', async () => {
+  process.env.TELEGRAM_INVITE = 'https://t.me/+exemple';
   simuleStripe({ payment_status: 'paid', line_items: { data: [{ price: { id: 'price_SOCLE' } }] } });
   const d = await (await appel(acces, 'session_id=' + SESSION)).json();
   assert.equal(d.items.length, 5);
-  const wa = d.items[4];
-  assert.equal(wa.externe, true);
-  assert.match(wa.lien, /^https:\/\/wa\.me\/33749649683\?text=/);
-  assert.match(decodeURIComponent(wa.lien), /Le Socle/);
-  delete process.env.WHATSAPP_SOCLE;
+  const tg = d.items[4];
+  assert.equal(tg.externe, true);
+  assert.equal(tg.lien, 'https://t.me/+exemple');
+  assert.equal(tg.nom, 'Canal Telegram privé');
+  delete process.env.TELEGRAM_INVITE;
 });
 
 test('Deep Drive : aucun fichier, mais le lien de réservation', async () => {

@@ -12,8 +12,7 @@
  *   SIGNATURE_SECRET         une longue chaîne aléatoire (openssl rand -hex 32)
  *   STRIPE_PRICE_SOCLE       identifiant du tarif du Socle (price_…)
  *   STRIPE_PRICE_DEEPDRIVE   identifiant du tarif de Deep Drive
- *   WHATSAPP_SOCLE           son numéro WhatsApp, chiffres seuls avec l'indicatif (33…),
- *                            remis avec Le Socle sous forme de lien wa.me prérempli
+ *   TELEGRAM_INVITE          lien d'invitation au canal privé (Socle), https://t.me/…
  *   CALENDLY_DEEPDRIVE       lien de réservation (Deep Drive)
  */
 import { createHmac, timingSafeEqual } from 'node:crypto';
@@ -57,7 +56,7 @@ export const OFFRES = [
       { cle: 'hypnose-peur', nom: 'Speed hypnose « Peur »', act: "Télécharger l'audio" },
       { cle: 'hypnose-ancrage', nom: 'Speed hypnose « Ancrage »', act: "Télécharger l'audio" },
     ],
-    lienEnPlus: { env: 'WHATSAPP_SOCLE', nom: 'Ton accès direct à Stéphanie sur WhatsApp', act: 'Lui écrire', whatsapp: true },
+    lienEnPlus: { env: 'TELEGRAM_INVITE', nom: 'Canal Telegram privé', act: 'Rejoindre le canal' },
   },
   {
     env: 'STRIPE_PRICE_DEEPDRIVE',
@@ -67,16 +66,6 @@ export const OFFRES = [
     lienEnPlus: { env: 'CALENDLY_DEEPDRIVE', nom: 'Choisir mon créneau', act: 'Réserver' },
   },
 ];
-
-/** Un lien wa.me prérempli depuis un numéro en chiffres seuls. Si la variable
- *  contient déjà un lien, on le garde tel quel. */
-export function lienWhatsApp(valeur, offre) {
-  const v = String(valeur || '').trim();
-  if (/^https?:\/\//.test(v)) return v;
-  const num = v.replace(/\D/g, '');
-  const texte = encodeURIComponent(`Bonjour Stéphanie, je viens d'acheter ${offre}.`);
-  return `https://wa.me/${num}?text=${texte}`;
-}
 
 export function signer(cle, expire, secret) {
   return createHmac('sha256', secret).update(`${cle}|${expire}`).digest('hex');
@@ -178,7 +167,7 @@ export default async (req) => {
 
   const sup = offre.lienEnPlus;
   if (sup && process.env[sup.env]) {
-    items.push({ nom: sup.nom, act: sup.act, lien: sup.whatsapp ? lienWhatsApp(process.env[sup.env], offre.titre) : process.env[sup.env], externe: true });
+    items.push({ nom: sup.nom, act: sup.act, lien: process.env[sup.env], externe: true });
   }
 
   return new Response(JSON.stringify({ ok: true, titre: offre.titre, intro: offre.intro, items, expire }), {

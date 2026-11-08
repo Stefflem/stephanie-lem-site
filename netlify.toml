@@ -44,7 +44,7 @@
 #   SIGNATURE_SECRET     openssl rand -hex 32
 #   STRIPE_PRICE_SOCLE     price_…  tarif du Socle
 #   STRIPE_PRICE_DEEPDRIVE price_…  tarif de Deep Drive
-#   WHATSAPP_SOCLE         son numéro WhatsApp en chiffres seuls, 33…, remis avec Le Socle en lien wa.me
+#   TELEGRAM_INVITE        lien d'invitation au canal Telegram privé, remis avec Le Socle
 #   CALENDLY_DEEPDRIVE     lien de réservation (remis après un Deep Drive payé)
 #
 # Passerelle Brevo (fonction submission-created, appelée par Netlify à chaque
